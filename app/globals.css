@@ -3,25 +3,117 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --black:      #1A1A1A;
+  --white:      #FFFFFF;
+  --cream:      #F5F0EB;
+  --gold:       #C8975A;
+  --gold-light: #E8C99A;
+  --gray-100:   #F8F8F8;
+  --gray-200:   #EEEEEE;
+  --gray-400:   #AAAAAA;
+  --gray-600:   #666666;
+  --gray-800:   #333333;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--black);
+  background: var(--white);
+  font-family: var(--font-sans), 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Serif utility */
+.font-serif { font-family: var(--font-serif), 'Cormorant Garamond', Georgia, serif; }
+
+/* Announcement bar */
+.announcement-bar {
+  background: var(--black);
+  color: var(--white);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 8px 16px;
+}
+
+/* Cart drawer overlay */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 49;
+  animation: fadeIn 150ms ease;
+}
+
+/* Transitions */
+.hover-lift {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+.slide-in-right {
+  animation: slideInRight 250ms ease;
+}
+
+/* Gold button */
+.btn-gold {
+  background: var(--gold);
+  color: var(--white);
+  letter-spacing: 0.08em;
+  transition: background 150ms ease;
+}
+.btn-gold:hover { background: #b8854a; }
+
+/* Outline button */
+.btn-outline {
+  border: 1px solid var(--black);
+  color: var(--black);
+  letter-spacing: 0.08em;
+  transition: background 150ms ease, color 150ms ease;
+}
+.btn-outline:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* Product card image zoom */
+.product-img-wrap { overflow: hidden; }
+.product-img-wrap img {
+  transition: transform 400ms ease;
+}
+.product-img-wrap:hover img { transform: scale(1.04); }
+
+/* Section spacing */
+.section-py { padding-top: 64px; padding-bottom: 64px; }
+@media (min-width: 1024px) {
+  .section-py { padding-top: 96px; padding-bottom: 96px; }
+}
+
+/* Max width container */
+.container-site {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media (min-width: 768px) {
+  .container-site { padding-left: 40px; padding-right: 40px; }
 }
