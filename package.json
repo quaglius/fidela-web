@@ -6,21 +6,32 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "scrape": "npx tsx --tsconfig tsconfig.scripts.json scripts/scrape-and-load.ts",
+    "scrape:fresh": "npx tsx --tsconfig tsconfig.scripts.json scripts/scrape-and-load.ts --rescrape"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.4",
+    "axios": "^1.16.1",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.4.2",
+    "next": "14.2.35",
+    "next-auth": "^4.24.14",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.35"
+    "tsx": "^4.22.0",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@netlify/plugin-nextjs": "^5.15.11",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
     "eslint": "^8",
-    "eslint-config-next": "14.2.35"
+    "eslint-config-next": "14.2.35",
+    "postcss": "^8",
+    "prettier": "^3.8.3",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
