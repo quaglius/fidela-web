@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { getAllProducts, getProductByHandle, formatPrice, type TNProduct } from '@/lib/tiendanube'
 import AddToCartSection from './AddToCartSection'
 import ProductCard from '@/components/site/ProductCard'
+import { ProductJsonLd, BreadcrumbJsonLd } from '@/components/seo/JsonLd'
 
 export const revalidate = 300
 
@@ -46,9 +47,24 @@ export default async function ProductPage({ params }: { params: { slug: string }
   const price = product.variants?.[0]?.price ?? '0'
   const promo = product.variants?.[0]?.promotional_price
   const images = product.images ?? []
+  const slug = product.handle?.es ?? String(product.id)
+  const BASE = 'https://fidela-web.netlify.app'
 
   return (
     <div className="section-py">
+      <ProductJsonLd
+        name={product.name?.es ?? ''}
+        description={product.description?.es?.replace(/<[^>]+>/g, '').slice(0, 300)}
+        image={images[0]?.src}
+        price={promo ?? price}
+        sku={String(product.id)}
+        url={`${BASE}/productos/${slug}`}
+      />
+      <BreadcrumbJsonLd items={[
+        { name: 'Inicio', url: BASE },
+        { name: 'Productos', url: `${BASE}/productos` },
+        { name: product.name?.es ?? '', url: `${BASE}/productos/${slug}` },
+      ]} />
       <div className="container-site">
         {/* Breadcrumb */}
         <nav className="text-xs text-[var(--gray-400)] tracking-wide mb-8">

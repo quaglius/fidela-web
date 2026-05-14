@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useCart } from '@/lib/cart'
 import { formatPrice, type TNProduct } from '@/lib/tiendanube'
 import { ShoppingBag } from 'lucide-react'
+import { trackEvent } from '@/components/analytics/GoogleAnalytics'
+import { trackMetaEvent } from '@/components/analytics/MetaPixel'
 
 export default function AddToCartSection({ product }: { product: TNProduct }) {
   const { addItem } = useCart()
@@ -17,14 +19,27 @@ export default function AddToCartSection({ product }: { product: TNProduct }) {
 
   function handleAdd() {
     if (!selectedVariant) return
+    const itemPrice = selectedVariant.promotional_price ?? selectedVariant.price
     addItem({
       variantId: selectedVariant.id,
       productId: product.id,
       productName: product.name?.es ?? '',
       variantName: selectedVariant.values?.map((v) => v.es).join(' · ') ?? '',
-      price: selectedVariant.promotional_price ?? selectedVariant.price,
+      price: itemPrice,
       quantity: 1,
       image: product.images?.[0]?.src ?? '',
+    })
+    trackEvent('add_to_cart', {
+      currency: 'ARS',
+      value: parseFloat(itemPrice),
+      item_id: String(product.id),
+      item_name: product.name?.es ?? '',
+    })
+    trackMetaEvent('AddToCart', {
+      content_ids: [String(product.id)],
+      content_name: product.name?.es ?? '',
+      currency: 'ARS',
+      value: parseFloat(itemPrice),
     })
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)

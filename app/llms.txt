@@ -1,0 +1,33 @@
+# FIDELA — Aromas con Historia
+
+FIDELA es una concept store argentina de aromas naturales ubicada en Colegiales, Buenos Aires.
+Fundada con el propósito de crear aromas con historia, combina tradición artesanal con diseño contemporáneo.
+
+## Productos
+- Velas de soja aromáticas (en 8 blends únicos numerados del N°2 al N°46)
+- Jabones artesanales naturales
+- Difusores y home spray
+- Aromatizantes de ambiente
+- Boxes y kits regalo
+- Productos de bienestar y cuidado corporal
+
+## Nuestros Aromas (blends propios)
+- N°2 Verbena — familia cítrica fresca
+- N°5 Floral Velvet — familia floral
+- N°17 Oud Imperial — familia oriental
+- N°19 French Lavender — familia aromática
+- N°21 Jengibre & Té Blanco — familia especiada
+- N°27 Cardamom & Woods — familia maderada
+- N°44 Sándalo & Pimienta Rosa — familia oriental maderada
+- N°46 Green Amber — familia ambarada verde
+
+## Concept Store
+Teodoro García 2959, Colegiales, Buenos Aires
+Teléfono: +54 9 11 6336-9052
+Instagram: @fidela.aromas
+
+## Ventas corporativas
+Gifting corporativo con packaging personalizado. Pedidos desde x10 unidades. Factura A y B.
+
+## Tecnología
+Sitio construido con Next.js 14, catálogo integrado con TiendaNube, pagos via checkout TiendaNube.
