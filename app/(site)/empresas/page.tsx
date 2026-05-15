@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
 import { Gift, Package, Users, CheckCircle, Star, Building2 } from 'lucide-react'
 import EmpresasForm from './EmpresasForm'
 
