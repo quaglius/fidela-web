@@ -42,11 +42,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Roboto Mono para títulos display — peso 300 da elegancia */
+/* Títulos display — Plus Jakarta Sans light, sin espaciado monospace */
 .font-serif {
-  font-family: var(--font-mono), 'Roboto Mono', monospace;
+  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
   font-weight: 300;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 h1, h2, h3, h4, h5, h6 {

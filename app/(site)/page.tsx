@@ -146,7 +146,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <h1 className="hero-sub font-serif text-xl md:text-3xl lg:text-4xl font-light text-white/85 mb-1 tracking-wide">
+          <h1 className="hero-sub font-serif text-lg md:text-2xl lg:text-3xl font-light text-white/85 mb-1">
             Aromas con Historia
           </h1>
           <p className="text-xs text-white/45 mb-7 md:mb-10 tracking-widest uppercase">
