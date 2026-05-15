@@ -1,23 +1,16 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { Roboto_Mono } from 'next/font/google'
 import { Suspense } from 'react'
 import './globals.css'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { MetaPixel } from '@/components/analytics/MetaPixel'
 import { OrganizationJsonLd } from '@/components/seo/JsonLd'
 
-const serif = Cormorant_Garamond({
+const mono = Roboto_Mono({
   subsets: ['latin'],
-  weight: ['300', '400', '600'],
+  weight: ['300', '400', '500', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-serif',
-  display: 'swap',
-})
-
-const sans = Inter({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-sans',
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -58,7 +51,7 @@ const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ''
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="es" className={mono.variable}>
       <body>
         <OrganizationJsonLd />
         {children}
