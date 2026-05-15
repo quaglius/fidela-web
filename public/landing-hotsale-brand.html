@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hot Sale · 30% OFF — FIDELA Aromas</title>
+  <meta name="description" content="30% OFF en toda la tienda. Aromas naturales de autor, elaborados con cera de soja y fragancias certificadas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --black:#1A1A1A;--white:#fff;--cream:#F5F0EB;
+      --gold:#C8975A;--gold-dark:#A87840;--red:#C22020;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Roboto Mono',monospace;background:var(--black);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+    /* ── HERO VIDEO ───────────────────────────────────────────────────────── */
+    .hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;overflow:hidden}
+    .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.6) 50%,rgba(0,0,0,.2) 100%)}
+    .hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 24px;width:100%}
+    .badge{display:inline-block;background:var(--red);color:#fff;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:6px 14px;border-radius:2px;margin-bottom:24px;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(194,32,32,0)}50%{box-shadow:0 0 0 8px rgba(194,32,32,.2)}}
+    .hero-off{font-family:'Roboto Mono',monospace;font-weight:300;font-size:clamp(80px,15vw,160px);line-height:1;color:var(--gold);letter-spacing:-.04em}
+    .hero-title{font-weight:300;font-size:clamp(24px,4vw,48px);line-height:1.1;color:rgba(255,255,255,.9);margin:8px 0 8px;letter-spacing:-.01em}
+    .hero-sub{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:40px}
+    .ctas{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-primary{background:var(--gold);color:#fff;padding:16px 32px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:background .2s;display:inline-flex;align-items:center;gap:8px}
+    .btn-primary:hover{background:var(--gold-dark)}
+    .btn-wa{background:#25D366;color:#fff;padding:16px 32px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border-radius:4px;display:inline-flex;align-items:center;gap:8px;transition:background .2s}
+    .btn-wa:hover{background:#1ebe5d}
+    .btn-wa svg,.btn-primary svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+
+    /* ── SCROLL INDICATOR ──────────────────────────────────────────────────── */
+    .scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
+    .scroll-hint span{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+    .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(200,151,90,.8),transparent);animation:scrollDrop 1.8s ease-in-out infinite}
+    @keyframes scrollDrop{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+    /* ── PRODUCTS STRIP ────────────────────────────────────────────────────── */
+    .products{background:var(--cream);padding:80px 0}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .section-label{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+    .section-title{font-weight:300;font-size:clamp(26px,4vw,40px);color:var(--black);letter-spacing:-.02em;margin-bottom:48px;line-height:1.1}
+    .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    @media(min-width:768px){.products-grid{grid-template-columns:repeat(4,1fr);gap:20px}}
+    .product-card{background:#fff;border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+    .product-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+    .product-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;transition:transform .5s}
+    .product-card:hover img{transform:scale(1.05)}
+    .product-info{padding:16px}
+    .product-name{font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--black);margin-bottom:4px}
+    .product-price{font-size:11px;color:var(--red);font-weight:500}
+    .product-price-old{font-size:10px;color:#aaa;text-decoration:line-through;margin-left:6px}
+
+    /* ── STORY SECTION ─────────────────────────────────────────────────────── */
+    .story{background:var(--black);padding:100px 0}
+    .story-grid{display:grid;gap:48px;align-items:center}
+    @media(min-width:768px){.story-grid{grid-template-columns:1fr 1fr;gap:80px}}
+    .story-text .section-title{color:#fff}
+    .story-text p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:16px}
+    .iso-badge{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:12px 20px;margin-top:24px}
+    .iso-badge p{font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.05em}
+    .iso-badge strong{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+    .story-images{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .story-images img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px}
+    .story-images img:first-child{aspect-ratio:1/1.2;grid-row:span 2;border-radius:12px}
+
+    /* ── CTA FINAL ─────────────────────────────────────────────────────────── */
+    .cta-final{background:var(--cream);padding:100px 0;text-align:center}
+    .cta-final .section-title{color:var(--black);max-width:500px;margin:0 auto 12px}
+    .cta-final p{font-size:12px;color:#888;margin-bottom:40px;letter-spacing:.05em}
+    .cta-final .ctas{justify-content:center}
+    .countdown{display:flex;gap:24px;justify-content:center;margin-bottom:40px}
+    .countdown-item{text-align:center}
+    .countdown-num{font-size:32px;font-weight:300;color:var(--gold);line-height:1}
+    .countdown-label{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#888;margin-top:4px}
+
+    /* ── FOOTER ────────────────────────────────────────────────────────────── */
+    footer{background:#111;padding:32px 24px;text-align:center}
+    footer p{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+    footer a{color:var(--gold);text-decoration:none}
+
+    /* ── FLOATING WA ────────────────────────────────────────────────────────── */
+    .wa-float{position:fixed;bottom:24px;right:24px;z-index:100;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);transition:transform .2s,box-shadow .2s;text-decoration:none}
+    .wa-float:hover{transform:scale(1.1);box-shadow:0 12px 32px rgba(37,211,102,.5)}
+    .wa-float svg{width:28px;height:28px;fill:#fff}
+
+    /* ── ANIMATIONS ─────────────────────────────────────────────────────────── */
+    [data-fade]{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    [data-fade].visible{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+<!-- ── FLOATING WHATSAPP ─────────────────────────────────────────────────────── -->
+<a href="https://wa.me/5491112345678?text=Hola%2C%20vi%20el%20Hot%20Sale%20de%20FIDELA%20y%20quiero%20aprovechar%20el%2030%25%20OFF" target="_blank" class="wa-float" aria-label="Chatear por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <video autoplay muted loop playsinline poster="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp">
+    <source src="/videos/fidela-reel-1.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="badge">🔥 Hot Sale — Hasta agotar stock</div>
+    <div class="hero-off">30%</div>
+    <div style="font-size:clamp(14px,2vw,24px);color:rgba(255,255,255,.8);font-weight:300;margin-top:-8px;margin-bottom:4px;letter-spacing:.15em;text-transform:uppercase">OFF en toda la tienda</div>
+    <h1 class="hero-title">Aromas con historia.<br>Hecho para quedarse.</h1>
+    <p class="hero-sub">8 blends de autor · Cera de soja 100% natural · ISO 9001</p>
+    <div class="ctas">
+      <a href="/productos" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Ver productos
+      </a>
+      <a href="https://wa.me/5491112345678?text=Hola%2C%20quiero%20aprovechar%20el%20Hot%20Sale%20de%20FIDELA%20%F0%9F%94%A5" target="_blank" class="btn-wa">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Consultar por WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Explorar</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── PRODUCTOS ──────────────────────────────────────────────────────────────── -->
+<section class="products">
+  <div class="container">
+    <p class="section-label" data-fade>Selección Hot Sale</p>
+    <h2 class="section-title" data-fade>Los más elegidos</h2>
+    <div class="products-grid">
+      <div class="product-card" data-fade>
+        <a href="/productos"><img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8842-scaled-e1681317841299-1536x1536-62758a2ee6f417ab8417207386037479-480-0.webp" alt="Verbena" loading="lazy"></a>
+        <div class="product-info">
+          <div class="product-name">Vela Verbena</div>
+          <div><span class="product-price">Ver precio</span></div>
+        </div>
+      </div>
+      <div class="product-card" data-fade>
+        <a href="/productos"><img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8453-scaled-e1685916235552-1534x1536-0788f88e8f8219233017219543914857-480-0.webp" alt="Floral Velvet" loading="lazy"></a>
+        <div class="product-info">
+          <div class="product-name">Floral Velvet</div>
+          <div><span class="product-price">Ver precio</span></div>
+        </div>
+      </div>
+      <div class="product-card" data-fade>
+        <a href="/productos"><img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp" alt="Green Amber" loading="lazy"></a>
+        <div class="product-info">
+          <div class="product-name">Green Amber</div>
+          <div><span class="product-price">Ver precio</span></div>
+        </div>
+      </div>
+      <div class="product-card" data-fade>
+        <a href="/productos"><img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp" alt="Box Kits" loading="lazy"></a>
+        <div class="product-info">
+          <div class="product-name">Boxes & Kits</div>
+          <div><span class="product-price">Ver precio</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="/productos" class="btn-primary" style="display:inline-flex">Ver toda la colección →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── STORY ──────────────────────────────────────────────────────────────────── -->
+<section class="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-text" data-fade>
+        <p class="section-label">Nuestra historia</p>
+        <h2 class="section-title">Aromas creados con intención</h2>
+        <p>Cada blend nació de una historia real: un viaje, un jardín al amanecer, la calidez de una biblioteca antigua. En FIDELA no formulamos fragancias — creamos memorias olfativas.</p>
+        <p>Cera de soja 100% natural, mechas de algodón trenzado sin plomo, fragancias libres de ftalatos. Curado 48–72 horas para una quema limpia de hasta 50 horas.</p>
+        <div class="iso-badge">
+          <svg viewBox="0 0 60 36" width="44" height="28" style="flex-shrink:0"><rect width="60" height="36" rx="4" fill="#003087"/><text x="30" y="24" text-anchor="middle" fill="white" font-size="15" font-weight="700" font-family="Arial">ISO</text></svg>
+          <div>
+            <strong>Certificación ISO 9001</strong>
+            <p>Materias primas con trazabilidad certificada</p>
+          </div>
+        </div>
+      </div>
+      <div class="story-images" data-fade>
+        <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp" alt="FIDELA producto" loading="lazy">
+        <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6325-scaled-e1681511963528-1536x1536-63c86a7359b0c0a91a17219540086209-480-0.webp" alt="FIDELA producto" loading="lazy">
+        <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6420-scaled-e1696461568818-1536x1536-77992b0b0802559e1b17219546572465-480-0.webp" alt="FIDELA producto" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ──────────────────────────────────────────────────────────────── -->
+<section class="cta-final">
+  <div class="container">
+    <p class="section-label">Oferta por tiempo limitado</p>
+    <h2 class="section-title" data-fade>30% OFF hasta agotar stock</h2>
+    <p data-fade>Descuento aplicado automáticamente en el carrito</p>
+    <div class="ctas" data-fade>
+      <a href="/productos" class="btn-primary" style="background:#1A1A1A">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        Comprar ahora con 30% OFF
+      </a>
+      <a href="https://wa.me/5491112345678?text=Hola%2C%20quiero%20hacer%20un%20pedido%20del%20Hot%20Sale%20de%20FIDELA" target="_blank" class="btn-wa">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Pedido por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="/">FIDELA</a> &nbsp;·&nbsp; Aromas con historia &nbsp;·&nbsp; Buenos Aires, Argentina</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) } })
+  }, { threshold: 0.15 })
+  document.querySelectorAll('[data-fade]').forEach(el => obs.observe(el))
+</script>
+</body>
+</html>

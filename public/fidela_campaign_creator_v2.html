@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fidela — Nueva Campaña</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #F5F0EB; color: #2D2D2D; font-size: 13px; }
+
+/* LAYOUT */
+.shell { display: flex; min-height: 100vh; }
+.sidebar { width: 196px; background: #2D2D2D; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.logo { padding: 18px 16px 14px; border-bottom: 1px solid #3a3a3a; }
+.logo-title { font-size: 20px; font-weight: 800; color: #C8975A; letter-spacing: 2px; }
+.logo-sub { font-size: 9px; color: #777; margin-top: 2px; text-transform: uppercase; letter-spacing: .5px; }
+.nav-section { padding: 14px 0 4px; }
+.nav-label { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 1px; padding: 0 16px 6px; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 8px 16px; color: #999; font-size: 12px; border-left: 3px solid transparent; cursor: pointer; }
+.nav-item.active { color: #C8975A; background: #363636; border-left-color: #C8975A; }
+.nav-item:hover { color: #ddd; background: #333; }
+.nav-icon { font-size: 14px; width: 16px; text-align: center; flex-shrink: 0; }
+
+/* MAIN SPLIT */
+.main { flex: 1; display: flex; overflow: hidden; }
+.form-col { flex: 1; overflow-y: auto; padding: 24px; min-width: 0; }
+.preview-col { width: 340px; flex-shrink: 0; background: #fff; border-left: 1px solid #ede8e2; padding: 20px; overflow-y: auto; position: sticky; top: 0; height: 100vh; }
+
+/* BREADCRUMB */
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #aaa; margin-bottom: 16px; }
+.breadcrumb a { color: #C8975A; text-decoration: none; }
+.breadcrumb span { color: #2D2D2D; font-weight: 600; }
+
+/* STEPS */
+.steps-row { display: flex; align-items: center; gap: 0; margin-bottom: 24px; }
+.step { display: flex; align-items: center; gap: 8px; }
+.step-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.step.done .step-circle { background: #2E7D5B; color: #fff; }
+.step.active .step-circle { background: #C8975A; color: #fff; }
+.step.pending .step-circle { background: #f0ebe4; color: #aaa; }
+.step-label { font-size: 11px; font-weight: 600; }
+.step.active .step-label { color: #C8975A; }
+.step.done .step-label { color: #2E7D5B; }
+.step.pending .step-label { color: #bbb; }
+.step-line { flex: 1; height: 2px; background: #ede8e2; margin: 0 8px; min-width: 20px; }
+.step-line.done { background: #2E7D5B; }
+
+/* SECTION CARDS */
+.section-card { background: #fff; border-radius: 12px; border: 1px solid #ede8e2; padding: 20px; margin-bottom: 14px; }
+.section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; cursor: pointer; }
+.section-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.section-title { font-size: 13px; font-weight: 700; }
+.section-sub { font-size: 10px; color: #aaa; margin-top: 1px; }
+.section-toggle { margin-left: auto; font-size: 12px; color: #aaa; }
+.section-body { }
+.section-body.collapsed { display: none; }
+
+/* FORM FIELDS */
+.field-row { display: grid; gap: 12px; margin-bottom: 14px; }
+.field-row.cols-2 { grid-template-columns: 1fr 1fr; }
+.field-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: .5px; }
+.field input, .field select, .field textarea {
+  border: 1px solid #e0d8d0; border-radius: 8px; padding: 8px 10px;
+  font-size: 12px; color: #2D2D2D; background: #faf7f4;
+  font-family: inherit; transition: border-color .15s;
+}
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: #C8975A; background: #fff; }
+.field textarea { resize: vertical; min-height: 70px; }
+.field-hint { font-size: 10px; color: #aaa; margin-top: 2px; }
+
+/* OBJECTIVE CARDS */
+.obj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 4px; }
+.obj-card { border: 2px solid #ede8e2; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: all .15s; }
+.obj-card:hover { border-color: #C8975A; background: #fdf9f5; }
+.obj-card.selected { border-color: #C8975A; background: #FDF5EC; }
+.obj-card .obj-icon { font-size: 20px; margin-bottom: 5px; }
+.obj-card .obj-name { font-size: 11px; font-weight: 700; color: #2D2D2D; }
+.obj-card .obj-desc { font-size: 9px; color: #aaa; margin-top: 2px; line-height: 1.3; }
+
+/* PLATFORM CHIPS */
+.platform-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.platform-chip { display: flex; align-items: center; gap: 7px; border: 2px solid #ede8e2; border-radius: 10px; padding: 8px 12px; cursor: pointer; transition: all .15s; }
+.platform-chip:hover { border-color: #C8975A; }
+.platform-chip.selected { border-color: #1877F2; background: #EFF5FF; }
+.platform-chip.selected.ig { border-color: #C13584; background: #FEF0FB; }
+.platform-chip.selected.wa { border-color: #25D366; background: #F0FFF6; }
+.platform-chip .plat-icon { font-size: 18px; }
+.platform-chip .plat-name { font-size: 11px; font-weight: 600; color: #2D2D2D; }
+.platform-chip .plat-sub { font-size: 9px; color: #aaa; }
+.platform-chip .plat-check { margin-left: auto; font-size: 12px; display: none; }
+.platform-chip.selected .plat-check { display: block; color: #2E7D5B; }
+
+/* PLACEMENT CHIPS */
+.placement-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.placement-chip { border: 1px solid #ede8e2; border-radius: 20px; padding: 4px 10px; font-size: 10px; cursor: pointer; color: #666; transition: all .15s; }
+.placement-chip:hover { border-color: #C8975A; color: #C8975A; }
+.placement-chip.selected { background: #2D2D2D; color: #fff; border-color: #2D2D2D; }
+
+/* RANGE SLIDER */
+.range-wrap { position: relative; }
+.range-labels { display: flex; justify-content: space-between; font-size: 10px; color: #aaa; margin-top: 4px; }
+input[type=range] { width: 100%; accent-color: #C8975A; cursor: pointer; }
+.range-val { font-size: 13px; font-weight: 700; color: #C8975A; text-align: center; margin-bottom: 4px; }
+
+/* AGE DUAL RANGE */
+.age-row { display: flex; align-items: center; gap: 8px; }
+.age-input { width: 60px; border: 1px solid #e0d8d0; border-radius: 8px; padding: 6px 8px; font-size: 12px; text-align: center; background: #faf7f4; }
+
+/* GENDER CHIPS */
+.gender-grid { display: flex; gap: 8px; }
+.gender-chip { flex: 1; border: 2px solid #ede8e2; border-radius: 10px; padding: 10px; cursor: pointer; text-align: center; transition: all .15s; }
+.gender-chip:hover { border-color: #C8975A; }
+.gender-chip.selected { border-color: #C8975A; background: #FDF5EC; }
+.gender-chip .g-icon { font-size: 18px; margin-bottom: 3px; }
+.gender-chip .g-name { font-size: 11px; font-weight: 600; }
+
+/* INTEREST TAGS */
+.interest-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.int-tag { border: 1px solid #ede8e2; border-radius: 20px; padding: 4px 10px; font-size: 11px; cursor: pointer; color: #666; transition: all .15s; background: #faf7f4; }
+.int-tag:hover { border-color: #C8975A; }
+.int-tag.selected { background: #C8975A; color: #fff; border-color: #C8975A; }
+.int-tag.add { border-style: dashed; color: #C8975A; border-color: #C8975A; }
+
+/* GEO CHIPS */
+.geo-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.geo-tag { display: flex; align-items: center; gap: 5px; background: #f0ebe4; border-radius: 20px; padding: 4px 10px; font-size: 11px; color: #444; }
+.geo-tag .geo-remove { color: #aaa; cursor: pointer; font-size: 12px; }
+.geo-tag .geo-remove:hover { color: #C0392B; }
+.geo-add { border: 1px dashed #C8975A; border-radius: 20px; padding: 4px 10px; font-size: 11px; color: #C8975A; cursor: pointer; background: none; }
+
+/* LANDING PICKER */
+.landing-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.landing-opt { border: 2px solid #ede8e2; border-radius: 10px; padding: 12px; cursor: pointer; transition: all .15s; }
+.landing-opt:hover { border-color: #C8975A; }
+.landing-opt.selected { border-color: #C8975A; background: #FDF5EC; }
+.landing-opt .lo-label { font-size: 11px; font-weight: 700; margin-bottom: 3px; }
+.landing-opt .lo-url { font-size: 9px; color: #aaa; }
+.landing-opt .lo-badge { font-size: 9px; padding: 2px 6px; border-radius: 6px; margin-top: 5px; display: inline-block; }
+.lo-a { background: #E3F2FD; color: #1565C0; }
+.lo-b { background: #F3E5F5; color: #6A1B9A; }
+.lo-new { background: #E8F5E9; color: #2E7D5B; }
+
+/* BUDGET */
+.budget-toggle { display: flex; gap: 0; border: 1px solid #e0d8d0; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+.budget-opt { flex: 1; padding: 7px; text-align: center; font-size: 11px; font-weight: 600; cursor: pointer; color: #888; transition: all .15s; }
+.budget-opt.active { background: #2D2D2D; color: #fff; }
+
+/* ESTIMATE BOX */
+.estimate-box { background: #f5f0eb; border-radius: 10px; padding: 12px; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 12px; }
+.est-item { text-align: center; }
+.est-val { font-size: 16px; font-weight: 700; color: #2D2D2D; }
+.est-label { font-size: 9px; color: #aaa; text-transform: uppercase; letter-spacing: .4px; margin-top: 2px; }
+
+/* CTA BUTTONS */
+.action-row { display: flex; gap: 10px; align-items: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid #ede8e2; }
+.btn { padding: 10px 20px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; border: none; transition: all .15s; }
+.btn-primary { background: #C8975A; color: #fff; }
+.btn-primary:hover { background: #b5823f; }
+.btn-secondary { background: #f0ebe4; color: #555; }
+.btn-secondary:hover { background: #e8e0d8; }
+.btn-danger { background: #FFEBEE; color: #C0392B; }
+.btn-outline { background: #fff; color: #C8975A; border: 1px solid #C8975A; }
+
+/* ── PREVIEW COLUMN ─────────────────────────────────────── */
+.preview-title { font-size: 12px; font-weight: 700; color: #2D2D2D; margin-bottom: 4px; }
+.preview-sub { font-size: 10px; color: #aaa; margin-bottom: 16px; }
+.preview-tabs { display: flex; gap: 0; border: 1px solid #ede8e2; border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+.preview-tab { flex: 1; padding: 6px; text-align: center; font-size: 10px; font-weight: 600; cursor: pointer; color: #888; }
+.preview-tab.active { background: #2D2D2D; color: #fff; }
+
+/* PHONE FRAME */
+.phone-frame { width: 240px; background: #000; border-radius: 28px; padding: 12px; margin: 0 auto 16px; box-shadow: 0 8px 32px rgba(0,0,0,.18); }
+.phone-screen { background: #fff; border-radius: 18px; overflow: hidden; }
+.phone-status { background: #000; color: #fff; font-size: 8px; padding: 4px 12px 2px; display: flex; justify-content: space-between; border-radius: 18px 18px 0 0; }
+.phone-notch { width: 60px; height: 14px; background: #000; border-radius: 0 0 10px 10px; margin: 0 auto; margin-top: -2px; }
+
+/* FB FEED POST */
+.fb-post { background: #fff; }
+.fb-header { display: flex; align-items: center; gap: 7px; padding: 10px 10px 6px; }
+.fb-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,#C8975A,#8B5E2A); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.fb-name { font-size: 10px; font-weight: 700; }
+.fb-meta { font-size: 8px; color: #aaa; }
+.fb-sponsored { font-size: 8px; color: #aaa; }
+.fb-image { width: 100%; height: 140px; object-fit: cover; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+.fb-caption { padding: 8px 10px 4px; font-size: 10px; line-height: 1.4; color: #2D2D2D; }
+.fb-caption strong { font-weight: 700; }
+.fb-cta-bar { padding: 6px 10px 8px; }
+.fb-cta-btn { background: #1877F2; color: #fff; border: none; border-radius: 6px; padding: 6px 10px; font-size: 10px; font-weight: 700; width: 100%; cursor: pointer; }
+.fb-reactions { display: flex; gap: 12px; padding: 4px 10px 6px; border-top: 1px solid #f0f0f0; }
+.fb-react { font-size: 9px; color: #aaa; }
+
+/* IG STORY */
+.ig-story { background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%); min-height: 300px; position: relative; display: flex; flex-direction: column; }
+.ig-story-header { display: flex; align-items: center; gap: 6px; padding: 8px 10px; }
+.ig-story-bars { display: flex; gap: 2px; width: 100%; padding: 6px 8px 0; }
+.ig-story-bar { flex: 1; height: 2px; background: rgba(255,255,255,.3); border-radius: 2px; }
+.ig-story-bar.active { background: #fff; }
+.ig-story-avatar { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg,#C8975A,#8B5E2A); border: 1px solid #C8975A; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #fff; }
+.ig-story-name { font-size: 9px; color: #fff; font-weight: 600; }
+.ig-story-tag { font-size: 8px; color: rgba(255,255,255,.6); }
+.ig-story-image { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 48px; min-height: 180px; }
+.ig-story-text { color: #fff; font-size: 12px; font-weight: 700; text-align: center; padding: 8px 16px; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.ig-story-swipe { text-align: center; padding: 8px; color: rgba(255,255,255,.7); font-size: 9px; }
+.ig-story-cta { background: #fff; color: #2D2D2D; border: none; border-radius: 20px; padding: 6px 16px; font-size: 10px; font-weight: 700; margin: 0 auto 8px; display: block; cursor: pointer; }
+
+/* IG FEED POST */
+.ig-post-frame { background: #fff; }
+.ig-post-header { display: flex; align-items: center; gap: 7px; padding: 8px 10px; }
+.ig-post-avatar { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg,#C8975A,#8B5E2A); border: 2px solid #C8975A; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; }
+.ig-post-name { font-size: 10px; font-weight: 700; }
+.ig-post-tag { font-size: 8px; color: #aaa; }
+.ig-post-image { width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+.ig-post-actions { display: flex; gap: 10px; padding: 6px 10px 2px; }
+.ig-post-action { font-size: 14px; cursor: pointer; }
+.ig-post-caption { padding: 2px 10px 8px; font-size: 9px; line-height: 1.4; }
+
+/* REACH ESTIMATE IN PREVIEW */
+.reach-bar { background: #f5f0eb; border-radius: 10px; padding: 12px; margin-top: 12px; }
+.reach-title { font-size: 10px; font-weight: 700; color: #555; margin-bottom: 8px; }
+.reach-row { display: flex; justify-content: space-between; font-size: 10px; color: #666; margin-bottom: 4px; }
+.reach-val { font-weight: 700; color: #2D2D2D; }
+.audience-meter { width: 100%; height: 6px; background: #e0d8d0; border-radius: 3px; margin: 8px 0; overflow: hidden; }
+.audience-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #C8975A, #2E7D5B); transition: width .4s; }
+.audience-label { font-size: 9px; color: #aaa; text-align: center; }
+
+/* NOTICE */
+.notice { padding: 9px 12px; border-radius: 8px; font-size: 11px; line-height: 1.4; margin-top: 10px; }
+.notice-green { background: #E8F5E9; color: #1B5E20; border-left: 3px solid #2E7D5B; }
+.notice-orange { background: #FFF3E0; color: #7a4000; border-left: 3px solid #C8975A; }
+.notice-blue { background: #E3F2FD; color: #0D47A1; border-left: 3px solid #1877F2; }
+
+/* COLOR DOTS */
+.sdiv { height: 1px; background: #ede8e2; margin: 14px 0; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="logo"><div class="logo-title">FIDELA</div><div class="logo-sub">Growth Dashboard</div></div>
+  <div class="nav-section">
+    <div class="nav-label">Visión general</div>
+    <div class="nav-item"><span class="nav-icon">📊</span> Resumen</div>
+    <div class="nav-item"><span class="nav-icon">🔀</span> Funnel</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Canales</div>
+    <div class="nav-item active"><span class="nav-icon">📣</span> Campañas Meta</div>
+    <div class="nav-item"><span class="nav-icon">📸</span> Instagram</div>
+    <div class="nav-item"><span class="nav-icon">🔍</span> Google / SEO</div>
+    <div class="nav-item"><span class="nav-icon">📧</span> Email / Mailing</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Ventas</div>
+    <div class="nav-item"><span class="nav-icon">🛒</span> Tiendanube</div>
+    <div class="nav-item"><span class="nav-icon">💬</span> WhatsApp</div>
+    <div class="nav-item"><span class="nav-icon">🏪</span> Local físico</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Optimización</div>
+    <div class="nav-item"><span class="nav-icon">🧪</span> A/B Testing</div>
+    <div class="nav-item"><span class="nav-icon">🎯</span> Landings</div>
+  </div>
+</div>
+
+<!-- FORM COLUMN -->
+<div class="form-col">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="#">Campañas Meta</a> › <span>Nueva campaña</span>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps-row">
+    <div class="step done"><div class="step-circle">✓</div><div class="step-label">Objetivo</div></div>
+    <div class="step-line done"></div>
+    <div class="step active"><div class="step-circle">2</div><div class="step-label">Anuncio</div></div>
+    <div class="step-line"></div>
+    <div class="step pending"><div class="step-circle">3</div><div class="step-label">Audiencia</div></div>
+    <div class="step-line"></div>
+    <div class="step pending"><div class="step-circle">4</div><div class="step-label">Presupuesto</div></div>
+    <div class="step-line"></div>
+    <div class="step pending"><div class="step-circle">5</div><div class="step-label">Revisión</div></div>
+  </div>
+
+  <!-- ── 1. OBJETIVO ── -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('obj')">
+      <div class="section-icon" style="background:#EFF5FF">🎯</div>
+      <div><div class="section-title">Objetivo de la campaña</div><div class="section-sub">¿Qué querés lograr con este anuncio?</div></div>
+      <div class="section-toggle" id="toggle-obj">▲</div>
+    </div>
+    <div class="section-body" id="body-obj">
+      <div class="obj-grid">
+        <div class="obj-card selected" onclick="selectObj(this)">
+          <div class="obj-icon">🛒</div>
+          <div class="obj-name">Ventas</div>
+          <div class="obj-desc">Maximizar compras en tienda o WA · API: OUTCOME_SALES</div>
+        </div>
+        <div class="obj-card" onclick="selectObj(this)">
+          <div class="obj-icon">🎯</div>
+          <div class="obj-name">Tráfico</div>
+          <div class="obj-desc">Llevar visitas a la landing page · API: OUTCOME_TRAFFIC</div>
+        </div>
+        <div class="obj-card" onclick="selectObj(this)">
+          <div class="obj-icon">📣</div>
+          <div class="obj-name">Reconocimiento</div>
+          <div class="obj-desc">Dar a conocer la marca · API: OUTCOME_AWARENESS</div>
+        </div>
+        <div class="obj-card" onclick="selectObj(this)">
+          <div class="obj-icon">❤️</div>
+          <div class="obj-name">Engagement</div>
+          <div class="obj-desc">Likes, comentarios, guardados · API: OUTCOME_ENGAGEMENT</div>
+        </div>
+        <div class="obj-card" onclick="selectObj(this)">
+          <div class="obj-icon">💬</div>
+          <div class="obj-name">Mensajes / Leads</div>
+          <div class="obj-desc">Que escriban por WA o DM · API: OUTCOME_LEADS</div>
+        </div>
+        <div class="obj-card" onclick="selectObj(this)">
+          <div class="obj-icon">📲</div>
+          <div class="obj-name">Promoción de App</div>
+          <div class="obj-desc">Instalaciones o eventos de app · API: OUTCOME_APP_PROMOTION</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. PLATAFORMAS Y FORMATOS ── -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('plat')">
+      <div class="section-icon" style="background:#FEF0FB">📱</div>
+      <div><div class="section-title">Plataformas y formatos</div><div class="section-sub">¿Dónde y cómo se va a ver el anuncio?</div></div>
+      <div class="section-toggle" id="toggle-plat">▲</div>
+    </div>
+    <div class="section-body" id="body-plat">
+      <div class="field-row">
+        <div class="field"><label>Plataformas</label>
+          <div class="platform-grid">
+            <div class="platform-chip selected" onclick="togglePlatform(this,'fb')">
+              <span class="plat-icon">📘</span>
+              <div><div class="plat-name">Facebook</div><div class="plat-sub">Feed, Reels, Stories</div></div>
+              <span class="plat-check">✓</span>
+            </div>
+            <div class="platform-chip selected ig" onclick="togglePlatform(this,'ig')">
+              <span class="plat-icon">📸</span>
+              <div><div class="plat-name">Instagram</div><div class="plat-sub">Feed, Reels, Stories</div></div>
+              <span class="plat-check">✓</span>
+            </div>
+            <div class="platform-chip wa" onclick="togglePlatform(this,'wa')">
+              <span class="plat-icon">💬</span>
+              <div><div class="plat-name">WhatsApp</div><div class="plat-sub">Click to chat</div></div>
+              <span class="plat-check">✓</span>
+            </div>
+            <div class="platform-chip" onclick="togglePlatform(this,'threads')">
+              <span class="plat-icon">🧵</span>
+              <div><div class="plat-name">Threads</div><div class="plat-sub">Feed · desde may 2025</div></div>
+              <span class="plat-check">✓</span>
+            </div>
+            <div class="platform-chip" onclick="togglePlatform(this,'audience')">
+              <span class="plat-icon">🌐</span>
+              <div><div class="plat-name">Audience Network</div><div class="plat-sub">Sitios y apps externas</div></div>
+              <span class="plat-check">✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field"><label>Ubicaciones del anuncio</label>
+        <div class="placement-grid">
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">FB Feed</div>
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">FB Stories</div>
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">FB Reels (overlay)</div>
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">IG Feed</div>
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">IG Stories</div>
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">IG Reels</div>
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">Threads Feed</div>
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">WhatsApp Status</div>
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">FB Marketplace</div>
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">Messenger</div>
+        </div>
+        <div class="field-hint">Seleccioná dónde querés que aparezca. ⚠️ Notas 2025–2026: FB Reels solo acepta ads como overlay (banner al pie), no pre/post-roll. IG Explore fue eliminado en ene 2026. Threads y WhatsApp Status son nuevas ubicaciones activas.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. CONTENIDO DEL ANUNCIO ── -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('content')">
+      <div class="section-icon" style="background:#FFF3E0">✏️</div>
+      <div><div class="section-title">Contenido del anuncio</div><div class="section-sub">El texto, imagen y botón que va a ver la audiencia</div></div>
+      <div class="section-toggle" id="toggle-content">▲</div>
+    </div>
+    <div class="section-body" id="body-content">
+      <div class="field-row">
+        <div class="field">
+          <label>Nombre interno de la campaña</label>
+          <input type="text" value="Kit Hot Sale — Mayo 2025 — Landing A" oninput="updatePreview()">
+          <div class="field-hint">Solo lo ves vos. Para identificar la campaña en el dashboard.</div>
+        </div>
+      </div>
+
+      <div class="field-row cols-2">
+        <div class="field">
+          <label>Título del anuncio (headline)</label>
+          <input type="text" id="ad-headline" value="🕯️ Kit Hot Sale · 3 velas + difusor" oninput="updatePreview()" maxlength="40">
+          <div class="field-hint" id="headline-count">35/40 caracteres</div>
+        </div>
+        <div class="field">
+          <label>Botón de acción (CTA)</label>
+          <select id="ad-cta" onchange="updatePreview()">
+            <option value="Comprar ahora" selected>Comprar ahora</option>
+            <option value="Ver oferta">Ver oferta</option>
+            <option value="Más información">Más información</option>
+            <option value="Enviar mensaje">Enviar mensaje</option>
+            <option value="Contactar">Contactar</option>
+            <option value="Reservar">Reservar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Texto principal del anuncio</label>
+          <textarea id="ad-body" oninput="updatePreview()" maxlength="125">✨ Este Hot Sale llevate el kit más vendido de Fidela con 30% OFF.
+3 velas de soja + difusor de aroma para transformar tu espacio. 🌿</textarea>
+          <div class="field-hint" id="body-count">112/125 caracteres (recomendado para móvil)</div>
+        </div>
+      </div>
+
+      <div class="field-row cols-2">
+        <div class="field">
+          <label>Formato creativo</label>
+          <div style="display:flex;gap:6px;margin-bottom:8px">
+            <div class="placement-chip selected" onclick="selectFormat('image',this)">🖼 Imagen · JPG/PNG &lt;30MB</div>
+            <div class="placement-chip" onclick="selectFormat('video',this)">🎬 Video · MP4/MOV &lt;4GB</div>
+            <div class="placement-chip" onclick="selectFormat('carousel',this)">🎠 Carrusel · 2–10 tarjetas</div>
+          </div>
+          <label>Archivo</label>
+          <div style="border:2px dashed #e0d8d0;border-radius:10px;padding:20px;text-align:center;cursor:pointer;background:#faf7f4" onclick="cycleEmoji()">
+            <div style="font-size:32px;margin-bottom:6px" id="ad-emoji">🕯️</div>
+            <div style="font-size:11px;color:#aaa">Click para cambiar imagen<br><span style="font-size:9px">PNG/JPG/MP4 · 1080×1080px recomendado</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Destino del anuncio</label>
+          <div class="landing-options">
+            <div class="landing-opt selected" onclick="selectLanding(this)">
+              <div class="lo-label">Landing Kit Hot Sale</div>
+              <div class="lo-url">promo.fidela.com.ar/kit-hotsale</div>
+              <span class="lo-badge lo-a">Variante A · Carrito</span>
+            </div>
+            <div class="landing-opt" onclick="selectLanding(this)">
+              <div class="lo-label">Landing Kit Hot Sale</div>
+              <div class="lo-url">promo.fidela.com.ar/kit-hotsale-b</div>
+              <span class="lo-badge lo-b">Variante B · WhatsApp</span>
+            </div>
+            <div class="landing-opt" onclick="selectLanding(this)">
+              <div class="lo-label">Tiendanube directo</div>
+              <div class="lo-url">fidela.com.ar/boxes/</div>
+              <span class="lo-badge" style="background:#f0ebe4;color:#888">Sin landing</span>
+            </div>
+            <div class="landing-opt" onclick="selectLanding(this)" style="border-style:dashed;display:flex;align-items:center;justify-content:center;min-height:70px">
+              <div style="text-align:center">
+                <div style="font-size:18px;margin-bottom:4px">➕</div>
+                <div class="lo-label" style="color:#C8975A">Crear nueva landing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice notice-blue">
+        ℹ️ El UTM se agrega automáticamente al link destino. Las imágenes se suben via <strong>POST /adimages</strong> (devuelve un image_hash) y los videos via <strong>POST /advideos</strong> (devuelve un video_id), que luego se referencian al crear el AdCreative. Todo ocurre en background — no necesitás salir de acá.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. AUDIENCIA ── -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('audience')">
+      <div class="section-icon" style="background:#F1F8E9">👥</div>
+      <div><div class="section-title">Audiencia</div><div class="section-sub">¿A quién le querés mostrar el anuncio?</div></div>
+      <div class="section-toggle" id="toggle-audience">▲</div>
+    </div>
+    <div class="section-body" id="body-audience">
+
+      <!-- GEOGRAFÍA -->
+      <div class="field" style="margin-bottom:14px">
+        <label>📍 Geografía</label>
+        <div class="geo-tags" id="geo-tags">
+          <div class="geo-tag">🇦🇷 Buenos Aires, CABA <span class="geo-remove" onclick="removeGeo(this)">✕</span></div>
+          <div class="geo-tag">🇦🇷 GBA Norte <span class="geo-remove" onclick="removeGeo(this)">✕</span></div>
+          <div class="geo-tag">🇦🇷 GBA Sur <span class="geo-remove" onclick="removeGeo(this)">✕</span></div>
+          <div class="geo-tag">🇦🇷 Córdoba <span class="geo-remove" onclick="removeGeo(this)">✕</span></div>
+        </div>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+          <select class="widget-filter" style="font-size:11px;border-radius:8px;padding:5px 10px" onchange="addGeo(this)">
+            <option value="">+ Agregar zona…</option>
+            <option value="🇦🇷 Rosario">Rosario</option>
+            <option value="🇦🇷 Mendoza">Mendoza</option>
+            <option value="🇦🇷 La Plata">La Plata</option>
+            <option value="🇦🇷 Mar del Plata">Mar del Plata</option>
+            <option value="🇦🇷 Todo Argentina">Todo Argentina</option>
+          </select>
+          <div style="display:flex;align-items:center;gap:6px">
+            <input type="number" placeholder="Radio km" style="width:80px;border:1px solid #e0d8d0;border-radius:8px;padding:5px 8px;font-size:11px;background:#faf7f4">
+            <span style="font-size:10px;color:#aaa">alrededor del local (Colegiales)</span>
+          </div>
+        </div>
+        <div class="field-hint">⚠️ Desde abr 2024 Meta solo admite "personas en o que estuvieron recientemente en" esta ubicación (el modo "solo residentes" fue eliminado). El radio en km sí funciona vía API con geo_locations + radius. Para e-commerce, CABA + GBA captura ~70% del mercado argentino.</div>
+      </div>
+
+      <!-- EDAD Y GÉNERO -->
+      <div class="field-row cols-2" style="margin-bottom:14px">
+        <div class="field">
+          <label>🎂 Rango de edad</label>
+          <div class="age-row">
+            <input type="number" class="age-input" value="25" min="18" max="65" id="age-min" oninput="updateAudience()"> 
+            <span style="color:#aaa;font-size:12px">a</span>
+            <input type="number" class="age-input" value="50" min="18" max="65" id="age-max" oninput="updateAudience()">
+            <span style="font-size:11px;color:#888">años</span>
+          </div>
+          <div class="field-hint">Clientes típicos de Fidela: 28–45 años.</div>
+        </div>
+        <div class="field">
+          <label>⚧ Género</label>
+          <div class="gender-grid">
+            <div class="gender-chip" onclick="toggleGender(this)"><div class="g-icon">👩</div><div class="g-name">Mujer</div></div>
+            <div class="gender-chip selected" onclick="toggleGender(this)"><div class="g-icon">👨</div><div class="g-name">Hombre</div></div>
+            <div class="gender-chip selected" onclick="toggleGender(this)"><div class="g-icon">🌈</div><div class="g-name">Todos</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDIOMA -->
+      <div class="field-row cols-2" style="margin-bottom:14px">
+        <div class="field">
+          <label>🌐 Idioma</label>
+          <select>
+            <option selected>Español (Argentina)</option>
+            <option>Español (todos)</option>
+            <option>Inglés</option>
+            <option>Portugués</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>📱 Dispositivo</label>
+          <select onchange="updateAudience()">
+            <option selected>Todos (móvil + desktop)</option>
+            <option>Solo móvil</option>
+            <option>Solo desktop</option>
+            <option>Solo iOS</option>
+            <option>Solo Android</option>
+          </select>
+          <div class="field-hint">75% del tráfico de Fidela viene de móvil.</div>
+        </div>
+      </div>
+
+      <!-- INTERESES -->
+      <div class="field" style="margin-bottom:14px">
+        <label>💡 Intereses y comportamientos</label>
+        <div class="interest-tags">
+          <span class="int-tag selected" onclick="this.classList.toggle('selected')">Decoración del hogar</span>
+          <span class="int-tag selected" onclick="this.classList.toggle('selected')">Salud y bienestar</span>
+          <span class="int-tag selected" onclick="this.classList.toggle('selected')">Belleza y cuidado personal</span>
+          <span class="int-tag selected" onclick="this.classList.toggle('selected')">Compras online</span>
+          <span class="int-tag" onclick="this.classList.toggle('selected')">Regalos y ocasiones especiales</span>
+          <span class="int-tag" onclick="this.classList.toggle('selected')">Estilo de vida</span>
+          <span class="int-tag" onclick="this.classList.toggle('selected')">Naturaleza y medio ambiente</span>
+          <span class="int-tag add" onclick="alert('Agregar interés personalizado')">+ Agregar</span>
+        </div>
+        <div class="field-hint">⚠️ Desde enero 2026 Meta consolidó los intereses en categorías amplias (ej: "aromaterapia" ya no existe como interés específico). Para alta precisión, usá Audiencias Personalizadas o dejá que Advantage+ Audience lo optimice automáticamente.</div>
+      </div>
+
+      <!-- ADVANTAGE+ vs MANUAL -->
+      <div class="field" style="margin-bottom:14px">
+        <label>🤖 Modo de audiencia</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">Advantage+ Audience (IA automática)</div>
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">Manual con sugerencias IA</div>
+        </div>
+        <div class="field-hint">Advantage+ solo acepta geo como restricción y deja todo lo demás a la IA de Meta. Manual permite configurar edad, género e intereses, pero Meta puede expandirlos si detecta mejor performance.</div>
+      </div>
+
+      <!-- AUDIENCIA PERSONALIZADA -->
+      <div class="field">
+        <label>🎯 Audiencias personalizadas (señales de conversión)</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">Compradores anteriores</div>
+          <div class="placement-chip selected" onclick="this.classList.toggle('selected')">Visitaron la landing (Pixel)</div>
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">Base de emails (subir CSV)</div>
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">Interactuaron con IG</div>
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">Lookalike · compradores (1–5%)</div>
+          <div class="placement-chip" onclick="this.classList.toggle('selected')">Lookalike · visitantes (1–5%)</div>
+        </div>
+        <div class="field-hint">Las audiencias personalizadas son las señales más fuertes que podés darle a Meta. Cuantas más conversiones tenga el píxel (50+/semana), mejor optimiza.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 5. PRESUPUESTO Y DURACIÓN ── -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('budget')">
+      <div class="section-icon" style="background:#E8F5E9">💰</div>
+      <div><div class="section-title">Presupuesto y duración</div><div class="section-sub">¿Cuánto querés gastar y por cuánto tiempo?</div></div>
+      <div class="section-toggle" id="toggle-budget">▲</div>
+    </div>
+    <div class="section-body" id="body-budget">
+      <div class="budget-toggle">
+        <div class="budget-opt active" onclick="setBudgetType('daily', this)">Presupuesto diario</div>
+        <div class="budget-opt" onclick="setBudgetType('total', this)">Presupuesto total</div>
+      </div>
+
+      <div class="field">
+        <label>Monto diario (ARS)</label>
+        <div class="range-val" id="budget-val">$3.500 / día</div>
+        <div class="range-wrap">
+          <input type="range" min="500" max="20000" step="500" value="3500" oninput="updateBudget(this.value)">
+          <div class="range-labels"><span>$500</span><span>$5.000</span><span>$10.000</span><span>$20.000</span></div>
+        </div>
+      </div>
+
+      <div class="field-row cols-2" style="margin-top:14px">
+        <div class="field">
+          <label>📅 Fecha de inicio</label>
+          <input type="date" value="2025-05-15">
+        </div>
+        <div class="field">
+          <label>📅 Fecha de fin</label>
+          <input type="date" value="2025-05-31">
+        </div>
+      </div>
+
+      <div class="estimate-box">
+        <div class="est-item"><div class="est-val" id="est-spend">$59k</div><div class="est-label">Gasto estimado</div></div>
+        <div class="est-item"><div class="est-val" id="est-reach">38k–61k</div><div class="est-label">Personas alcanzadas</div></div>
+        <div class="est-item"><div class="est-val" id="est-roas">3.2x–4.8x</div><div class="est-label">ROAS esperado</div></div>
+      </div>
+
+      <div class="notice notice-green" style="margin-top:10px">
+        ✓ Basado en el historial de campañas similares de Fidela. El ROAS real puede variar según la creatividad y la audiencia.
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="action-row">
+    <button class="btn btn-secondary">← Volver</button>
+    <button class="btn btn-outline">Guardar borrador</button>
+    <div style="flex:1"></div>
+    <button class="btn btn-primary" onclick="alert('¡Campaña lista para lanzar! En la implementación real, esto envía a revisión y luego lanza vía Meta Marketing API.')">Revisar y lanzar →</button>
+  </div>
+
+</div><!-- /form-col -->
+
+<!-- PREVIEW COLUMN -->
+<div class="preview-col">
+  <div class="preview-title">Vista previa del anuncio</div>
+  <div class="preview-sub">Así va a verse en cada plataforma</div>
+
+  <div class="preview-tabs">
+    <div class="preview-tab active" onclick="setPreviewTab('ig-feed', this)">IG Feed</div>
+    <div class="preview-tab" onclick="setPreviewTab('ig-story', this)">IG Story</div>
+    <div class="preview-tab" onclick="setPreviewTab('fb-feed', this)">FB Feed</div>
+  </div>
+
+  <!-- IG FEED PREVIEW (default) -->
+  <div id="preview-ig-feed">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+        <div class="ig-post-frame">
+          <div class="ig-post-header">
+            <div class="ig-post-avatar">F</div>
+            <div><div class="ig-post-name">fidela.aromas</div><div class="ig-post-tag">Patrocinado · 🌐</div></div>
+            <span style="margin-left:auto;font-size:16px;color:#aaa">⋯</span>
+          </div>
+          <div class="ig-post-image" style="background:linear-gradient(135deg,#FEE2F8,#FFF3E0)" id="preview-image-ig">🕯️</div>
+          <div style="padding:6px 10px 4px;display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:10px;font-size:15px">❤️ 💬 📤</div>
+            <div style="font-size:13px">🔖</div>
+          </div>
+          <div style="padding:2px 10px 6px">
+            <div style="font-size:9px;font-weight:700;margin-bottom:3px">fidela.aromas <span style="font-weight:400;color:#555" id="preview-body-ig">✨ Este Hot Sale llevate el kit más vendido de Fidela con 30% OFF. 3 velas de soja + difusor de aroma para transformar tu espacio. 🌿</span></div>
+            <div style="font-size:8px;color:#aaa">Ver más</div>
+          </div>
+          <div style="padding:4px 10px 10px">
+            <div style="border:1px solid #ede8e2;border-radius:8px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-size:9px;color:#aaa">promo.fidela.com.ar</div><div style="font-size:10px;font-weight:700" id="preview-headline-ig">🕯️ Kit Hot Sale · 3 velas + difusor</div></div>
+              <button style="background:#1877F2;color:#fff;border:none;border-radius:6px;padding:5px 8px;font-size:9px;font-weight:700" id="preview-cta-ig">Comprar ahora</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IG STORY PREVIEW -->
+  <div id="preview-ig-story" style="display:none">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-status" style="border-radius:18px 18px 0 0"><span>9:41</span><span>●●●</span></div>
+        <div class="ig-story">
+          <div class="ig-story-bars" style="padding:6px 8px 0">
+            <div class="ig-story-bar active"></div>
+            <div class="ig-story-bar active"></div>
+            <div class="ig-story-bar" style="background:rgba(255,255,255,.3)"></div>
+          </div>
+          <div class="ig-story-header">
+            <div class="ig-story-avatar">F</div>
+            <div><div class="ig-story-name">fidela.aromas</div><div class="ig-story-tag">Patrocinado</div></div>
+            <span style="margin-left:auto;color:rgba(255,255,255,.7);font-size:14px">✕</span>
+          </div>
+          <div class="ig-story-image" id="preview-image-story">🕯️</div>
+          <div class="ig-story-text" id="preview-headline-story">🕯️ Kit Hot Sale · 3 velas + difusor</div>
+          <div class="ig-story-swipe">
+            <div style="font-size:16px;margin-bottom:2px">^</div>
+            Deslizá para ver más
+          </div>
+          <button class="ig-story-cta" id="preview-cta-story">Comprar ahora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FB FEED PREVIEW -->
+  <div id="preview-fb-feed" style="display:none">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+        <div class="fb-post">
+          <div class="fb-header">
+            <div class="fb-avatar">F</div>
+            <div>
+              <div class="fb-name">Fidela: Aromas con Historia</div>
+              <div class="fb-meta">Patrocinado · <span>🌐</span></div>
+            </div>
+            <span style="margin-left:auto;font-size:16px;color:#aaa">⋯</span>
+          </div>
+          <div style="padding:0 10px 8px;font-size:10px;color:#2D2D2D;line-height:1.4" id="preview-body-fb">✨ Este Hot Sale llevate el kit más vendido de Fidela con 30% OFF. 3 velas de soja + difusor de aroma para transformar tu espacio. 🌿</div>
+          <div class="fb-image" style="background:linear-gradient(135deg,#FEE2F8,#FFF3E0)" id="preview-image-fb">🕯️</div>
+          <div style="padding:8px 10px;border-top:1px solid #f0f0f0;background:#f5f5f5;display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:8px;color:#aaa">PROMO.FIDELA.COM.AR</div><div style="font-size:10px;font-weight:700" id="preview-headline-fb">🕯️ Kit Hot Sale · 3 velas + difusor</div></div>
+            <button style="background:#1877F2;color:#fff;border:none;border-radius:6px;padding:6px 10px;font-size:10px;font-weight:700;white-space:nowrap" id="preview-cta-fb">Comprar ahora</button>
+          </div>
+          <div class="fb-reactions">
+            <span class="fb-react">👍 Me gusta</span>
+            <span class="fb-react">💬 Comentar</span>
+            <span class="fb-react">↗ Compartir</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REACH ESTIMATE -->
+  <div class="reach-bar">
+    <div class="reach-title">Estimación de audiencia</div>
+    <div class="reach-row"><span>Audiencia potencial</span><span class="reach-val">1.2M – 3.4M</span></div>
+    <div class="reach-row"><span>Audiencia estimada</span><span class="reach-val" id="reach-est">38k – 61k</span></div>
+    <div class="reach-row"><span>Con presupuesto diario</span><span class="reach-val">$3.500/día</span></div>
+    <div class="audience-meter"><div class="audience-fill" id="audience-bar" style="width:35%"></div></div>
+    <div class="audience-label" id="audience-label">Audiencia bien definida · buen balance alcance / precisión</div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div style="margin-top:12px">
+    <div style="font-size:10px;font-weight:700;color:#555;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Checklist antes de lanzar</div>
+    <div style="display:flex;flex-direction:column;gap:5px" id="checklist">
+      <div style="display:flex;align-items:center;gap:7px;font-size:11px"><span style="color:#2E7D5B">✓</span> Objetivo definido</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:11px"><span style="color:#2E7D5B">✓</span> Plataformas seleccionadas</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:11px"><span style="color:#2E7D5B">✓</span> Imagen cargada</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:11px"><span style="color:#2E7D5B">✓</span> Texto y CTA listos</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:11px"><span style="color:#2E7D5B">✓</span> Landing destino elegida</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:11px"><span style="color:#2E7D5B">✓</span> Audiencia configurada</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:11px"><span style="color:#2E7D5B">✓</span> Presupuesto y fechas listos</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:11px"><span style="color:#C8975A">◎</span> Pixel Meta activo en landing</div>
+    </div>
+  </div>
+
+</div><!-- /preview-col -->
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<script>
+// Toggle sections
+function toggleSection(id) {
+  const body = document.getElementById('body-'+id);
+  const toggle = document.getElementById('toggle-'+id);
+  const collapsed = body.classList.toggle('collapsed');
+  toggle.textContent = collapsed ? '▼' : '▲';
+}
+
+// Objective cards
+function selectObj(el) {
+  document.querySelectorAll('.obj-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// Platform chips
+function togglePlatform(el, type) {
+  el.classList.toggle('selected');
+}
+
+// Landing opts
+function selectLanding(el) {
+  document.querySelectorAll('.landing-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// Gender
+function toggleGender(el) {
+  el.classList.toggle('selected');
+}
+
+// Geo
+function removeGeo(el) { el.parentElement.remove(); updateAudience(); }
+function addGeo(sel) {
+  if (!sel.value) return;
+  const tag = document.createElement('div');
+  tag.className = 'geo-tag';
+  tag.innerHTML = `${sel.value} <span class="geo-remove" onclick="removeGeo(this)">✕</span>`;
+  document.getElementById('geo-tags').appendChild(tag);
+  sel.value = '';
+  updateAudience();
+}
+
+// Preview tabs
+function setPreviewTab(tab, el) {
+  document.querySelectorAll('.preview-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['ig-feed','ig-story','fb-feed'].forEach(t => {
+    document.getElementById('preview-'+t).style.display = t === tab ? '' : 'none';
+  });
+}
+
+// Live preview update
+const emojis = ['🕯️','🌸','🎁','🌿','✨','🧴'];
+let emojiIdx = 0;
+function cycleEmoji() {
+  emojiIdx = (emojiIdx+1) % emojis.length;
+  const e = emojis[emojiIdx];
+  ['preview-image-ig','preview-image-story','preview-image-fb'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = e;
+  });
+}
+
+function updatePreview() {
+  const headline = document.getElementById('ad-headline').value;
+  const body = document.getElementById('ad-body').value;
+  const cta = document.getElementById('ad-cta').value;
+  document.getElementById('headline-count').textContent = headline.length+'/40 caracteres';
+  document.getElementById('body-count').textContent = body.length+'/125 caracteres (recomendado para móvil)';
+  ['ig','fb','story'].forEach(p => {
+    const h = document.getElementById('preview-headline-'+p);
+    const c = document.getElementById('preview-cta-'+p);
+    const b = document.getElementById('preview-body-'+p);
+    if (h) h.textContent = headline;
+    if (c) c.textContent = cta;
+    if (b) b.textContent = body;
+  });
+}
+
+function updateBudget(val) {
+  const daily = parseInt(val);
+  const days = 17; // May 15–31
+  const total = daily * days;
+  document.getElementById('budget-val').textContent = '$'+daily.toLocaleString('es-AR')+' / día';
+  document.getElementById('est-spend').textContent = '$'+(total/1000).toFixed(0)+'k';
+  const reachMin = Math.round(daily * 8 / 1000);
+  const reachMax = Math.round(daily * 14 / 1000);
+  document.getElementById('est-reach').textContent = reachMin+'k–'+reachMax+'k';
+  document.getElementById('reach-est').textContent = reachMin+'k – '+reachMax+'k';
+  const barPct = Math.min(90, Math.round((daily / 20000) * 100));
+  document.getElementById('audience-bar').style.width = barPct+'%';
+}
+
+function updateAudience() {
+  const min = parseInt(document.getElementById('age-min').value)||18;
+  const max = parseInt(document.getElementById('age-max').value)||65;
+  const range = max - min;
+  const label = range < 15 ? 'Audiencia muy específica · alto costo por click' :
+                range < 25 ? 'Audiencia bien definida · buen balance alcance / precisión' :
+                'Audiencia amplia · mayor alcance, menor costo por vista';
+  document.getElementById('audience-label').textContent = label;
+}
+
+function setBudgetType(type, el) {
+  document.querySelectorAll('.budget-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Format selector
+function selectFormat(fmt, el) {
+  document.querySelectorAll('.section-body').forEach(() => {});
+  el.closest('div').querySelectorAll('.placement-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// Period buttons
+document.querySelectorAll('.period-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

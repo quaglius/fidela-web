@@ -81,12 +81,23 @@ export default async function HomePage() {
       ──────────────────────────────────────────────────────────────────────── */}
       <section className="relative h-[75vh] md:h-[88vh] min-h-[500px] md:min-h-[600px] flex items-center overflow-hidden bg-[var(--black)]">
 
-        {/* BG: vela Donna — producto icónico, atmosférico */}
+        {/* BG: video de campaña — con fallback a imagen */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-35 md:opacity-25"
+          poster="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp"
+        >
+          <source src="/videos/fidela-reel-1.mp4" type="video/mp4" />
+        </video>
+        {/* Fallback imagen (mostrada mientras carga el video) */}
         <Image
           src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp"
           alt="FIDELA"
           fill
-          className="object-cover object-center opacity-45 md:opacity-30"
+          className="object-cover object-center opacity-35 md:opacity-25 -z-[1]"
           priority
           quality={90}
           sizes="100vw"
@@ -224,7 +235,7 @@ export default async function HomePage() {
       <section className="relative section-py overflow-hidden bg-[var(--black)]">
 
         <div className="relative container-site">
-          <FadeUp className="flex items-end justify-between mb-10">
+          <FadeUp className="flex items-end justify-between mb-6">
             <div>
               <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--gold)] mb-2">8 blends propios</p>
               <h2 className="font-serif text-3xl md:text-4xl font-light text-white">Nuestros aromas</h2>
@@ -233,6 +244,28 @@ export default async function HomePage() {
               Ver todos
             </Link>
           </FadeUp>
+
+          {/* ── ISO intro strip ───────────────────────────────────────────── */}
+          <FadeUp delay={60}>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 mb-10 pb-8 border-b border-white/10">
+              <p className="text-xs text-white/50 leading-relaxed max-w-lg">
+                Cada blend nació de una historia: un viaje, una memoria, una sensación a preservar.
+                Elaborados con cera de soja 100% natural y fragancias certificadas libres de ftalatos.
+              </p>
+              {/* ISO badge */}
+              <div className="flex items-center gap-3 flex-shrink-0 border border-white/15 rounded-lg px-4 py-3">
+                <svg viewBox="0 0 60 36" width="44" height="28" className="flex-shrink-0">
+                  <rect width="60" height="36" rx="4" fill="#003087"/>
+                  <text x="30" y="24" textAnchor="middle" fill="white" fontSize="15" fontWeight="700" fontFamily="Arial, sans-serif">ISO</text>
+                </svg>
+                <div>
+                  <p className="text-[10px] font-semibold tracking-wide uppercase text-white">ISO 9001</p>
+                  <p className="text-[9px] text-white/40 mt-0.5 tracking-wide">Materias primas certificadas</p>
+                </div>
+              </div>
+            </div>
+          </FadeUp>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {AROMAS_GRID.map((a, i) => (
               <FadeUp key={a.slug} delay={i * 55}>

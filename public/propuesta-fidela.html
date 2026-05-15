@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Una propuesta para FIDELA — de Fede</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#1A1A1A;--white:#fff;--cream:#F5F0EB;--gold:#C8975A;--gold-dark:#A87840;--gray:#666;--light:#f8f8f8}
+    html{scroll-behavior:smooth}
+    body{font-family:'Roboto Mono',monospace;background:var(--white);color:var(--black);-webkit-font-smoothing:antialiased;line-height:1.7}
+
+    /* Layout */
+    .container{max-width:760px;margin:0 auto;padding:0 24px}
+
+    /* Header */
+    .site-header{background:var(--black);padding:20px 0}
+    .site-header .container{display:flex;align-items:center;justify-content:space-between}
+    .logo{font-size:18px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:var(--white)}
+    .logo span{color:var(--gold)}
+    .header-note{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+
+    /* Hero */
+    .hero{background:var(--cream);padding:64px 0 48px}
+    .hero-from{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+    .hero-title{font-size:clamp(28px,5vw,48px);font-weight:300;letter-spacing:-.03em;line-height:1.1;margin-bottom:20px;color:var(--black)}
+    .hero-sub{font-size:13px;color:var(--gray);max-width:560px;line-height:1.8}
+    .chip{display:inline-block;background:var(--black);color:#fff;font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:5px 12px;border-radius:2px;margin-top:24px}
+
+    /* Section */
+    .section{padding:64px 0;border-bottom:1px solid #eee}
+    .section:last-child{border-bottom:none}
+    .section-num{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+    .section-title{font-size:clamp(20px,3vw,28px);font-weight:300;letter-spacing:-.02em;margin-bottom:16px}
+    .section-body{font-size:13px;color:var(--gray);line-height:1.85;margin-bottom:24px}
+    .section-body strong{color:var(--black);font-weight:500}
+
+    /* Card link */
+    .card{display:block;text-decoration:none;border:1px solid #e0e0e0;border-radius:12px;padding:24px;margin-bottom:16px;transition:border-color .2s,box-shadow .2s,transform .2s;background:var(--white)}
+    .card:hover{border-color:var(--gold);box-shadow:0 8px 24px rgba(200,151,90,.12);transform:translateY(-2px)}
+    .card-label{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+    .card-title{font-size:16px;font-weight:500;margin-bottom:6px;color:var(--black)}
+    .card-desc{font-size:12px;color:var(--gray);line-height:1.7}
+    .card-arrow{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-top:12px}
+
+    /* Tags */
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .tag{font-size:10px;letter-spacing:.08em;background:var(--light);color:#555;padding:5px 12px;border-radius:20px}
+
+    /* Note */
+    .note{background:var(--cream);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:20px 24px;font-size:12px;color:var(--gray);line-height:1.8;margin:24px 0}
+    .note strong{color:var(--black)}
+
+    /* Screen mockup */
+    .mockup{background:var(--black);border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.15);margin:32px 0}
+    .mockup-bar{background:#1f1f1f;padding:10px 16px;display:flex;align-items:center;gap:8px}
+    .mockup-dot{width:10px;height:10px;border-radius:50%}
+    .mockup-url{flex:1;background:#333;border-radius:4px;padding:5px 12px;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.05em}
+    .mockup-body{padding:0}
+    .mockup-body img{width:100%;display:block}
+    .mockup-body-text{padding:20px 24px;color:rgba(255,255,255,.6);font-size:12px;line-height:1.7}
+
+    /* Footer */
+    .site-footer{background:var(--black);padding:40px 0;text-align:center}
+    .site-footer p{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+    .site-footer a{color:var(--gold);text-decoration:none}
+    .site-footer .from{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:12px;font-weight:300;letter-spacing:.05em}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="logo">FIDE<span>LA</span></div>
+    <div class="header-note">Propuesta digital · 2026</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="hero-from">De: Fede · Para: Mirni y Kari</p>
+    <h1 class="hero-title">Hola 👋<br>Esto es lo que armé para Fidela</h1>
+    <p class="hero-sub">
+      Lo que estás viendo es una <strong>propuesta inicial</strong> — todavía en pañales, como dicen.
+      La idea es mostrarles cómo podría verse su tienda online optimizada para conversión,
+      con herramientas que les faciliten la vida y campañas que realmente vendan.
+    </p>
+    <p class="hero-sub" style="margin-top:12px">
+      No es la versión final. Es un punto de partida. <strong>Me interesa mucho su feedback</strong>
+      para alinearlo al branding real y a cómo sienten que es la identidad de Fidela.
+    </p>
+    <div class="chip">Versión alfa · Mayo 2026</div>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- TIENDA ONLINE -->
+  <section class="section">
+    <p class="section-num">01 — La tienda</p>
+    <h2 class="section-title">Su tienda online, reconstruida</h2>
+    <p class="section-body">
+      Este sitio es un <strong>"gemelo digital"</strong> de su tienda actual de TiendaNube.
+      Usa los mismos productos, precios e imágenes — pero con un diseño nuevo, pensado para que
+      la gente <strong>quiera quedarse y comprar</strong>.
+    </p>
+    <p class="section-body">
+      Pueden ver el home, navegar por categorías, ver productos individuales y hasta agregar al carrito.
+      <strong>Es funcional.</strong> Si encuentran algún error, es normal — es una primera versión.
+    </p>
+    <div class="note">
+      <strong>⚠️ Importante:</strong> El carrito no procesa pagos reales en este entorno.
+      La tienda actual de TiendaNube sigue siendo la tienda oficial.
+      Esto es solo para mostrar el concepto visual y de UX.
+    </div>
+    <a href="/" class="card">
+      <div class="card-label">Sitio propuesto</div>
+      <div class="card-title">🏠 Ver el Home de Fidela</div>
+      <div class="card-desc">El punto de entrada al sitio. Tiene el banner de Hot Sale, la grilla de productos, sección de aromas y más.</div>
+      <div class="card-arrow">Abrir el sitio →</div>
+    </a>
+    <a href="/productos" class="card">
+      <div class="card-label">Catálogo</div>
+      <div class="card-title">🛍️ Ver todos los productos</div>
+      <div class="card-desc">Todos los productos de Fidela con sus precios reales (30% OFF aplicado), botones de compra y filtros por categoría.</div>
+      <div class="card-arrow">Ver productos →</div>
+    </a>
+    <a href="/nuestros-aromas" class="card">
+      <div class="card-label">Aromas</div>
+      <div class="card-title">🕯️ Página de los 8 blends</div>
+      <div class="card-desc">Cada aroma con su historia, notas olfativas, fotos y productos relacionados. Pensada para contar la marca.</div>
+      <div class="card-arrow">Ver aromas →</div>
+    </a>
+    <div class="tags">
+      <span class="tag">30% OFF automático</span>
+      <span class="tag">Carrito funcional</span>
+      <span class="tag">Diseño responsive</span>
+      <span class="tag">Carga rápida</span>
+      <span class="tag">SEO optimizado</span>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="section">
+    <p class="section-num">02 — Visibilidad del negocio</p>
+    <h2 class="section-title">Dashboard de métricas</h2>
+    <p class="section-body">
+      Una de las cosas que más me gustaría darles es <strong>visibilidad de su propio negocio</strong>
+      desde un solo lugar. Hoy probablemente tienen los datos repartidos entre TiendaNube, Instagram,
+      WhatsApp y tal vez alguna planilla.
+    </p>
+    <p class="section-body">
+      Armé un <strong>modelo de dashboard</strong> que les mostraría: ventas online y física, campañas
+      activas, conversión, canales de adquisición, y el estado de cada pedido. Todo en una sola pantalla,
+      sin tener que entrar a 4 plataformas distintas.
+    </p>
+    <a href="/fidela_dashboard_v3.html" target="_blank" class="card">
+      <div class="card-label">Herramienta de gestión</div>
+      <div class="card-title">📊 Dashboard de métricas FIDELA</div>
+      <div class="card-desc">
+        Vista unificada de: ventas online y presencial, campañas activas, conversión por canal,
+        top productos, y seguimiento de pedidos. Es un modelo — los datos son de ejemplo.
+      </div>
+      <div class="card-arrow">Ver el dashboard →</div>
+    </a>
+    <div class="note">
+      Los datos que ven son de ejemplo. En la versión real estarían conectados a TiendaNube,
+      Meta Ads y opcionalmente a su sistema de caja física.
+    </div>
+  </section>
+
+  <!-- CAMPAIGN CREATOR -->
+  <section class="section">
+    <p class="section-num">03 — Campañas sin intermediarios</p>
+    <h2 class="section-title">Administrador de campañas</h2>
+    <p class="section-body">
+      Meta Ads (Facebook e Instagram) es poderoso pero complejo. Muchas marcas pequeñas pierden
+      plata por no saber configurar bien sus campañas, o pierden tiempo yendo y viniendo entre
+      plataformas.
+    </p>
+    <p class="section-body">
+      Esta herramienta les permitiría <strong>crear, pausar y monitorear campañas de Facebook/Instagram
+      directamente desde su propia web</strong>, sin necesidad de entrar al Administrador de Meta.
+      También verían el rendimiento de cada campaña (impresiones, clics, conversiones) en tiempo real.
+    </p>
+    <a href="/fidela_campaign_creator_v2.html" target="_blank" class="card">
+      <div class="card-label">Herramienta de marketing</div>
+      <div class="card-title">📣 Creador de campañas FIDELA</div>
+      <div class="card-desc">
+        Interfaz simplificada para gestionar campañas de Meta Ads: crear anuncios, definir presupuesto,
+        audiencia, y ver resultados. Todo sin tocar el Administrador de Meta.
+      </div>
+      <div class="card-arrow">Ver la herramienta →</div>
+    </a>
+  </section>
+
+  <!-- LANDINGS -->
+  <section class="section">
+    <p class="section-num">04 — Estrategia de campañas</p>
+    <h2 class="section-title">Landing pages para Hot Sale</h2>
+    <p class="section-body">
+      Para las campañas de IG y Facebook que quiero proponerles, armé <strong>dos versiones de landing page</strong>.
+      La idea es testear qué estrategia funciona mejor antes de invertir más en publicidad.
+    </p>
+    <p class="section-body">
+      Cada landing está pensada para un objetivo específico. Una prioriza impacto visual y construcción
+      de marca. La otra prioriza conversión inmediata con CTAs fuertes y señales de confianza.
+    </p>
+    <a href="/landing-hotsale-brand.html" target="_blank" class="card">
+      <div class="card-label">Landing · Estrategia A — Branding</div>
+      <div class="card-title">✨ Landing de impacto visual</div>
+      <div class="card-desc">
+        Video de fondo del reel de campaña, texto elegante, historia de la marca, galería de productos.
+        <strong>Objetivo:</strong> generar deseo, construir valor percibido, y convertir a quienes
+        ya conocen la marca o buscan algo premium.
+      </div>
+      <div class="card-arrow">Ver landing de branding →</div>
+    </a>
+    <a href="/landing-hotsale-conversion.html" target="_blank" class="card">
+      <div class="card-label">Landing · Estrategia B — Conversión</div>
+      <div class="card-title">⚡ Landing de conversión directa</div>
+      <div class="card-desc">
+        Imagen de banner impactante, 30% OFF bien visible, botones de compra grandes,
+        señales de confianza (envío, pagos seguros), CTA de WhatsApp para quienes prefieren
+        el trato personal. <strong>Objetivo:</strong> llevar a compra lo más rápido posible.
+      </div>
+      <div class="card-arrow">Ver landing de conversión →</div>
+    </a>
+    <div class="note">
+      <strong>Mi recomendación:</strong> arrancar con un A/B test donde el 50% del tráfico
+      de campaña va a cada landing. Después de 7–10 días y unas 500 visitas mínimo, vemos
+      cuál convirtió mejor y apostamos ahí con el presupuesto completo.
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section class="section">
+    <p class="section-num">05 — Lo que necesito de ustedes</p>
+    <h2 class="section-title">Para alinearlo a Fidela de verdad</h2>
+    <p class="section-body">
+      Lo que ven es una interpretación mía de la marca, basada en lo que conozco del sitio actual
+      y los materiales disponibles. Para llevarlo a algo que sea <strong>100% Fidela</strong> necesito
+      que me compartan:
+    </p>
+    <ul style="font-size:13px;color:var(--gray);line-height:2;padding-left:20px;margin-bottom:24px">
+      <li><strong>Paleta de colores exacta</strong> — los codes hexadecimales si los tienen</li>
+      <li><strong>Tipografías</strong> — las fuentes que usan en sus materiales</li>
+      <li><strong>Fotos de alta calidad</strong> — las mejores que tengan de productos y ambientes</li>
+      <li><strong>Logo en vectores</strong> — formato SVG o AI si está disponible</li>
+      <li><strong>Tono de voz</strong> — cómo le hablan a sus clientes (cercano, elegante, ambos)</li>
+      <li><strong>Lo que NO les gusta</strong> de este sitio — feedback honesto, sin filtros</li>
+      <li><strong>Lo que SÍ les gusta</strong> — para saber qué mantener y profundizar</li>
+    </ul>
+    <div class="note">
+      No necesito que sea perfecto ni formal. Un mensaje de WhatsApp con "esto me gusta, esto no" ya me ayuda un montón. 🙏
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="from">Hecho con cariño por Fede — para Mirni, Kari y FIDELA 🕯️</p>
+    <p>Esta página es privada · No indexada · Solo para ustedes</p>
+    <p style="margin-top:8px"><a href="/">Ver el sitio completo</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

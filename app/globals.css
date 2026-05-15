@@ -291,6 +291,16 @@ h1, h2, h3, h4, h5, h6 {
 .hero-sub     { animation: heroTextIn 700ms var(--ease-out) 450ms both; }
 .hero-ctas    { animation: heroTextIn 600ms var(--ease-out) 600ms both; }
 
+/* ── VARIANT PICKER MODAL ────────────────────────────────────────────────── */
+.animate-slide-up {
+  animation: slideUp 300ms cubic-bezier(0.0, 0.0, 0.2, 1) both;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
 /* ── REDUCED MOTION ──────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

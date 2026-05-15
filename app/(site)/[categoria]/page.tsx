@@ -17,14 +17,38 @@ const CATEGORY_SLUGS = [
   'boxes-kits',
 ]
 
-// Hero images por categoría
-const CATEGORY_HERO: Record<string, { image: string; label: string }> = {
-  'velas-de-soja':    { image: '/cat-velas.jpg',    label: 'Velas de Soja' },
-  'jabones-naturales':{ image: '/cat-jabones.jpg',  label: 'Jabones Naturales' },
-  'aromatizantes':    { image: '/cat-difusores.jpg', label: 'Aromatizantes' },
-  'bienestar':        { image: '/cat-boxes.jpg',     label: 'Bienestar' },
-  'cuidado-corporal': { image: '/nosotros-bg.jpg',   label: 'Cuidado Corporal' },
-  'boxes-kits':       { image: '/cat-boxes.jpg',     label: 'Boxes & Kits' },
+// Hero images por categoría — TN CDN
+const CATEGORY_HERO: Record<string, { image: string; label: string; description: string }> = {
+  'velas-de-soja': {
+    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8842-scaled-e1681317841299-1536x1536-62758a2ee6f417ab8417207386037479-480-0.webp',
+    label: 'Velas de Soja',
+    description: 'Cera 100% natural, mechas de algodón. Hasta 50 horas de quema limpia.',
+  },
+  'jabones-naturales': {
+    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8453-scaled-e1685916235552-1534x1536-0788f88e8f8219233017219543914857-480-0.webp',
+    label: 'Jabones Naturales',
+    description: 'Jabones artesanales con aceites esenciales y botanicals naturales.',
+  },
+  'aromatizantes': {
+    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp',
+    label: 'Aromatizantes',
+    description: 'Difusores y sprays para mantener tu hogar perfumado todo el día.',
+  },
+  'bienestar': {
+    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6420-scaled-e1696461568818-1536x1536-77992b0b0802559e1b17219546572465-480-0.webp',
+    label: 'Bienestar',
+    description: 'Rituales de autocuidado para el cuerpo y la mente.',
+  },
+  'cuidado-corporal': {
+    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6325-scaled-e1681511963528-1536x1536-63c86a7359b0c0a91a17219540086209-480-0.webp',
+    label: 'Cuidado Corporal',
+    description: 'Formulaciones naturales para una rutina de cuidado personal completa.',
+  },
+  'boxes-kits': {
+    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp',
+    label: 'Boxes & Kits',
+    description: 'Sets regalo cuidadosamente curados. Perfectos para regalar o darse un capricho.',
+  },
 }
 
 export async function generateStaticParams() {
@@ -81,32 +105,33 @@ export default async function CategoriaPage({ params }: { params: { categoria: s
   return (
     <div>
       {/* Hero de categoría */}
-      <div className="relative h-52 md:h-72 overflow-hidden">
+      <div className="relative h-[45vh] md:h-[55vh] min-h-[280px] overflow-hidden flex items-center">
         {hero && (
           <Image
             src={hero.image}
-            alt={category.name?.es ?? ''}
+            alt={hero.label}
             fill
-            className="object-cover object-center"
+            className="object-cover object-center scale-[1.02]"
             priority
             sizes="100vw"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
-        <div className="absolute inset-0 flex items-end container-site pb-8 md:pb-12">
-          <div>
-            <nav className="flex items-center gap-1.5 text-xs text-white/60 tracking-wide mb-2">
-              <Link href="/" className="hover:text-white transition-colors">Inicio</Link>
-              <span>/</span>
-              <Link href="/productos" className="hover:text-white transition-colors">Productos</Link>
-              <span>/</span>
-              <span className="text-white">{category.name?.es}</span>
-            </nav>
-            <h1 className="font-serif text-3xl md:text-5xl font-light text-white">
-              {category.name?.es}
-            </h1>
-            <p className="text-white/60 text-sm mt-1">{products.length} productos</p>
-          </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
+        <div className="relative container-site text-white">
+          <nav className="flex items-center gap-1.5 text-[9px] text-white/40 tracking-widest uppercase mb-5">
+            <Link href="/" className="hover:text-white transition-colors">Inicio</Link>
+            <span>/</span>
+            <Link href="/productos" className="hover:text-white transition-colors">Productos</Link>
+            <span>/</span>
+            <span className="text-white/70">{category.name?.es}</span>
+          </nav>
+          <h1 className="font-serif text-4xl md:text-6xl font-light leading-none mb-3">
+            {category.name?.es}
+          </h1>
+          {hero?.description && (
+            <p className="text-sm text-white/60 max-w-md leading-relaxed mt-2">{hero.description}</p>
+          )}
+          <p className="text-[10px] tracking-widest uppercase text-[var(--gold)] mt-4">{products.length} productos · 30% OFF</p>
         </div>
       </div>
 

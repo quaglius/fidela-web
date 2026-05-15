@@ -82,23 +82,23 @@ export default function NuestrosAromasPage() {
   return (
     <div>
       {/* ── BANNER ──────────────────────────────────────────────────────────── */}
-      <section className="relative h-[55vh] md:h-[65vh] min-h-[380px] overflow-hidden flex items-end">
+      <section className="relative h-[60vh] md:h-[70vh] min-h-[420px] overflow-hidden flex items-center">
         <Image
-          src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8453-scaled-e1685916235552-1534x1536-0788f88e8f8219233017219543914857-480-0.webp"
+          src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp"
           alt="Nuestros Aromas FIDELA"
           fill
-          className="object-cover object-center"
+          className="object-cover object-center scale-[1.02]"
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
-        <div className="relative container-site pb-12 md:pb-16 text-white">
-          <p className="text-[10px] tracking-[0.45em] uppercase text-[var(--gold)] mb-3">8 blends de autor</p>
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light leading-tight mb-3">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20" />
+        <div className="relative container-site text-white">
+          <p className="text-[10px] tracking-[0.45em] uppercase text-[var(--gold)] mb-4">8 blends de autor</p>
+          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light leading-tight mb-4 max-w-2xl">
             Nuestros Aromas
           </h1>
-          <p className="text-sm text-white/60 max-w-md tracking-wide">
-            Cada blend nació de una historia. Una memoria, un viaje, una sensación que queríamos preservar.
+          <p className="text-sm text-white/65 max-w-md tracking-wide leading-relaxed">
+            Cada blend nació de una historia. Una memoria, un viaje, una sensación que queríamos preservar para siempre.
           </p>
         </div>
       </section>

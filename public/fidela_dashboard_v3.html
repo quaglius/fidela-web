@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fidela — Growth Dashboard</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #F5F0EB; color: #2D2D2D; font-size: 13px; }
+.shell { display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar { width: 196px; background: #2D2D2D; display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.logo { padding: 18px 16px 14px; border-bottom: 1px solid #3a3a3a; }
+.logo-title { font-size: 20px; font-weight: 800; color: #C8975A; letter-spacing: 2px; }
+.logo-sub { font-size: 9px; color: #777; margin-top: 2px; letter-spacing: 0.5px; text-transform: uppercase; }
+.nav-section { padding: 14px 0 4px; }
+.nav-label { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 1px; padding: 0 16px 6px; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 8px 16px; color: #999; font-size: 12px; border-left: 3px solid transparent; cursor: pointer; }
+.nav-item.active { color: #C8975A; background: #363636; border-left-color: #C8975A; }
+.nav-item:hover { color: #ddd; background: #333; }
+.nav-icon { font-size: 14px; width: 16px; text-align: center; flex-shrink: 0; }
+
+/* MAIN */
+.main { flex: 1; padding: 22px 24px; overflow-x: hidden; }
+
+/* TOPBAR */
+.topbar { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; gap: 12px; }
+.topbar-left h1 { font-size: 21px; font-weight: 700; }
+.topbar-left p { font-size: 11px; color: #888; margin-top: 3px; }
+.period-group { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; }
+.period-btn { padding: 5px 11px; border-radius: 20px; border: 1px solid #ddd; background: #fff; font-size: 11px; color: #777; cursor: pointer; white-space: nowrap; transition: all .15s; }
+.period-btn:hover { background: #f0ebe4; }
+.period-btn.active { background: #2D2D2D; color: #fff; border-color: #2D2D2D; }
+.period-custom { padding: 5px 11px; border-radius: 20px; border: 1px dashed #C8975A; background: #fff; font-size: 11px; color: #C8975A; cursor: pointer; }
+
+/* INSIGHT */
+.insight-banner { background: linear-gradient(135deg, #2D2D2D 0%, #3a2e1e 100%); border-radius: 12px; padding: 15px 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 16px; }
+.insight-icon { font-size: 26px; flex-shrink: 0; }
+.insight-label { font-size: 9px; color: #C8975A; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 4px; }
+.insight-msg { font-size: 13px; color: #eee; line-height: 1.45; }
+.insight-msg strong { color: #C8975A; }
+.insight-cta { background: #C8975A; color: #fff; border: none; padding: 8px 14px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+
+/* KPIs */
+.kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 18px; }
+.kpi { background: #fff; border-radius: 10px; padding: 13px 14px; border: 1px solid #ede8e2; }
+.kpi-label { font-size: 9px; color: #aaa; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 600; }
+.kpi-value { font-size: 22px; font-weight: 700; margin: 4px 0 2px; }
+.kpi-delta { font-size: 10px; }
+.up { color: #2E7D5B; } .down { color: #C0392B; } .flat { color: #888; }
+.kpi-source { font-size: 9px; color: #ccc; margin-top: 3px; }
+
+/* CARD */
+.card { background: #fff; border-radius: 10px; padding: 16px; border: 1px solid #ede8e2; }
+
+/* CARD HEADER with filter */
+.card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.card-header-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.card-title-text { font-size: 12px; font-weight: 700; }
+.src-badge { font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
+.badge-multi { background: #FFF3E0; color: #BF5700; }
+.badge-meta { background: #E7F0FF; color: #1877F2; }
+.badge-ig { background: #FEE2F8; color: #C13584; }
+.badge-tn { background: #F0F0FF; color: #5B4FBF; }
+
+/* WIDGET FILTER SELECT */
+.widget-filter { font-size: 11px; border: 1px solid #e0d8d0; border-radius: 20px; padding: 3px 10px 3px 8px; color: #555; background: #faf7f4; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23aaa'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 7px center; padding-right: 22px; }
+.widget-filter:focus { outline: none; border-color: #C8975A; }
+
+/* VER MÁS link */
+.ver-mas { font-size: 10px; color: #C8975A; font-weight: 600; cursor: pointer; white-space: nowrap; text-decoration: none; border: none; background: none; padding: 0; }
+.ver-mas:hover { text-decoration: underline; }
+
+/* GRIDS */
+.row { display: grid; gap: 14px; margin-bottom: 14px; }
+.row-3-2 { grid-template-columns: 1.4fr 1fr; }
+.row-2 { grid-template-columns: 1fr 1fr; }
+
+/* WHAT SOLD TABLE */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th { font-size: 9px; color: #bbb; text-align: left; padding: 3px 8px 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #f0ebe4; }
+.data-table td { padding: 7px 8px; border-bottom: 1px solid #faf7f4; font-size: 11px; vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.src-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+.mini-bar-wrap { background: #f5f0eb; border-radius: 3px; height: 5px; width: 56px; overflow: hidden; display: inline-block; vertical-align: middle; }
+.mini-bar { height: 100%; border-radius: 3px; }
+.tag { font-size: 9px; padding: 2px 6px; border-radius: 6px; font-weight: 600; white-space: nowrap; }
+.tag-a { background: #E3F2FD; color: #1565C0; }
+.tag-b { background: #F3E5F5; color: #6A1B9A; }
+.tag-org { background: #F1F8E9; color: #558B2F; }
+.tag-local { background: #FFF8E1; color: #BF6000; }
+.tag-mail { background: #E8F5E9; color: #1B5E20; }
+.roas-chip { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 6px; }
+.roas-good { background: #E8F5E9; color: #2E7D5B; }
+.roas-mid { background: #FFF8E1; color: #BF5700; }
+.roas-bad { background: #FFEBEE; color: #C0392B; }
+.roas-free { font-size: 10px; font-weight: 600; color: #2E7D5B; }
+
+/* CHANNEL BARS */
+.channel-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+.channel-name { font-size: 11px; color: #555; width: 105px; flex-shrink: 0; white-space: nowrap; }
+.channel-bar-wrap { flex: 1; background: #f5f0eb; border-radius: 4px; height: 16px; overflow: hidden; }
+.channel-bar { height: 100%; border-radius: 4px; transition: width .4s; }
+.channel-pct { font-size: 10px; color: #aaa; width: 30px; text-align: right; }
+.channel-amt { font-size: 10px; font-weight: 600; color: #555; width: 52px; text-align: right; }
+
+/* FUNNEL TRIANGULAR */
+.funnel-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 6px 0; }
+.funnel-step { position: relative; transition: width .4s ease; }
+.funnel-shape { display: flex; align-items: center; justify-content: space-between; padding: 0 14%; height: 42px; }
+.funnel-step-label { font-size: 10px; font-weight: 600; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
+.funnel-step-val { font-size: 12px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
+.funnel-connector { display: flex; align-items: center; gap: 6px; padding: 1px 0; width: 70%; }
+.funnel-line { flex: 1; height: 1px; background: #e0d8d0; }
+.funnel-pct-label { font-size: 9px; color: #aaa; white-space: nowrap; }
+.funnel-tip { margin-top: 10px; padding: 9px 12px; background: #FFF8E1; border-radius: 8px; font-size: 11px; color: #7a5000; border-left: 3px solid #C8975A; line-height: 1.4; }
+
+/* IG GRID */
+.ig-section-label { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 7px; margin-top: 12px; }
+.ig-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.ig-post { border-radius: 8px; overflow: hidden; border: 1px solid #ede8e2; background: #fff; }
+.ig-post.converted { border: 2px solid #C8975A; }
+.ig-conv-badge { font-size: 8px; background: #C8975A; color: #fff; text-align: center; padding: 2px 4px; font-weight: 700; }
+.ig-thumb { height: 60px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.ig-stats { padding: 5px 7px; }
+.ig-reach { font-size: 9px; color: #aaa; }
+.ig-eng { font-size: 11px; font-weight: 700; }
+.ig-attr { font-size: 9px; color: #C8975A; font-weight: 600; }
+.ig-noattr { font-size: 9px; color: #bbb; }
+
+/* CAMPAIGNS TABLE */
+.camp-status { font-size: 10px; font-weight: 600; }
+.s-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+
+/* NOTICE */
+.notice { padding: 9px 12px; border-radius: 8px; font-size: 11px; line-height: 1.4; }
+.notice-green { background: #E8F5E9; color: #1B5E20; border-left: 3px solid #2E7D5B; }
+.notice-orange { background: #FFF3E0; color: #7a4000; border-left: 3px solid #C8975A; }
+.notice-blue { background: #E3F2FD; color: #0D47A1; border-left: 3px solid #1877F2; }
+.notice-purple { background: #F3E5F5; color: #4A148C; border-left: 3px solid #7B1FA2; }
+
+/* SECTION DIVIDER */
+.sdiv { height: 1px; background: #ede8e2; margin: 10px 0; }
+
+/* GLOSSARY */
+.glossary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.gterm { background: #fafaf8; border-radius: 10px; padding: 14px; border: 1px solid #ede8e2; }
+.gterm-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.gterm-emoji { font-size: 20px; }
+.gterm-name { font-size: 13px; font-weight: 700; }
+.gterm-full { font-size: 9px; color: #aaa; font-style: italic; }
+.gterm-desc { font-size: 11px; color: #444; line-height: 1.5; margin-bottom: 8px; }
+.gterm-tip { font-size: 10px; padding: 5px 8px; border-radius: 6px; line-height: 1.4; }
+
+/* TIMELINE */
+.tl-hitos { position: relative; height: 40px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0ebe4; }
+.tl-hito { position: absolute; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.tl-badge { border-radius: 20px; padding: 3px 8px; font-size: 9px; font-weight: 700; white-space: nowrap; color: #fff; cursor: default; max-width: 120px; overflow: hidden; text-overflow: ellipsis; transition: all .2s; }
+
+/* LEGEND ROW */
+.legend-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0ebe4; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #666; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+<div class="sidebar">
+  <div class="logo">
+    <div class="logo-title">FIDELA</div>
+    <div class="logo-sub">Growth Dashboard</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Visión general</div>
+    <div class="nav-item active"><span class="nav-icon">📊</span> Resumen</div>
+    <div class="nav-item"><span class="nav-icon">🔀</span> Funnel</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Canales</div>
+    <div class="nav-item"><span class="nav-icon">📣</span> Campañas Meta</div>
+    <div class="nav-item"><span class="nav-icon">📸</span> Instagram</div>
+    <div class="nav-item"><span class="nav-icon">🔍</span> Google / SEO</div>
+    <div class="nav-item"><span class="nav-icon">📧</span> Email / Mailing</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Ventas</div>
+    <div class="nav-item"><span class="nav-icon">🛒</span> Tiendanube</div>
+    <div class="nav-item"><span class="nav-icon">💬</span> WhatsApp</div>
+    <div class="nav-item"><span class="nav-icon">🏪</span> Local físico</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Optimización</div>
+    <div class="nav-item"><span class="nav-icon">🧪</span> A/B Testing</div>
+    <div class="nav-item"><span class="nav-icon">🎯</span> Landings</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sistema</div>
+    <div class="nav-item"><span class="nav-icon">📋</span> Reportes</div>
+    <div class="nav-item"><span class="nav-icon">⚙️</span> Ajustes</div>
+  </div>
+</div>
+
+<!-- ── MAIN ───────────────────────────────────────────────── -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Resumen del período</h1>
+      <p>Todos los canales · Meta Ads · Instagram · Google · Mailing · Local · WhatsApp</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+      <div class="period-group">
+        <button class="period-btn">Hoy</button>
+        <button class="period-btn">Esta semana</button>
+        <button class="period-btn active">Este mes</button>
+        <button class="period-btn">3 meses</button>
+        <button class="period-btn">6 meses</button>
+        <button class="period-btn">1 año</button>
+        <button class="period-custom">📅 Personalizado</button>
+      </div>
+      <div style="font-size:10px;color:#aaa">Mayo 2025 · comparando con Abril 2025</div>
+    </div>
+  </div>
+
+  <!-- INSIGHT BANNER -->
+  <div class="insight-banner">
+    <div class="insight-icon">💡</div>
+    <div style="flex:1">
+      <div class="insight-label">Insight del mes</div>
+      <div class="insight-msg">La campaña <strong>Kit Hot Sale · Landing A</strong> tuvo ROAS 4.2x y generó el 38% de las ventas online. El <strong>local físico</strong> aportó $312k — el mejor mes del año. Un post de IG del día 8 generó <strong>más visitas que cualquier campaña paga ese día</strong>.</div>
+    </div>
+    <button class="insight-cta">Ver detalle →</button>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Ventas totales</div>
+      <div class="kpi-value">$1.41M</div>
+      <div class="kpi-delta up">↑ 31% vs mes anterior</div>
+      <div class="kpi-source">Todos los canales</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Gasto en pauta</div>
+      <div class="kpi-value">$187k</div>
+      <div class="kpi-delta up">ROAS 3.6x promedio</div>
+      <div class="kpi-source">Meta Ads</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Visitas a landings</div>
+      <div class="kpi-value">11.240</div>
+      <div class="kpi-delta up">↑ 55% vs mes anterior</div>
+      <div class="kpi-source">GA4 + Meta Pixel</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Conversión online</div>
+      <div class="kpi-value">5.8%</div>
+      <div class="kpi-delta up">↑ 0.6pp vs mes anterior</div>
+      <div class="kpi-source">Tiendanube + WA</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Ticket promedio</div>
+      <div class="kpi-value">$42.800</div>
+      <div class="kpi-delta down">↓ 4% vs mes anterior</div>
+      <div class="kpi-source">Todos los canales</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Qué generó ventas + Mix -->
+  <div class="row row-3-2" style="margin-bottom:14px">
+
+    <!-- QUÉ GENERÓ MÁS VENTAS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <span class="card-title-text">¿Qué generó más ventas?</span>
+          <span class="src-badge badge-multi">Todos los canales</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <select class="widget-filter" onchange="filterVentas(this.value)">
+            <option value="all">Todos los canales</option>
+            <option value="meta">Solo Meta Ads</option>
+            <option value="organico">Solo orgánico</option>
+            <option value="local">Solo local + WA</option>
+          </select>
+          <button class="ver-mas">Ver todo →</button>
+        </div>
+      </div>
+      <table class="data-table" id="ventas-table">
+        <thead><tr><th>Origen</th><th>Tipo</th><th>Ventas</th><th>Conversión</th><th>Eficiencia</th></tr></thead>
+        <tbody>
+          <tr data-canal="local"><td><span class="src-dot" style="background:#F0A500"></span><strong>Local físico</strong></td><td><span class="tag tag-local">Presencial</span></td><td><strong>$312k</strong></td><td style="color:#aaa">—</td><td><span class="roas-free">Sin pauta</span></td></tr>
+          <tr data-canal="meta"><td><span class="src-dot" style="background:#1877F2"></span>Kit Hot Sale</td><td><span class="tag tag-a">Landing A</span></td><td><strong>$287k</strong></td><td><span class="mini-bar-wrap"><span class="mini-bar" style="background:#2E7D5B;width:75%"></span></span> <span class="up" style="font-weight:700">7.5%</span></td><td><span class="roas-chip roas-good">4.2x</span></td></tr>
+          <tr data-canal="local"><td><span class="src-dot" style="background:#25D366"></span>WhatsApp</td><td><span class="tag tag-local">Manual TN</span></td><td><strong>$198k</strong></td><td style="color:#aaa">—</td><td><span class="roas-free">Sin pauta</span></td></tr>
+          <tr data-canal="organico"><td><span class="src-dot" style="background:#C13584"></span>IG Orgánico</td><td><span class="tag tag-org">Post 8/5</span></td><td><strong>$156k</strong></td><td><span class="mini-bar-wrap"><span class="mini-bar" style="background:#2E7D5B;width:60%"></span></span> <span class="up" style="font-weight:700">5.9%</span></td><td><span class="roas-free">Sin costo</span></td></tr>
+          <tr data-canal="organico"><td><span class="src-dot" style="background:#1B8A3C"></span>Email Mayo</td><td><span class="tag tag-mail">Mailing</span></td><td><strong>$98k</strong></td><td><span class="mini-bar-wrap"><span class="mini-bar" style="background:#2E7D5B;width:50%"></span></span> <span class="up" style="font-weight:700">5.1%</span></td><td><span class="roas-chip roas-good">8.4x</span></td></tr>
+          <tr data-canal="organico"><td><span class="src-dot" style="background:#4285F4"></span>Google / SEO</td><td><span class="tag tag-org">Orgánico</span></td><td><strong>$84k</strong></td><td><span class="mini-bar-wrap"><span class="mini-bar" style="background:#888;width:30%"></span></span> <span style="color:#888;font-weight:700">3.2%</span></td><td><span class="roas-free">Sin costo</span></td></tr>
+          <tr data-canal="meta"><td><span class="src-dot" style="background:#1877F2"></span>Difusor 30% OFF</td><td><span class="tag tag-b">Landing B</span></td><td><strong>$71k</strong></td><td><span class="mini-bar-wrap"><span class="mini-bar" style="background:#E65100;width:38%"></span></span> <span style="color:#BF5700;font-weight:700">4.1%</span></td><td><span class="roas-chip roas-mid">2.1x</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MIX -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title-text">Origen de ingresos</span>
+        <button class="ver-mas">Detalle →</button>
+      </div>
+      <div class="channel-row"><div class="channel-name">🏪 Local físico</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#F0A500;width:22%"></div></div><div class="channel-pct">22%</div><div class="channel-amt">$312k</div></div>
+      <div class="channel-row"><div class="channel-name">📣 Pauta Meta</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#1877F2;width:25%"></div></div><div class="channel-pct">25%</div><div class="channel-amt">$358k</div></div>
+      <div class="channel-row"><div class="channel-name">💬 WhatsApp</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#25D366;width:14%"></div></div><div class="channel-pct">14%</div><div class="channel-amt">$198k</div></div>
+      <div class="channel-row"><div class="channel-name">📸 IG Orgánico</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#C13584;width:11%"></div></div><div class="channel-pct">11%</div><div class="channel-amt">$156k</div></div>
+      <div class="channel-row"><div class="channel-name">📧 Email</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#1B8A3C;width:7%"></div></div><div class="channel-pct">7%</div><div class="channel-amt">$98k</div></div>
+      <div class="channel-row"><div class="channel-name">🔍 Google / SEO</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#4285F4;width:6%"></div></div><div class="channel-pct">6%</div><div class="channel-amt">$84k</div></div>
+      <div class="channel-row"><div class="channel-name">🔗 Directo / Otros</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#bbb;width:5%"></div></div><div class="channel-pct">5%</div><div class="channel-amt">$71k</div></div>
+      <div class="sdiv"></div>
+      <div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Cierre de venta online</div>
+      <div class="channel-row"><div class="channel-name">🛒 Tiendanube</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#5B4FBF;width:58%"></div></div><div class="channel-pct">58%</div><div class="channel-amt">$524k</div></div>
+      <div class="channel-row"><div class="channel-name">💬 WhatsApp PDV</div><div class="channel-bar-wrap"><div class="channel-bar" style="background:#25D366;width:42%"></div></div><div class="channel-pct">42%</div><div class="channel-amt">$380k</div></div>
+      <div class="notice notice-blue" style="margin-top:10px">ℹ️ <strong>WA + Local</strong> = 36% del total. Se registran vía Tiendanube PDV y pedidos manuales.</div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Funnel + IG -->
+  <div class="row row-2" style="margin-bottom:14px">
+
+    <!-- FUNNEL TRIANGULAR FILTRABLE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <span class="card-title-text">Funnel de conversión</span>
+          <span class="src-badge badge-multi">Canales digitales</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <select class="widget-filter" id="funnel-filter" onchange="updateFunnel(this.value)">
+            <option value="all">Todos los canales</option>
+            <option value="meta">Meta Ads</option>
+            <option value="ig">Instagram orgánico</option>
+            <option value="email">Email / Mailing</option>
+            <option value="google">Google / SEO</option>
+          </select>
+          <button class="ver-mas">Detalle →</button>
+        </div>
+      </div>
+
+      <div class="funnel-wrap" id="funnel-wrap">
+        <!-- rendered by JS -->
+      </div>
+
+      <div class="funnel-tip" id="funnel-tip"></div>
+    </div>
+
+    <!-- IG POSTS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <span class="card-title-text">Instagram · posts del mes</span>
+          <span class="src-badge badge-ig">Graph API</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <select class="widget-filter" onchange="filterIG(this.value)">
+            <option value="all">Todos</option>
+            <option value="converted">Con ventas atribuidas</option>
+            <option value="high">Alto engagement</option>
+          </select>
+          <button class="ver-mas">Ver todos →</button>
+        </div>
+      </div>
+
+      <div class="ig-section-label">↗ Con ventas atribuidas vía UTM</div>
+      <div class="ig-grid" id="ig-grid-conv">
+        <div class="ig-post converted"><div class="ig-conv-badge">↗ $156k</div><div class="ig-thumb" style="background:#FEE2F8">🕯️</div><div class="ig-stats"><div class="ig-reach">Alcance 12.4k</div><div class="ig-eng">5.8% eng.</div><div class="ig-attr">340 visitas → landing</div></div></div>
+        <div class="ig-post converted"><div class="ig-conv-badge">↗ $71k</div><div class="ig-thumb" style="background:#FFF3E0">🎁</div><div class="ig-stats"><div class="ig-reach">Alcance 8.1k</div><div class="ig-eng">4.2% eng.</div><div class="ig-attr">210 visitas → landing</div></div></div>
+        <div class="ig-post converted"><div class="ig-conv-badge">↗ $38k</div><div class="ig-thumb" style="background:#F0F0FF">🌸</div><div class="ig-stats"><div class="ig-reach">Alcance 6.2k</div><div class="ig-eng">3.9% eng.</div><div class="ig-attr">120 visitas → landing</div></div></div>
+        <div class="ig-post converted"><div class="ig-conv-badge">↗ $22k</div><div class="ig-thumb" style="background:#E8F5E9">🌿</div><div class="ig-stats"><div class="ig-reach">Alcance 4.8k</div><div class="ig-eng">3.1% eng.</div><div class="ig-attr">88 visitas → landing</div></div></div>
+      </div>
+
+      <div class="ig-section-label" style="margin-top:12px">Alto engagement · sin atribución directa</div>
+      <div class="ig-grid" id="ig-grid-high">
+        <div class="ig-post"><div class="ig-thumb" style="background:#F5F0EB">☕</div><div class="ig-stats"><div class="ig-reach">Alcance 9.1k</div><div class="ig-eng">6.2% eng.</div><div class="ig-noattr">Sin UTM en bio ese día</div></div></div>
+        <div class="ig-post"><div class="ig-thumb" style="background:#FEF3F8">🧴</div><div class="ig-stats"><div class="ig-reach">Alcance 7.3k</div><div class="ig-eng">4.8% eng.</div><div class="ig-noattr">Sin UTM en bio ese día</div></div></div>
+        <div class="ig-post"><div class="ig-thumb" style="background:#F0FFF4">🌱</div><div class="ig-stats"><div class="ig-reach">Alcance 5.5k</div><div class="ig-eng">4.1% eng.</div><div class="ig-noattr">Sin UTM en bio ese día</div></div></div>
+        <div class="ig-post" style="border:1px dashed #ddd;background:#fafafa;display:flex;align-items:center;justify-content:center"><div style="text-align:center;padding:10px"><div style="font-size:16px;margin-bottom:3px">📎</div><div style="font-size:9px;color:#aaa;line-height:1.3">Actualizar link en bio con UTM para trackear</div></div></div>
+      </div>
+
+      <div class="notice notice-purple" style="margin-top:10px">
+        💡 Los posts sin UTM no se pueden atribuir a ventas. El sistema recuerda qué UTM estaba activo cada día y lo cruza automáticamente cuando se detecta una visita vía link en bio.
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE CHART -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-header">
+      <div class="card-header-left">
+        <span class="card-title-text">Línea de tiempo · ventas, visitas, posteos e hitos</span>
+        <span class="src-badge badge-multi">Todos los canales</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <select class="widget-filter" id="chart-filter" onchange="updateChart(this.value)">
+          <option value="all">Todas las métricas</option>
+          <option value="ventas">Solo ventas</option>
+          <option value="visitas">Solo visitas</option>
+          <option value="local">Ventas local</option>
+        </select>
+        <button class="ver-mas">Exportar →</button>
+      </div>
+    </div>
+    <div style="position:relative;width:100%;height:200px">
+      <canvas id="timelineChart"></canvas>
+    </div>
+    <div class="tl-hitos" id="hitos-row"></div>
+    <div class="legend-row">
+      <div class="legend-item"><span style="width:20px;height:3px;background:#1877F2;display:inline-block;border-radius:2px"></span>Ventas online</div>
+      <div class="legend-item"><span style="width:20px;height:3px;background:#F0A500;display:inline-block;border-radius:2px"></span>Ventas local</div>
+      <div class="legend-item"><span style="width:20px;height:2px;background:#C13584;display:inline-block;border-radius:2px"></span>Visitas landing</div>
+      <div class="legend-item"><span style="width:10px;height:10px;background:#2E7D5B;display:inline-block;border-radius:50%"></span>Post IG</div>
+      <div class="legend-item"><span style="width:10px;height:10px;background:#C8975A;display:inline-block;border-radius:50%"></span>Hito / campaña</div>
+    </div>
+  </div>
+
+  <!-- CAMPAIGNS -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-header">
+      <div class="card-header-left">
+        <span class="card-title-text">Campañas activas</span>
+        <span class="src-badge badge-meta">Marketing API</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <select class="widget-filter" onchange="filterCampañas(this.value)">
+          <option value="all">Todas</option>
+          <option value="active">Solo activas</option>
+          <option value="warning">Requieren atención</option>
+        </select>
+        <button class="ver-mas">Gestionar campañas →</button>
+      </div>
+    </div>
+    <table class="data-table" id="camp-table">
+      <thead><tr><th>Campaña</th><th>Landing</th><th>Gasto</th><th>Alcance</th><th>CTR</th><th>Ventas</th><th>ROAS</th><th>vs mes ant.</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr data-status="active"><td><span class="s-dot" style="background:#2E7D5B"></span><strong>Kit Hot Sale</strong></td><td><span class="tag tag-a">Landing A</span></td><td>$98k</td><td>68.400</td><td>4.8%</td><td>421</td><td><span class="roas-chip roas-good">4.2x</span></td><td class="up">↑ 18%</td><td><span class="camp-status" style="color:#2E7D5B">● Activa</span></td></tr>
+        <tr data-status="warning"><td><span class="s-dot" style="background:#F0A500"></span>Difusor 30% OFF</td><td><span class="tag tag-b">Landing B</span></td><td>$62k</td><td>49.800</td><td>2.9%</td><td>142</td><td><span class="roas-chip roas-mid">2.1x</span></td><td class="down">↓ 8%</td><td><span class="camp-status" style="color:#F0A500">⚠ Revisar</span></td></tr>
+        <tr data-status="active"><td><span class="s-dot" style="background:#1B8A3C"></span>Email · Base clientes</td><td><span class="tag tag-mail">Mailing</span></td><td>$8k</td><td>3.200 env.</td><td>18.4%</td><td>82</td><td><span class="roas-chip roas-good">8.4x</span></td><td class="up">↑ 42%</td><td><span class="camp-status" style="color:#1B8A3C">✓ Excelente</span></td></tr>
+        <tr data-status="paused"><td><span class="s-dot" style="background:#ccc"></span>Velas Luxury Black</td><td><span class="tag tag-a">Landing A</span></td><td>$27k</td><td>22.200</td><td>1.8%</td><td>31</td><td><span class="roas-chip roas-bad">0.9x</span></td><td class="down">↓ 22%</td><td><span class="camp-status" style="color:#C0392B">⏸ Pausada</span></td></tr>
+      </tbody>
+    </table>
+    <div class="notice notice-orange" style="margin-top:10px">💡 El email tiene ROAS 8.4x al menor costo. Cada 1.000 contactos nuevos generan aprox. <strong>$30k en ventas por envío</strong>.</div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title-text">Glosario — ¿Qué significa cada número?</span>
+      <span style="font-size:10px;color:#aaa">Para entender el dashboard sin ser especialista en marketing</span>
+    </div>
+    <div class="glossary-grid" id="glossary"></div>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+// ── DATA ─────────────────────────────────────────────────────
+const DATA = {
+  all:    { alcance:148400, visitas:11240, iniciaron:2271, ventas:650, ingresos:904000, abandono:71, tip:'71% abandona entre "inició compra" y "venta cerrada". Un recordatorio por WhatsApp a los 30 min podría recuperar aprox. <strong>$120k este mes</strong>.' },
+  meta:   { alcance:89000,  visitas:7800,  iniciaron:1560, ventas:421, ingresos:564000, abandono:73, tip:'La campaña Kit Hot Sale captura el 86% de las conversiones Meta. Considerá crear una landing específica para el Difusor.' },
+  ig:     { alcance:36200,  visitas:1840,  iniciaron:312,  ventas:128, ingresos:198000, abandono:59, tip:'IG orgánico tiene menor abandono (59%) que el promedio. La audiencia que llega desde posts tiene más intención de compra.' },
+  email:  { alcance:3200,   visitas:980,   iniciaron:210,  ventas:82,  ingresos:98000,  abandono:61, tip:'El email es el canal con menor costo y mejor tasa de cierre. Vale la pena segmentar por producto visto anteriormente.' },
+  google: { alcance:19900,  visitas:620,   iniciaron:199,  ventas:19,  ingresos:44000,  abandono:90, tip:'Google tiene 90% de abandono. Las landing pages de búsqueda necesitan optimización SEO o un copy más específico.' },
+};
+
+const FUNNEL_STEPS = [
+  { key:'alcance',   label:'👁 Alcance',       color:'#1877F2', pct:100 },
+  { key:'visitas',   label:'🎯 Visita landing', color:'#3A6FBF', pct:null },
+  { key:'iniciaron', label:'🛍 Inició compra',  color:'#C8975A', pct:null },
+  { key:'ventas',    label:'✅ Venta cerrada',   color:'#2E7D5B', pct:null },
+  { key:'ingresos',  label:'💰 Ingresos',        color:'#1B5E20', pct:null, format:'$' },
+];
+
+function fmt(n) {
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n >= 10000 ? '' : '') + n.toLocaleString('es-AR');
+  return n;
+}
+
+function updateFunnel(filter) {
+  const d = DATA[filter] || DATA.all;
+  const wrap = document.getElementById('funnel-wrap');
+  const tip  = document.getElementById('funnel-tip');
+  wrap.innerHTML = '';
+
+  const vals = [d.alcance, d.visitas, d.iniciaron, d.ventas, d.ingresos];
+  const maxW = 100;
+  const minW = 30;
+  const widths = [100, 78, 58, 40, 24];
+  const colors = ['#1877F2','#3A6FBF','#C8975A','#2E7D5B','#1B5E20'];
+  const labels = ['👁 Alcance','🎯 Visita landing','🛍 Inició compra','✅ Venta cerrada','💰 Ingresos'];
+
+  vals.forEach((val, i) => {
+    const pct = i === 0 ? null : ((vals[i] / vals[i-1]) * 100).toFixed(1);
+
+    if (i > 0) {
+      const conn = document.createElement('div');
+      conn.className = 'funnel-connector';
+      conn.style.width = '60%';
+      conn.innerHTML = `<div class="funnel-line"></div><span class="funnel-pct-label">↓ ${pct}%</span><div class="funnel-line"></div>`;
+      wrap.appendChild(conn);
+    }
+
+    const step = document.createElement('div');
+    step.className = 'funnel-step';
+    step.style.width = widths[i] + '%';
+
+    const display = i === 4 ? '$' + (val/1000).toFixed(0) + 'k' : val.toLocaleString('es-AR');
+    step.innerHTML = `
+      <div class="funnel-shape" style="background:${colors[i]};clip-path:polygon(${4+i*1.5}% 0%,${96-i*1.5}% 0%,${92-i*1.5}% 100%,${8+i*1.5}% 100%);width:100%">
+        <span class="funnel-step-label">${labels[i]}</span>
+        <span class="funnel-step-val">${display}</span>
+      </div>`;
+    wrap.appendChild(step);
+  });
+
+  tip.innerHTML = `⚡ ${d.tip}`;
+}
+
+// ── FILTER: VENTAS TABLE ─────────────────────────────────────
+function filterVentas(val) {
+  document.querySelectorAll('#ventas-table tbody tr').forEach(tr => {
+    const canal = tr.dataset.canal;
+    tr.style.display = (val === 'all' || canal === val) ? '' : 'none';
+  });
+}
+
+// ── FILTER: CAMPAÑAS ─────────────────────────────────────────
+function filterCampañas(val) {
+  document.querySelectorAll('#camp-table tbody tr').forEach(tr => {
+    const s = tr.dataset.status;
+    if (val === 'all') { tr.style.display = ''; return; }
+    if (val === 'active') tr.style.display = (s === 'active') ? '' : 'none';
+    if (val === 'warning') tr.style.display = (s === 'warning' || s === 'paused') ? '' : 'none';
+  });
+}
+
+// ── FILTER: IG ───────────────────────────────────────────────
+function filterIG(val) {
+  const conv = document.getElementById('ig-grid-conv');
+  const high = document.getElementById('ig-grid-high');
+  conv.style.display = (val === 'all' || val === 'converted') ? '' : 'none';
+  high.style.display = (val === 'all' || val === 'high') ? '' : 'none';
+}
+
+// ── CHART ────────────────────────────────────────────────────
+const ventasOnline = [98,142,120,88,176,54,62,210,188,95,72,81,90,68,145,180,160,88,72,64,90,102,88,76,64,58,72,68,55,48,42];
+const ventasLocal  = [28,32,41,38,29,68,72,35,38,40,34,32,38,42,65,70,38,40,35,30,28,62,68,38,34,28,26,60,65,32,28];
+const visitas      = [420,580,510,380,290,180,160,680,540,320,240,200,220,180,480,560,420,280,200,160,180,240,200,160,140,120,140,160,140,120,100];
+const igPostDays   = [2,7,13,20,24];
+const igBubbles    = igPostDays.map(d => ({x:d, y: ventasOnline[d] * 0.55}));
+
+const HITOS = [
+  {day:1,  icon:'🚀', color:'#C8975A', label:'Hot Sale lanzado',  detail:'Campaña Meta + email a base de clientes'},
+  {day:5,  icon:'📧', color:'#1B8A3C', label:'Email promo',        detail:'3.200 enviados · 18.4% apertura'},
+  {day:8,  icon:'📸', color:'#C13584', label:'Post IG viral',      detail:'Alcance 12.4k · 340 visitas a landing'},
+  {day:12, icon:'⏸',  color:'#C0392B', label:'Pausa Luxury Black', detail:'ROAS < 1x · presupuesto redirigido'},
+  {day:15, icon:'🧪', color:'#1877F2', label:'A/B: Variante A ✓',  detail:'94% confianza · todo el presupuesto a Landing A'},
+  {day:20, icon:'🏪', color:'#F0A500', label:'Evento en local',    detail:'Degustación Colegiales · +40% presencial'},
+  {day:28, icon:'📊', color:'#5B4FBF', label:'Cierre período',     detail:'ROAS 3.6x · mejor mes del año'},
+];
+
+const hitoPlugin = {
+  id:'hitoLines',
+  afterDraw(chart) {
+    const {ctx:c, chartArea:ca, scales:{x}} = chart;
+    HITOS.forEach(h => {
+      const xp = x.getPixelForValue(h.day-1);
+      c.save(); c.setLineDash([3,3]);
+      c.strokeStyle = h.color+'55'; c.lineWidth=1.5;
+      c.beginPath(); c.moveTo(xp,ca.top); c.lineTo(xp,ca.bottom); c.stroke(); c.restore();
+    });
+  }
+};
+
+let chartInstance = null;
+
+function buildChart(filter='all') {
+  const ctx = document.getElementById('timelineChart').getContext('2d');
+  if (chartInstance) { chartInstance.destroy(); }
+
+  const datasets = [];
+  if (filter === 'all' || filter === 'ventas') {
+    datasets.push({label:'Ventas online', data:ventasOnline, borderColor:'#1877F2', backgroundColor:'#1877F212', borderWidth:2.5, fill:true, tension:0.4, pointRadius:ventasOnline.map(v=>v>150?4:0), pointBackgroundColor:'#1877F2', yAxisID:'y'});
+  }
+  if (filter === 'all' || filter === 'local') {
+    datasets.push({label:'Ventas local', data:ventasLocal, borderColor:'#F0A500', backgroundColor:'transparent', borderWidth:2, fill:false, tension:0.4, pointRadius:0, yAxisID:'y'});
+  }
+  if (filter === 'all' || filter === 'visitas') {
+    datasets.push({label:'Visitas', data:visitas, borderColor:'#C13584', backgroundColor:'transparent', borderWidth:1.5, borderDash:[5,3], fill:false, tension:0.4, pointRadius:0, yAxisID:'y2'});
+  }
+  datasets.push({label:'Posts IG', data:igBubbles, type:'bubble', backgroundColor:'#2E7D5B', borderColor:'#fff', borderWidth:1.5, radius:6, yAxisID:'y', parsing:false});
+
+  chartInstance = new Chart(ctx, {
+    type:'line', plugins:[hitoPlugin],
+    data:{ labels:Array.from({length:31},(_,i)=>i), datasets },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{backgroundColor:'#2D2D2D',titleColor:'#C8975A',bodyColor:'#eee',padding:10,
+          callbacks:{
+            title:i=>`Día ${i[0].dataIndex+1} de Mayo`,
+            label:i=>{
+              if(i.dataset.label==='Ventas online') return ` Ventas online: $${i.raw}k`;
+              if(i.dataset.label==='Ventas local')  return ` Ventas local: $${i.raw}k`;
+              if(i.dataset.label==='Visitas')        return ` Visitas: ${i.raw}`;
+              return '';
+            }
+          }
+        }
+      },
+      scales:{
+        x:{ticks:{callback:(v)=>{const d=v+1;return [1,8,15,22,29].includes(d)?d+'/5':'';},color:'#aaa',font:{size:10}},grid:{color:'#f0ebe4'}},
+        y:{position:'left',title:{display:true,text:'Ventas ($k)',color:'#aaa',font:{size:10}},ticks:{color:'#aaa',font:{size:10},callback:v=>`$${v}k`},grid:{color:'#f8f5f2'}},
+        y2:{position:'right',title:{display:true,text:'Visitas',color:'#C13584',font:{size:10}},ticks:{color:'#C13584',font:{size:10}},grid:{display:false}}
+      }
+    }
+  });
+}
+
+function updateChart(val) { buildChart(val); }
+
+// ── HITOS ────────────────────────────────────────────────────
+function buildHitos() {
+  const row = document.getElementById('hitos-row');
+  row.innerHTML = '<div style="font-size:9px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:26px">Hitos del mes</div>';
+  HITOS.forEach(h => {
+    const pct = ((h.day-1)/30)*100;
+    const el = document.createElement('div');
+    el.className = 'tl-hito';
+    el.style.left = pct+'%';
+    el.style.top = '20px';
+    const badge = document.createElement('div');
+    badge.className = 'tl-badge';
+    badge.style.background = h.color;
+    badge.style.boxShadow = `0 1px 4px ${h.color}55`;
+    badge.textContent = h.icon+' '+h.label;
+    badge.title = h.detail;
+    badge.addEventListener('mouseenter', ()=>{ badge.style.maxWidth='220px'; badge.style.overflow='visible'; badge.textContent=h.icon+' '+h.detail; badge.style.zIndex='20'; el.style.zIndex='20'; });
+    badge.addEventListener('mouseleave', ()=>{ badge.style.maxWidth='120px'; badge.style.overflow='hidden'; badge.textContent=h.icon+' '+h.label; badge.style.zIndex='1'; });
+    el.appendChild(badge);
+    row.appendChild(el);
+  });
+}
+
+// ── GLOSSARY ─────────────────────────────────────────────────
+function buildGlossary() {
+  const terms = [
+    {term:'ROAS',emoji:'💰',full:'Return on Ad Spend',desc:'Cuánto ganás por cada peso que invertís en publicidad. ROAS 4x = por cada $1.000 de pauta generás $4.000 en ventas.',tip:'Por encima de 3x es bueno para Fidela. Por debajo de 1x estás perdiendo dinero.',color:'#2E7D5B'},
+    {term:'CTR',emoji:'👆',full:'Click-Through Rate',desc:'De cada 100 personas que vieron tu anuncio, cuántas hicieron click. CTR 3% = 3 clicks por cada 100 vistas.',tip:'Para Fidela, 2–4% es saludable. Menos de 1% indica que el anuncio no llama la atención.',color:'#1877F2'},
+    {term:'CPM',emoji:'👁',full:'Costo por Mil impresiones',desc:'Lo que pagás para que tu anuncio sea visto 1.000 veces. Solo mide visibilidad, no clicks ni ventas.',tip:'Sube mucho en fechas clave (Hot Sale, Navidad). Útil para entender qué tan cara está la audiencia.',color:'#5B4FBF'},
+    {term:'Tasa de conversión',emoji:'✅',full:'Conversion Rate',desc:'De cada 100 personas que visitan tu landing, cuántas terminan comprando. 6 de 100 = tasa del 6%.',tip:'Para Fidela, 5–8% es excelente. El promedio del e-commerce en Argentina es 2–3%.',color:'#C8975A'},
+    {term:'Funnel',emoji:'🔽',full:'Embudo de conversión',desc:'El camino desde que alguien ve tu anuncio hasta que compra. Se llama embudo porque siempre hay gente que se cae en cada paso.',tip:'El valor está en detectar en qué paso se cae más gente y mejorarlo.',color:'#C8975A'},
+    {term:'A/B Testing',emoji:'🧪',full:'Prueba A/B',desc:'Mostrar versión A a la mitad de los visitantes y versión B a la otra mitad, para ver cuál vende más con datos reales.',tip:'Solo se declara ganador con suficientes datos. El sistema avisa cuando hay certeza estadística.',color:'#6A1B9A'},
+    {term:'Alcance',emoji:'📡',full:'Reach',desc:'Cuántas personas únicas vieron tu contenido. Si alguien lo ve 3 veces, cuenta como 1.',tip:'Diferente de impresiones (que cuenta cada vista). El alcance dice a cuánta gente llegaste.',color:'#1877F2'},
+    {term:'Engagement',emoji:'❤️',full:'Interacción',desc:'Porcentaje de personas que interactuaron con tu post (likes, comentarios, guardados) sobre las que lo vieron.',tip:'En Instagram, 3–5% es bueno. Los guardados son la señal más fuerte de interés real.',color:'#C13584'},
+    {term:'UTM',emoji:'🔗',full:'Urchin Tracking Module',desc:'Un código al final de un link que identifica de dónde vino cada visita. ¿El clic vino de un anuncio, un email o un post?',tip:'Sin UTMs es imposible saber qué canal generó cada venta. El dashboard los usa para conectar todo.',color:'#4285F4'},
+  ];
+  const grid = document.getElementById('glossary');
+  terms.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'gterm';
+    div.style.borderLeftColor = t.color;
+    div.innerHTML = `<div class="gterm-head"><span class="gterm-emoji">${t.emoji}</span><div><div class="gterm-name">${t.term}</div><div class="gterm-full">${t.full}</div></div></div><div class="gterm-desc">${t.desc}</div><div class="gterm-tip" style="color:${t.color};background:${t.color}18">💡 ${t.tip}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+// ── PERIOD BUTTONS ────────────────────────────────────────────
+document.querySelectorAll('.period-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ── INIT ─────────────────────────────────────────────────────
+updateFunnel('all');
+buildHitos();
+buildGlossary();
+buildChart('all');
+</script>
+</body>
+</html>
