@@ -37,7 +37,7 @@ export default function Navbar({ announcement }: { announcement?: string }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const bar = announcement ?? 'Envío gratis CABA y GBA Norte en compras +$200.000'
+  const bar = announcement ?? '🔥 HOT SALE EXTENDIDO · 30% OFF en toda la tienda · Código: HOTSALE30 · Hasta agotar stock'
 
   return (
     <>

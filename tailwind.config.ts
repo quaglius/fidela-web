@@ -12,6 +12,14 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        mono: ["var(--font-mono)", "Roboto Mono", "ui-monospace", "monospace"],
+        sans: ["var(--font-mono)", "Roboto Mono", "ui-monospace", "monospace"],
+        serif: ["var(--font-mono)", "Roboto Mono", "ui-monospace", "monospace"],
+      },
+      transitionDuration: {
+        "250": "250ms",
+      },
     },
   },
   plugins: [],

@@ -2,62 +2,229 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── DESIGN TOKENS ───────────────────────────────────────────────────────── */
 :root {
   --black:      #1A1A1A;
   --white:      #FFFFFF;
   --cream:      #F5F0EB;
   --gold:       #C8975A;
   --gold-light: #E8C99A;
+  --gold-dark:  #A87840;
   --gray-100:   #F8F8F8;
   --gray-200:   #EEEEEE;
   --gray-400:   #AAAAAA;
   --gray-600:   #666666;
   --gray-800:   #333333;
+
+  /* Motion timing */
+  --ease-out:   cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
 }
 
-* { box-sizing: border-box; }
-
+/* ── RESET ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* ── BASE TYPOGRAPHY — Roboto Mono throughout ────────────────────────────── */
 body {
   color: var(--black);
   background: var(--white);
-  font-family: var(--font-sans), 'Inter', sans-serif;
+  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
+  font-weight: 400;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Serif utility */
-.font-serif { font-family: var(--font-serif), 'Cormorant Garamond', Georgia, serif; }
+/* Override Tailwind's font-serif utility to use Roboto Mono 300 (display weight) */
+.font-serif {
+  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
 
-/* Announcement bar */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
+  line-height: 1.1;
+}
+
+/* ── LAYOUT UTILITIES ────────────────────────────────────────────────────── */
+.section-py { padding-top: 64px; padding-bottom: 64px; }
+@media (min-width: 1024px) {
+  .section-py { padding-top: 96px; padding-bottom: 96px; }
+}
+
+.container-site {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media (min-width: 768px) {
+  .container-site { padding-left: 40px; padding-right: 40px; }
+}
+
+/* Hide scrollbar but keep scroll */
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ── ANNOUNCEMENT BAR ────────────────────────────────────────────────────── */
 .announcement-bar {
   background: var(--black);
   color: var(--white);
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-align: center;
-  padding: 8px 16px;
+  padding: 9px 16px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Cart drawer overlay */
+/* Hot Sale shimmer sweep on announcement bar */
+.announcement-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 151, 90, 0.15),
+    transparent
+  );
+  animation: shimmerSweep 3s ease-in-out infinite;
+}
+
+/* ── BUTTONS ─────────────────────────────────────────────────────────────── */
+.btn-gold {
+  background: var(--gold);
+  color: var(--white);
+  font-family: var(--font-mono), monospace;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  transition: background var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+.btn-gold:hover {
+  background: var(--gold-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(200, 151, 90, 0.35);
+}
+.btn-gold:active { transform: translateY(0); }
+
+.btn-outline {
+  border: 1px solid var(--black);
+  color: var(--black);
+  font-family: var(--font-mono), monospace;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  transition: background var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+.btn-outline:hover {
+  background: var(--black);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+.btn-outline:active { transform: translateY(0); }
+
+/* CTA pulse glow — used on primary hero CTA */
+.cta-pulse {
+  animation: ctaPulse 2.8s ease-in-out infinite;
+}
+
+/* ── HOVER LIFT ──────────────────────────────────────────────────────────── */
+.hover-lift {
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* ── PRODUCT CARD IMAGE ───────────────────────────────────────────────────── */
+.product-img-wrap { overflow: hidden; }
+.product-img-wrap img {
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+.product-img-wrap:hover img { transform: scale(1.04); }
+
+/* ── CART DRAWER ─────────────────────────────────────────────────────────── */
 .cart-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 49;
-  animation: fadeIn 150ms ease;
+  animation: fadeIn var(--duration-fast) var(--ease-out);
 }
 
-/* Transitions */
-.hover-lift {
-  transition: transform 150ms ease, box-shadow 150ms ease;
-}
-.hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+.slide-in-right {
+  animation: slideInRight var(--duration-base) var(--ease-out);
 }
 
+/* ── SCROLL REVEAL ───────────────────────────────────────────────────────── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+}
+.fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out);
+}
+.fade-in.in-view { opacity: 1; }
+
+/* Stagger delays for children */
+.stagger > *:nth-child(1) { transition-delay: 0ms; }
+.stagger > *:nth-child(2) { transition-delay: 80ms; }
+.stagger > *:nth-child(3) { transition-delay: 160ms; }
+.stagger > *:nth-child(4) { transition-delay: 240ms; }
+.stagger > *:nth-child(5) { transition-delay: 320ms; }
+.stagger > *:nth-child(6) { transition-delay: 400ms; }
+.stagger > *:nth-child(7) { transition-delay: 480ms; }
+.stagger > *:nth-child(8) { transition-delay: 560ms; }
+
+/* ── GOLD SHIMMER TEXT ───────────────────────────────────────────────────── */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0%,
+    var(--gold-light) 40%,
+    var(--gold) 60%,
+    var(--gold-light) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 3s linear infinite;
+}
+
+/* ── MARQUEE (Hot Sale ticker) ───────────────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ── KEYFRAMES ───────────────────────────────────────────────────────────── */
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -68,52 +235,61 @@ body {
   to   { transform: translateX(0); }
 }
 
-.slide-in-right {
-  animation: slideInRight 250ms ease;
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 151, 90, 0); }
+  50%       { box-shadow: 0 0 0 8px rgba(200, 151, 90, 0.2); }
 }
 
-/* Gold button */
-.btn-gold {
-  background: var(--gold);
-  color: var(--white);
-  letter-spacing: 0.08em;
-  transition: background 150ms ease;
-}
-.btn-gold:hover { background: #b8854a; }
-
-/* Outline button */
-.btn-outline {
-  border: 1px solid var(--black);
-  color: var(--black);
-  letter-spacing: 0.08em;
-  transition: background 150ms ease, color 150ms ease;
-}
-.btn-outline:hover {
-  background: var(--black);
-  color: var(--white);
+@keyframes goldShimmer {
+  to { background-position: 200% center; }
 }
 
-/* Product card image zoom */
-.product-img-wrap { overflow: hidden; }
-.product-img-wrap img {
-  transition: transform 400ms ease;
-}
-.product-img-wrap:hover img { transform: scale(1.04); }
-
-/* Section spacing */
-.section-py { padding-top: 64px; padding-bottom: 64px; }
-@media (min-width: 1024px) {
-  .section-py { padding-top: 96px; padding-bottom: 96px; }
+@keyframes shimmerSweep {
+  0%   { left: -80%; }
+  100% { left: 130%; }
 }
 
-/* Max width container */
-.container-site {
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-@media (min-width: 768px) {
-  .container-site { padding-left: 40px; padding-right: 40px; }
+
+@keyframes heroTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Hero entrance animations */
+.hero-badge   { animation: heroTextIn 700ms var(--ease-out) 100ms both; }
+.hero-title   { animation: heroTextIn 800ms var(--ease-out) 250ms both; }
+.hero-sub     { animation: heroTextIn 700ms var(--ease-out) 450ms both; }
+.hero-ctas    { animation: heroTextIn 600ms var(--ease-out) 600ms both; }
+
+/* ── REDUCED MOTION ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .announcement-bar::after,
+  .marquee-track,
+  .cta-pulse,
+  .gold-shimmer {
+    animation: none !important;
+  }
+  .fade-up,
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
