@@ -8,7 +8,7 @@ export const revalidate = 300
 
 const CATEGORY_SLUGS = [
   'velas', 'jabones-naturales', 'aromatizantes', 'bienestar',
-  'cuidado-corporal', 'boxes', 'vidrio', 'vidrio-xl', 'aluminio',
+  'cuidado-corporal', 'boxes',
 ]
 
 export async function generateStaticParams() {
@@ -16,19 +16,28 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { categoria: string } }): Promise<Metadata> {
-  const categories = await getCategories()
-  const cat = categories.find((c) => c.handle?.es === params.categoria)
-  return {
-    title: cat?.name?.es ?? params.categoria,
-    description: `Explorá todos los productos de ${cat?.name?.es ?? params.categoria} de FIDELA.`,
+  try {
+    const categories = await getCategories()
+    const cat = categories.find((c) => c.handle?.es === params.categoria)
+    return {
+      title: cat?.name?.es ?? params.categoria,
+      description: `Explorá todos los productos de ${cat?.name?.es ?? params.categoria} de FIDELA.`,
+    }
+  } catch {
+    return { title: params.categoria }
   }
 }
 
 export default async function CategoriaPage({ params }: { params: { categoria: string } }) {
-  // Guard: only render for known category slugs
   if (!CATEGORY_SLUGS.includes(params.categoria)) notFound()
 
-  const [categories, allProducts] = await Promise.all([getCategories(), getAllProducts()])
+  let categories: Awaited<ReturnType<typeof getCategories>> = []
+  let allProducts: Awaited<ReturnType<typeof getAllProducts>> = []
+  try {
+    ;[categories, allProducts] = await Promise.all([getCategories(), getAllProducts()])
+  } catch {
+    notFound()
+  }
 
   const category = categories.find((c) => c.handle?.es === params.categoria)
   if (!category) notFound()

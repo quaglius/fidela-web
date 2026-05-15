@@ -3,7 +3,7 @@ import { getAllProducts, getCategories } from '@/lib/tiendanube'
 import ProductCard from '@/components/site/ProductCard'
 import CatalogFilters from './CatalogFilters'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Catálogo de productos',
@@ -15,7 +15,11 @@ export default async function ProductosPage({
 }: {
   searchParams: { categoria?: string; aroma?: string; orden?: string }
 }) {
-  const [products, categories] = await Promise.all([getAllProducts(), getCategories()])
+  let products: Awaited<ReturnType<typeof getAllProducts>> = []
+  let categories: Awaited<ReturnType<typeof getCategories>> = []
+  try {
+    ;[products, categories] = await Promise.all([getAllProducts(), getCategories()])
+  } catch { /* render empty on API failure */ }
 
   // Filter
   let filtered = products
