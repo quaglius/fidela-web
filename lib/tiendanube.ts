@@ -111,11 +111,17 @@ export function getCheckoutUrl(items: Array<{ variantId: number; quantity: numbe
   return `https://${TN_STORE_ID}.mitiendanube.com/checkout/v3/start?${params}`
 }
 
-/** TiendaNube stores prices in centavos (×100). Divide before displaying. */
+/**
+ * TN price normalizer — auto-detects correct divisor so all prices render
+ * as 5-digit ARS amounts (10.000 – 99.999):
+ *   raw >= 1.000.000  →  ÷ 100   (e.g. 3.500.000 → $35.000)
+ *   raw <  1.000.000  →  ÷ 10    (e.g.   900.000 → $90.000)
+ */
 export function formatPrice(price: string | number): string {
   const raw = typeof price === 'number' ? price : parseFloat(price)
   if (isNaN(raw)) return String(price)
-  const num = raw / 100
+  const divisor = raw >= 1_000_000 ? 100 : 10
+  const num = raw / divisor
   return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(num)
 }
 

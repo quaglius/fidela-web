@@ -15,22 +15,22 @@ export default function ProductCard({ product, priority = false }: Props) {
   const { addItem } = useCart()
   const [added, setAdded] = useState(false)
 
-  const mainImg  = product.images?.[0]?.src ?? null
-  const secondImg = product.images?.[1]?.src ?? null
-  const handle   = product.handle?.es ?? String(product.id)
-  const price     = product.variants?.[0]?.price ?? '0'
-  const promoPrice = product.variants?.[0]?.promotional_price
+  const mainImg    = product.images?.[0]?.src ?? null
+  const secondImg  = product.images?.[1]?.src ?? null
+  const handle     = product.handle?.es ?? String(product.id)
+  const price      = product.variants?.[0]?.price ?? '0'
+  const promoPrice = product.variants?.[0]?.promotional_price   // set in TN admin
   const hasVariants = product.variants?.length > 1
 
-  // Calculate dynamic discount — also show "30% off" badge always (hot sale)
+  // Real discount % from TN promotional_price (or null)
   const discountPct = promoPrice
     ? Math.round((1 - parseFloat(promoPrice) / parseFloat(price)) * 100)
-    : 30  // Hot Sale — always show 30%
+    : null
 
   function handleQuickAdd(e: React.MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
-    if (hasVariants) return // can't quick-add multi-variant
+    if (hasVariants) return
     const variant = product.variants[0]
     if (!variant) return
     addItem({
@@ -78,12 +78,12 @@ export default function ProductCard({ product, priority = false }: Props) {
           </div>
         )}
 
-        {/* ── HOT SALE BADGE — always red, top-right ───────────────────── */}
+        {/* ── HOT SALE BADGE — marketing, top-right ────────────────────── */}
         <div className="absolute top-2.5 right-2.5 bg-[#D62B2B] text-white text-[9px] font-bold tracking-wider uppercase px-2 py-1 rounded leading-none shadow-lg">
-          −{discountPct}%
+          {discountPct ? `−${discountPct}%` : '30% OFF'}
         </div>
 
-        {/* ── QUICK-ADD BUTTON — always visible, bottom-right ─────────── */}
+        {/* ── QUICK-ADD BUTTON ─────────────────────────────────────────── */}
         {!hasVariants && (
           <button
             onClick={handleQuickAdd}
@@ -92,14 +92,13 @@ export default function ProductCard({ product, priority = false }: Props) {
               absolute bottom-2.5 right-2.5 z-10
               w-9 h-9 rounded-full shadow-lg
               flex items-center justify-center
-              transition-all duration-200
-              cursor-pointer
+              transition-all duration-200 cursor-pointer
+              opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0
+              md:opacity-100 md:translate-y-0
               ${added
                 ? 'bg-green-600 text-white scale-110'
                 : 'bg-[var(--black)] text-white hover:bg-[var(--gold)] hover:scale-110'
               }
-              opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0
-              md:opacity-100 md:translate-y-0
             `}
           >
             {added
@@ -109,7 +108,7 @@ export default function ProductCard({ product, priority = false }: Props) {
           </button>
         )}
 
-        {/* ── HOVER OVERLAY — see options / add to cart ────────────────── */}
+        {/* ── HOVER OVERLAY ────────────────────────────────────────────── */}
         <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-200">
           {hasVariants ? (
             <div className="bg-[var(--black)] text-white text-[10px] tracking-widest uppercase py-3 text-center flex items-center justify-center gap-2">
@@ -141,13 +140,7 @@ export default function ProductCard({ product, priority = false }: Props) {
               <span className="text-xs text-[var(--gray-400)] line-through">{formatPrice(price)}</span>
             </>
           ) : (
-            <>
-              {/* Show promo price with hot sale 30% off */}
-              <span className="text-sm font-semibold text-[#D62B2B]">
-                {formatPrice(String(parseFloat(price) * 0.7))}
-              </span>
-              <span className="text-xs text-[var(--gray-400)] line-through">{formatPrice(price)}</span>
-            </>
+            <span className="text-sm font-medium">{formatPrice(price)}</span>
           )}
         </div>
         {hasVariants && (

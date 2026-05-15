@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { ShoppingBag, Menu, X, ChevronDown, Truck } from 'lucide-react'
+import { ShoppingBag, Menu, X, ChevronDown } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 
 const CATEGORIES = [
@@ -40,17 +40,12 @@ export default function Navbar({ announcement }: { announcement?: string }) {
 
   return (
     <>
-      {/* ── ANNOUNCEMENT BAR — always visible, red bg ─────────────────────── */}
+      {/* ── ANNOUNCEMENT BAR ─────────────────────────────────────────────── */}
       <div className="announcement-bar-promo">
         <div className="announcement-bar-inner">
           <span className="announcement-bar-promo-pill">HOT SALE</span>
           <span className="mx-3 font-medium tracking-widest">
-            {announcement ?? '30% OFF EN TODA LA TIENDA · CÓDIGO: HOTSALE30'}
-          </span>
-          <span className="mx-2 opacity-40">·</span>
-          <Truck size={11} className="inline-block mr-1.5 opacity-70" />
-          <span className="tracking-wider opacity-85">
-            ENVÍO GRATIS CABA Y GBA NORTE EN COMPRAS +$35.000
+            {announcement ?? '30% OFF EN TODA LA TIENDA · HASTA AGOTAR STOCK'}
           </span>
         </div>
       </div>
@@ -97,6 +92,9 @@ export default function Navbar({ announcement }: { announcement?: string }) {
                 </button>
                 {activeMenu === 'productos' && (
                   <div className="absolute top-full left-0 bg-white shadow-xl border-t-2 border-[var(--gold)] min-w-[210px] py-3 z-50">
+                    <Link href="/productos" className="flex items-center gap-2 px-6 py-2.5 text-[11px] tracking-widest uppercase font-semibold text-[var(--gold)] hover:bg-[var(--cream)] transition-colors duration-150 border-b border-gray-100 mb-1">
+                      Todos los productos →
+                    </Link>
                     {CATEGORIES.map((cat) => (
                       <Link
                         key={cat.href}
@@ -106,11 +104,6 @@ export default function Navbar({ announcement }: { announcement?: string }) {
                         {cat.name}
                       </Link>
                     ))}
-                    <div className="mt-2 pt-2 border-t border-gray-100">
-                      <Link href="/productos" className="block px-6 py-2 text-[11px] tracking-widest uppercase font-semibold hover:text-[var(--gold)] transition-colors">
-                        Ver todo →
-                      </Link>
-                    </div>
                   </div>
                 )}
               </div>
