@@ -9,7 +9,10 @@ interface Props {
   productName: string
 }
 
-export default function ProductGallery({ images, productName }: Props) {
+export default function ProductGallery({ images: allImages, productName }: Props) {
+  // TN products typically store a valid product photo only as the first image.
+  // Secondary images often contain watermarked/Pinterest content — show only the first.
+  const images = allImages.slice(0, 1)
   const [activeIdx, setActiveIdx] = useState(0)
 
   if (images.length === 0) {

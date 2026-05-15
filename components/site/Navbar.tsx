@@ -169,6 +169,13 @@ export default function Navbar({ announcement }: { announcement?: string }) {
               <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--gray-400)] px-2 pt-2 pb-1">
                 POR PRODUCTO
               </p>
+              <Link
+                href="/productos"
+                className="px-2 py-2.5 text-xs uppercase tracking-widest font-semibold text-[var(--gold)] hover:text-[var(--gold)] border-b border-gray-100 mb-1"
+                onClick={() => setMobileOpen(false)}
+              >
+                Todos los productos →
+              </Link>
               {CATEGORIES.map((cat) => (
                 <Link
                   key={cat.href}
