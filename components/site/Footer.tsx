@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -7,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <span className="font-serif text-3xl tracking-widest font-light">Fidela</span>
+            <Image src="/logo.png" alt="FIDELA" width={100} height={40} className="h-9 w-auto object-contain brightness-0 invert mb-1" />
             <p className="mt-3 text-xs text-[var(--gray-400)] leading-relaxed">
               Aromas con Historia.<br />
               Concept Store en Colegiales,<br />

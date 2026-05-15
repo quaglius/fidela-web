@@ -72,35 +72,53 @@ h1, h2, h3, h4, h5, h6 {
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
-/* ── ANNOUNCEMENT BAR ────────────────────────────────────────────────────── */
-.announcement-bar {
-  background: var(--black);
-  color: var(--white);
+/* ── ANNOUNCEMENT BAR — red Hot Sale bar ────────────────────────────────── */
+.announcement-bar-promo {
+  background: #C22020;
+  color: #fff;
   font-family: var(--font-mono), monospace;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-align: center;
-  padding: 9px 16px;
+  padding: 10px 16px;
   position: relative;
   overflow: hidden;
 }
 
-/* Hot Sale shimmer sweep on announcement bar */
-.announcement-bar::after {
+/* Shimmer sweep */
+.announcement-bar-promo::after {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(200, 151, 90, 0.15),
-    transparent
-  );
-  animation: shimmerSweep 3s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  animation: shimmerSweep 3.5s ease-in-out infinite;
+}
+
+.announcement-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.announcement-bar-promo-pill {
+  background: #fff;
+  color: #C22020;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-right: 10px;
+  text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 /* ── BUTTONS ─────────────────────────────────────────────────────────────── */

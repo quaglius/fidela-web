@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getAllProducts, type TNProduct } from '@/lib/tiendanube'
 import ProductCard from '@/components/site/ProductCard'
 import FadeUp from '@/components/ui/FadeUp'
-import { MapPin, Clock, MessageCircle, ArrowRight, Zap, Tag } from 'lucide-react'
+import { MapPin, Clock, MessageCircle, ArrowRight, Tag } from 'lucide-react'
 
 export const revalidate = 300
 
@@ -128,96 +128,85 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="relative h-[92vh] min-h-[600px] flex items-end overflow-hidden">
+      {/* ── HERO — Hot Sale conversion focused ───────────────────────────────── */}
+      <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-[var(--black)]">
+        {/* Background image */}
         <Image
           src="/hero-bg.jpg"
-          alt="FIDELA — Aromas con Historia"
+          alt="FIDELA"
           fill
-          className="object-cover object-center"
+          className="object-cover object-center opacity-40"
           priority
           quality={90}
         />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
 
-        <div className="relative container-site pb-16 md:pb-28 text-white w-full">
-          <p className="hero-badge text-[10px] tracking-[0.5em] uppercase text-[var(--gold-light)] mb-5">
-            Aromas Naturales · Colegiales, Buenos Aires
-          </p>
-          <h1 className="hero-title font-serif text-5xl md:text-7xl lg:text-8xl font-light leading-[1.05] mb-6 max-w-2xl">
-            Aromas<br />con Historia
+        {/* Desktop: product mosaic strip on right */}
+        <div className="hidden md:grid absolute right-0 inset-y-0 w-[38%] grid-cols-2 grid-rows-2 gap-1 p-1 opacity-80">
+          {['/cat-velas.jpg', '/cat-difusores.jpg', '/cat-boxes.jpg', '/cat-jabones.jpg'].map((src, i) => (
+            <div key={i} className="relative overflow-hidden">
+              <Image src={src} alt="" fill className="object-cover" sizes="20vw" />
+              <div className="absolute inset-0 bg-black/30" />
+            </div>
+          ))}
+          {/* Hard edge gradient to blend into left side */}
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--black)] to-transparent pointer-events-none" />
+        </div>
+
+        {/* Strong gradient so text is readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/20 md:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+
+        {/* Content */}
+        <div className="relative container-site py-20 md:py-28 text-white w-full max-w-3xl">
+          {/* Hot Sale label */}
+          <div className="hero-badge inline-flex items-center gap-2 mb-6">
+            <span className="bg-[#D62B2B] text-white text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded">
+              HOT SALE EXTENDIDO
+            </span>
+            <span className="text-[10px] tracking-[0.3em] uppercase text-white/50">hasta agotar stock</span>
+          </div>
+
+          {/* Big 30% OFF */}
+          <div className="hero-title mb-2">
+            <div className="flex items-end gap-4 leading-none">
+              <span className="font-serif text-[90px] md:text-[130px] lg:text-[160px] font-light leading-none text-[var(--gold)]">
+                30%
+              </span>
+              <span className="font-serif text-[60px] md:text-[80px] lg:text-[100px] font-light leading-none pb-1 md:pb-2">
+                OFF
+              </span>
+            </div>
+          </div>
+
+          {/* Brand line */}
+          <h1 className="hero-sub font-serif text-2xl md:text-3xl lg:text-4xl font-light text-white/85 mb-2 tracking-wide">
+            Aromas con Historia
           </h1>
-          <p className="hero-sub text-sm md:text-base text-white/70 max-w-sm mb-10 leading-relaxed">
-            Ocho blends de autor. Velas de soja, difusores y jabones artesanales hechos en Buenos Aires.
+          <p className="font-serif text-sm text-white/50 mb-10 tracking-widest uppercase">
+            Velas · Difusores · Jabones · Buenos Aires
           </p>
+
+          {/* CTAs — Ver catálogo primary */}
           <div className="hero-ctas flex gap-3 flex-wrap">
             <Link
-              href="/aromas"
-              className="btn-gold cta-pulse inline-flex items-center gap-2 px-8 py-4 text-xs tracking-[0.2em] uppercase rounded"
+              href="/productos"
+              className="btn-gold cta-pulse inline-flex items-center gap-2 px-8 py-4 text-xs tracking-[0.2em] uppercase rounded font-medium"
             >
-              Explorar aromas <ArrowRight size={14} />
+              Ver catálogo <ArrowRight size={14} />
             </Link>
             <Link
-              href="/productos"
-              className="inline-flex items-center gap-2 px-8 py-4 text-xs tracking-[0.2em] uppercase border border-white/50 text-white hover:bg-white hover:text-[var(--black)] transition-colors duration-200 rounded"
+              href="/aromas"
+              className="inline-flex items-center gap-2 px-8 py-4 text-xs tracking-[0.2em] uppercase border border-white/40 text-white hover:border-white hover:bg-white/10 transition-all duration-200 rounded"
             >
-              Ver catálogo
+              Explorar aromas
             </Link>
           </div>
-        </div>
-      </section>
 
-      {/* ── HOT SALE BANNER ──────────────────────────────────────────────────── */}
-      <section className="bg-[var(--gold)] relative overflow-hidden">
-        {/* Background texture */}
-        <div className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 50%)',
-            backgroundSize: '8px 8px',
-          }}
-        />
-        <div className="relative container-site py-8 md:py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Left — badge + title */}
-            <div className="flex items-center gap-5">
-              <div className="flex-shrink-0 w-14 h-14 bg-[var(--black)] rounded-full flex items-center justify-center">
-                <Zap size={22} className="text-[var(--gold)]" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-[10px] tracking-[0.4em] uppercase text-black/60 font-medium">Hot Sale Extendido</span>
-                </div>
-                <p className="font-serif text-3xl md:text-4xl font-light text-[var(--black)] leading-none">
-                  30% <span className="font-medium">OFF</span>
-                </p>
-                <p className="text-xs tracking-widest uppercase text-black/70 mt-1">en toda la tienda</p>
-              </div>
-            </div>
-
-            {/* Center — detail */}
-            <div className="text-center">
-              <div className="flex items-center gap-2 justify-center mb-2">
-                <Tag size={13} className="text-black/60" />
-                <span className="text-[10px] tracking-[0.3em] uppercase text-black/60">Hasta agotar stock</span>
-              </div>
-              <p className="font-serif text-xl md:text-2xl font-light text-[var(--black)]">
-                Usá el código al checkout
-              </p>
-              <div className="mt-2 inline-block bg-[var(--black)] text-[var(--gold)] px-4 py-1.5 text-sm tracking-[0.3em] uppercase font-medium rounded">
-                HOTSALE30
-              </div>
-            </div>
-
-            {/* Right — CTA */}
-            <div className="flex-shrink-0">
-              <Link
-                href="/productos"
-                className="inline-flex items-center gap-2 bg-[var(--black)] text-white px-7 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[var(--gray-800)] transition-colors duration-200 rounded"
-              >
-                Aprovechar oferta <ArrowRight size={13} />
-              </Link>
-            </div>
+          {/* Code reminder */}
+          <div className="mt-8 flex items-center gap-3">
+            <Tag size={13} className="text-white/40" />
+            <span className="text-[11px] tracking-[0.2em] uppercase text-white/40">Código al checkout:</span>
+            <span className="text-[11px] tracking-[0.2em] uppercase text-[var(--gold)] font-medium">HOTSALE30</span>
           </div>
         </div>
       </section>

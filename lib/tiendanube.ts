@@ -111,9 +111,11 @@ export function getCheckoutUrl(items: Array<{ variantId: number; quantity: numbe
   return `https://${TN_STORE_ID}.mitiendanube.com/checkout/v3/start?${params}`
 }
 
-export function formatPrice(price: string): string {
-  const num = parseFloat(price)
-  if (isNaN(num)) return price
+/** TiendaNube stores prices in centavos (×100). Divide before displaying. */
+export function formatPrice(price: string | number): string {
+  const raw = typeof price === 'number' ? price : parseFloat(price)
+  if (isNaN(raw)) return String(price)
+  const num = raw / 100
   return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(num)
 }
 

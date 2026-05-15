@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { ShoppingBag, Menu, X, ChevronDown } from 'lucide-react'
+import { ShoppingBag, Menu, X, ChevronDown, Truck } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 
 const CATEGORIES = [
@@ -37,26 +38,34 @@ export default function Navbar({ announcement }: { announcement?: string }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const bar = announcement ?? '🔥 HOT SALE EXTENDIDO · 30% OFF en toda la tienda · Código: HOTSALE30 · Hasta agotar stock'
-
   return (
     <>
-      {/* Announcement bar */}
-      <div className="announcement-bar text-xs tracking-widest uppercase">
-        {bar}
+      {/* ── ANNOUNCEMENT BAR — always visible, red bg ─────────────────────── */}
+      <div className="announcement-bar-promo">
+        <div className="announcement-bar-inner">
+          <span className="announcement-bar-promo-pill">HOT SALE</span>
+          <span className="mx-3 font-medium tracking-widest">
+            {announcement ?? '30% OFF EN TODA LA TIENDA · CÓDIGO: HOTSALE30'}
+          </span>
+          <span className="mx-2 opacity-40">·</span>
+          <Truck size={11} className="inline-block mr-1.5 opacity-70" />
+          <span className="tracking-wider opacity-85">
+            ENVÍO GRATIS CABA Y GBA NORTE EN COMPRAS +$35.000
+          </span>
+        </div>
       </div>
 
-      {/* Main navbar */}
+      {/* ── MAIN NAVBAR ──────────────────────────────────────────────────────── */}
       <nav
         className={`sticky top-0 z-40 bg-white transition-shadow duration-200 ${
-          scrolled ? 'shadow-sm' : ''
+          scrolled ? 'shadow-sm' : 'border-b border-[var(--gray-200)]'
         }`}
       >
         <div className="container-site">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Mobile: hamburger */}
             <button
-              className="md:hidden p-2 -ml-2"
+              className="md:hidden p-2 -ml-2 cursor-pointer"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menú"
             >
@@ -64,36 +73,41 @@ export default function Navbar({ announcement }: { announcement?: string }) {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
-              <span className="font-serif text-2xl md:text-3xl tracking-widest font-light uppercase">
-                Fidela
-              </span>
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 flex-shrink-0">
+              <Image
+                src="/logo.png"
+                alt="FIDELA"
+                width={120}
+                height={48}
+                className="h-9 md:h-11 w-auto object-contain"
+                priority
+              />
             </Link>
 
-            {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-medium">
+            {/* Desktop nav — ALL UPPERCASE */}
+            <div className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.15em] uppercase font-medium">
               {/* Por producto */}
               <div
-                className="relative group"
+                className="relative"
                 onMouseEnter={() => setActiveMenu('productos')}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button className="flex items-center gap-1 py-6 hover:text-[var(--gold)] transition-colors">
-                  Por producto <ChevronDown size={12} />
+                <button className="flex items-center gap-1 py-6 hover:text-[var(--gold)] transition-colors duration-150 cursor-pointer uppercase">
+                  POR PRODUCTO <ChevronDown size={11} />
                 </button>
                 {activeMenu === 'productos' && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg border-t border-gray-100 min-w-[200px] py-4 z-50">
+                  <div className="absolute top-full left-0 bg-white shadow-xl border-t-2 border-[var(--gold)] min-w-[210px] py-3 z-50">
                     {CATEGORIES.map((cat) => (
                       <Link
                         key={cat.href}
                         href={cat.href}
-                        className="block px-6 py-2 text-xs hover:bg-[var(--cream)] hover:text-[var(--gold)] transition-colors"
+                        className="block px-6 py-2.5 text-[11px] tracking-widest uppercase hover:bg-[var(--cream)] hover:text-[var(--gold)] transition-colors duration-150"
                       >
                         {cat.name}
                       </Link>
                     ))}
                     <div className="mt-2 pt-2 border-t border-gray-100">
-                      <Link href="/productos" className="block px-6 py-2 text-xs font-semibold hover:text-[var(--gold)]">
+                      <Link href="/productos" className="block px-6 py-2 text-[11px] tracking-widest uppercase font-semibold hover:text-[var(--gold)] transition-colors">
                         Ver todo →
                       </Link>
                     </div>
@@ -103,51 +117,51 @@ export default function Navbar({ announcement }: { announcement?: string }) {
 
               {/* Por aroma */}
               <div
-                className="relative group"
+                className="relative"
                 onMouseEnter={() => setActiveMenu('aromas')}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button className="flex items-center gap-1 py-6 hover:text-[var(--gold)] transition-colors">
-                  Por aroma <ChevronDown size={12} />
+                <button className="flex items-center gap-1 py-6 hover:text-[var(--gold)] transition-colors duration-150 cursor-pointer uppercase">
+                  POR AROMA <ChevronDown size={11} />
                 </button>
                 {activeMenu === 'aromas' && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg border-t border-gray-100 min-w-[220px] py-4 z-50">
+                  <div className="absolute top-full left-0 bg-white shadow-xl border-t-2 border-[var(--gold)] min-w-[230px] py-3 z-50">
                     {AROMAS.map((a) => (
                       <Link
                         key={a.slug}
                         href={`/aromas/${a.slug}`}
-                        className="flex items-center gap-3 px-6 py-2 text-xs hover:bg-[var(--cream)] hover:text-[var(--gold)] transition-colors"
+                        className="flex items-center gap-3 px-6 py-2.5 text-[11px] tracking-widest uppercase hover:bg-[var(--cream)] hover:text-[var(--gold)] transition-colors duration-150"
                       >
-                        <span className="text-[var(--gray-400)] font-light">N°{a.number}</span>
+                        <span className="text-[var(--gray-400)] font-light w-6">N°{a.number}</span>
                         {a.name}
                       </Link>
                     ))}
                     <div className="mt-2 pt-2 border-t border-gray-100">
-                      <Link href="/nuestros-aromas" className="block px-6 py-2 text-xs font-semibold hover:text-[var(--gold)]">
-                        Nuestros aromas →
+                      <Link href="/nuestros-aromas" className="block px-6 py-2 text-[11px] tracking-widest uppercase font-semibold hover:text-[var(--gold)] transition-colors">
+                        Todos los aromas →
                       </Link>
                     </div>
                   </div>
                 )}
               </div>
 
-              <Link href="/tiendas" className="hover:text-[var(--gold)] transition-colors">
-                Tiendas
+              <Link href="/tiendas" className="hover:text-[var(--gold)] transition-colors duration-150 uppercase">
+                TIENDAS
               </Link>
-              <Link href="/empresas" className="hover:text-[var(--gold)] transition-colors">
-                Empresas
+              <Link href="/empresas" className="hover:text-[var(--gold)] transition-colors duration-150 uppercase">
+                EMPRESAS
               </Link>
             </div>
 
             {/* Cart icon */}
             <button
               onClick={open}
-              className="relative p-2 -mr-2"
+              className="relative p-2 -mr-2 cursor-pointer hover:text-[var(--gold)] transition-colors duration-150"
               aria-label="Carrito"
             >
               <ShoppingBag size={22} />
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[var(--gold)] text-white text-[9px] rounded-full flex items-center justify-center font-medium">
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#D62B2B] text-white text-[9px] rounded-full flex items-center justify-center font-bold">
                   {totalItems > 9 ? '9+' : totalItems}
                 </span>
               )}
@@ -158,38 +172,38 @@ export default function Navbar({ announcement }: { announcement?: string }) {
         {/* Mobile menu */}
         {mobileOpen && (
           <div className="md:hidden border-t border-gray-100 bg-white py-4">
-            <div className="container-site flex flex-col gap-0.5 text-sm">
-              <p className="text-[10px] tracking-widest uppercase text-[var(--gray-400)] px-2 pt-2 pb-1">
-                Por producto
+            <div className="container-site flex flex-col gap-0.5">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--gray-400)] px-2 pt-2 pb-1">
+                POR PRODUCTO
               </p>
               {CATEGORIES.map((cat) => (
                 <Link
                   key={cat.href}
                   href={cat.href}
-                  className="px-2 py-2.5 hover:text-[var(--gold)]"
+                  className="px-2 py-2.5 text-xs uppercase tracking-widest hover:text-[var(--gold)] transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
                   {cat.name}
                 </Link>
               ))}
-              <p className="text-[10px] tracking-widest uppercase text-[var(--gray-400)] px-2 pt-4 pb-1">
-                Por aroma
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--gray-400)] px-2 pt-4 pb-1">
+                POR AROMA
               </p>
               {AROMAS.map((a) => (
                 <Link
                   key={a.slug}
                   href={`/aromas/${a.slug}`}
-                  className="px-2 py-2.5 hover:text-[var(--gold)]"
+                  className="px-2 py-2.5 text-xs uppercase tracking-widest hover:text-[var(--gold)] transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
                   {a.name}
                 </Link>
               ))}
               <div className="border-t border-gray-100 mt-3 pt-3 flex flex-col gap-0.5">
-                <Link href="/tiendas" className="px-2 py-2.5" onClick={() => setMobileOpen(false)}>Tiendas</Link>
-                <Link href="/empresas" className="px-2 py-2.5" onClick={() => setMobileOpen(false)}>Empresas</Link>
-                <Link href="/nosotros" className="px-2 py-2.5" onClick={() => setMobileOpen(false)}>Nosotros</Link>
-                <Link href="/contacto" className="px-2 py-2.5" onClick={() => setMobileOpen(false)}>Contacto</Link>
+                <Link href="/tiendas" className="px-2 py-2.5 text-xs uppercase tracking-widest" onClick={() => setMobileOpen(false)}>TIENDAS</Link>
+                <Link href="/empresas" className="px-2 py-2.5 text-xs uppercase tracking-widest" onClick={() => setMobileOpen(false)}>EMPRESAS</Link>
+                <Link href="/nosotros" className="px-2 py-2.5 text-xs uppercase tracking-widest" onClick={() => setMobileOpen(false)}>NOSOTROS</Link>
+                <Link href="/contacto" className="px-2 py-2.5 text-xs uppercase tracking-widest" onClick={() => setMobileOpen(false)}>CONTACTO</Link>
               </div>
             </div>
           </div>
