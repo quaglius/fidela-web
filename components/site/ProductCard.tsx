@@ -16,7 +16,7 @@ export default function ProductCard({ product, priority = false }: Props) {
   const [added, setAdded] = useState(false)
 
   const mainImg    = product.images?.[0]?.src ?? null
-  const secondImg  = product.images?.[1]?.src ?? null
+  // secondImg removed — hover always zooms main image to avoid Pinterest/watermark secondary photos
   const handle     = product.handle?.es ?? String(product.id)
   const price      = product.variants?.[0]?.price ?? '0'
   const promoPrice = product.variants?.[0]?.promotional_price   // set in TN admin
@@ -51,27 +51,14 @@ export default function ProductCard({ product, priority = false }: Props) {
       {/* ── IMAGE ─────────────────────────────────────────────────────────── */}
       <div className="product-img-wrap relative aspect-square bg-[var(--cream)] rounded-lg overflow-hidden">
         {mainImg ? (
-          <>
-            <Image
-              src={mainImg}
-              alt={product.name?.es ?? 'Producto'}
-              fill
-              className={`object-cover transition-all duration-500 ${
-                secondImg ? 'group-hover:opacity-0' : 'group-hover:scale-[1.04]'
-              }`}
-              sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-              priority={priority}
-            />
-            {secondImg && (
-              <Image
-                src={secondImg}
-                alt={`${product.name?.es ?? 'Producto'} — vista 2`}
-                fill
-                className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-[1.04]"
-                sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-              />
-            )}
-          </>
+          <Image
+            src={mainImg}
+            alt={product.name?.es ?? 'Producto'}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+            priority={priority}
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <ShoppingBag size={32} className="text-[var(--gray-400)]" />
@@ -83,18 +70,18 @@ export default function ProductCard({ product, priority = false }: Props) {
           {discountPct ? `−${discountPct}%` : '30% OFF'}
         </div>
 
-        {/* ── QUICK-ADD BUTTON ─────────────────────────────────────────── */}
+        {/* ── QUICK-ADD ROUND BUTTON — desktop only ────────────────────── */}
         {!hasVariants && (
           <button
             onClick={handleQuickAdd}
             aria-label="Agregar al carrito"
             className={`
+              hidden md:flex
               absolute bottom-2.5 right-2.5 z-10
               w-9 h-9 rounded-full shadow-lg
-              flex items-center justify-center
+              items-center justify-center
               transition-all duration-200 cursor-pointer
               opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0
-              md:opacity-100 md:translate-y-0
               ${added
                 ? 'bg-green-600 text-white scale-110'
                 : 'bg-[var(--black)] text-white hover:bg-[var(--gold)] hover:scale-110'
@@ -108,21 +95,21 @@ export default function ProductCard({ product, priority = false }: Props) {
           </button>
         )}
 
-        {/* ── HOVER OVERLAY ────────────────────────────────────────────── */}
-        <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-200">
+        {/* ── CTA BAR — mobile: always visible · desktop: slide up on hover ── */}
+        <div className="absolute inset-x-0 bottom-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-200">
           {hasVariants ? (
-            <div className="bg-[var(--black)] text-white text-[10px] tracking-widest uppercase py-3 text-center flex items-center justify-center gap-2">
+            <div className="bg-[var(--black)] text-white text-[10px] tracking-widest uppercase py-2.5 md:py-3 text-center flex items-center justify-center gap-2">
               Ver opciones <ArrowRight size={12} />
             </div>
           ) : (
             <button
               onClick={handleQuickAdd}
-              className={`w-full text-[10px] tracking-widest uppercase py-3 flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer ${
+              className={`w-full text-[10px] tracking-widest uppercase py-2.5 md:py-3 flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer ${
                 added ? 'bg-green-600 text-white' : 'bg-[var(--black)] text-white hover:bg-[var(--gold)]'
               }`}
             >
               <ShoppingBag size={12} />
-              {added ? 'Agregado' : 'Agregar al carrito'}
+              {added ? 'Agregado ✓' : 'Agregar al carrito'}
             </button>
           )}
         </div>

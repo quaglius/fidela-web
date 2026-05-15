@@ -15,6 +15,21 @@ const SORT_OPTIONS = [
   { value: 'precio-desc', label: 'Precio: mayor a menor' },
 ]
 
+/** Deduplica categorías de TN (handles tipo aromatizantes / aromatizantes1 / aromatizantes2)
+ *  y filtra las categorías con nombre "0" o vacío. */
+function dedupeCategories(cats: TNCategory[]): TNCategory[] {
+  const seen = new Set<string>()
+  return cats
+    .filter(c => c.name?.es && c.name.es !== '0')
+    .sort((a, b) => a.id - b.id)
+    .filter(c => {
+      const base = (c.handle?.es ?? '').replace(/\d+$/, '')
+      if (!base || seen.has(base)) return false
+      seen.add(base)
+      return true
+    })
+}
+
 export default function CatalogFilters({
   categories,
   searchParams,
@@ -22,6 +37,7 @@ export default function CatalogFilters({
   categories: TNCategory[]
   searchParams: { categoria?: string; aroma?: string; orden?: string }
 }) {
+  const cleanCategories = dedupeCategories(categories.filter(c => !c.parent))
   const router = useRouter()
   const pathname = usePathname()
   const [openSection, setOpenSection] = useState<string | null>('categoria')
@@ -74,7 +90,7 @@ export default function CatalogFilters({
         </button>
         {openSection === 'categoria' && (
           <ul className="flex flex-col gap-1.5">
-            {categories.filter((c) => !c.parent).map((cat) => (
+            {cleanCategories.map((cat) => (
               <li key={cat.id}>
                 <button
                   onClick={() => setParam('categoria', cat.name?.es === searchParams.categoria ? '' : cat.name?.es ?? '')}

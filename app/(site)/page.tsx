@@ -220,17 +220,8 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ── NUESTROS AROMAS — dark section with atmospheric background ───────── */}
-      <section className="relative section-py overflow-hidden">
-        {/* Background: lifestyle photo de velas, muy oscurecida */}
-        <Image
-          src="/hero-bg.jpg"
-          alt=""
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-black/88" />
+      {/* ── NUESTROS AROMAS — dark section ───────────────────────────────────── */}
+      <section className="relative section-py overflow-hidden bg-[var(--black)]">
 
         <div className="relative container-site">
           <FadeUp className="flex items-end justify-between mb-10">
@@ -284,8 +275,8 @@ export default async function HomePage() {
         <div className="container-site">
           <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
 
-            {/* Image — collage de 2 fotos para evitar el aspecto "raro" de una sola */}
-            <FadeUp className="relative order-2 md:order-1">
+            {/* Image — collage de 2 fotos, sólo visible en desktop */}
+            <FadeUp className="relative order-2 md:order-1 hidden md:block">
               <div className="grid grid-cols-2 gap-2 rounded-lg overflow-hidden">
                 {/* Foto principal */}
                 <div className="relative aspect-[3/4] col-span-1 overflow-hidden rounded-lg group">
