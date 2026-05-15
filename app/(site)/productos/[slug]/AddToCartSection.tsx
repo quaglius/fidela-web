@@ -87,7 +87,7 @@ export default function AddToCartSection({ product }: { product: TNProduct }) {
           {attributes.map((attr, attrIdx) => (
             <div key={attrIdx}>
               <p className="text-[11px] tracking-[0.2em] uppercase text-[var(--gray-400)] mb-2.5">
-                {attr.es}:{' '}
+                Elegí tu aroma:{' '}
                 <span className="text-[var(--black)] font-medium">{selections[attrIdx]}</span>
               </p>
               <div className="flex flex-wrap gap-2">

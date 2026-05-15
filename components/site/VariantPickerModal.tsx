@@ -16,8 +16,6 @@ export default function VariantPickerModal({ product, onClose }: Props) {
   const [added, setAdded] = useState(false)
 
   const img = product.images?.[0]?.src ?? null
-  const hasAttribute = product.attributes?.length > 0
-  const attrName = product.attributes?.[0]?.es ?? 'Opción'
 
   // close on Escape
   useEffect(() => {
@@ -110,7 +108,7 @@ export default function VariantPickerModal({ product, onClose }: Props) {
         {/* Variant selector */}
         <div className="p-5">
           <p className="text-[10px] tracking-widest uppercase text-[var(--gray-400)] mb-3">
-            {hasAttribute ? attrName : 'Variedad'}
+            Elegí tu aroma
           </p>
           <div className="flex flex-wrap gap-2 mb-6">
             {product.variants?.map((v) => {
