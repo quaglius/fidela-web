@@ -79,8 +79,21 @@ export async function getProduct(id: number): Promise<TNProduct> {
 }
 
 export async function getProductByHandle(handle: string): Promise<TNProduct | null> {
-  const products = await tnFetch<TNProduct[]>(`/products?q=${handle}&published=true`)
-  return products.find((p) => p.handle?.es === handle) ?? null
+  // Fast path: use local ID map for direct lookup
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const idMap = require('../data/tn-id-map.json') as Record<string, number>
+    const id = idMap[handle]
+    if (id) return await getProduct(id)
+  } catch { /* fallback to search */ }
+
+  // Fallback: text search (less reliable)
+  try {
+    const products = await tnFetch<TNProduct[]>(`/products?q=${encodeURIComponent(handle)}&published=true&per_page=10`)
+    return products.find((p) => p.handle?.es === handle) ?? null
+  } catch {
+    return null
+  }
 }
 
 export async function getCategories(): Promise<TNCategory[]> {

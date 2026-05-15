@@ -1,31 +1,36 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
+import Link from 'next/link'
 import { getAllProducts, getProductByHandle, formatPrice, type TNProduct } from '@/lib/tiendanube'
 import AddToCartSection from './AddToCartSection'
+import ProductGallery from './ProductGallery'
 import ProductCard from '@/components/site/ProductCard'
 import { ProductJsonLd, BreadcrumbJsonLd } from '@/components/seo/JsonLd'
+import { Shield, Truck, RotateCcw, MapPin } from 'lucide-react'
 
 export const revalidate = 300
 
 export async function generateStaticParams() {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const idMap = require('../../../../data/tn-id-map.json') as Record<string, number>
+    return Object.keys(idMap).map((slug) => ({ slug }))
+  } catch {
     const products = await getAllProducts()
     return products.map((p) => ({ slug: p.handle?.es ?? String(p.id) }))
-  } catch {
-    return []
   }
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const product = await getProductByHandle(params.slug)
   if (!product) return {}
+  const img = product.images?.[0]?.src
   return {
     title: product.name?.es,
-    description: product.description?.es?.slice(0, 160) ?? '',
+    description: product.description?.es?.replace(/<[^>]+>/g, '').slice(0, 160) ?? '',
     openGraph: {
       title: product.name?.es,
-      images: product.images?.[0]?.src ? [{ url: product.images[0].src }] : [],
+      images: img ? [{ url: img }] : [],
     },
   }
 }
@@ -34,7 +39,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
   const product = await getProductByHandle(params.slug)
   if (!product) notFound()
 
-  // Related products (same category)
+  // Productos relacionados (misma categoría)
   let related: TNProduct[] = []
   try {
     const all = await getAllProducts()
@@ -48,10 +53,14 @@ export default async function ProductPage({ params }: { params: { slug: string }
   const promo = product.variants?.[0]?.promotional_price
   const images = product.images ?? []
   const slug = product.handle?.es ?? String(product.id)
-  const BASE = 'https://fidela-web.netlify.app'
+  const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fidela.com.ar'
+  const catName = product.categories?.[0]?.name?.es
+  const catHref = catName
+    ? `/${catName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`
+    : '/productos'
 
   return (
-    <div className="section-py">
+    <>
       <ProductJsonLd
         name={product.name?.es ?? ''}
         description={product.description?.es?.replace(/<[^>]+>/g, '').slice(0, 300)}
@@ -65,120 +74,127 @@ export default async function ProductPage({ params }: { params: { slug: string }
         { name: 'Productos', url: `${BASE}/productos` },
         { name: product.name?.es ?? '', url: `${BASE}/productos/${slug}` },
       ]} />
-      <div className="container-site">
-        {/* Breadcrumb */}
-        <nav className="text-xs text-[var(--gray-400)] tracking-wide mb-8">
-          <a href="/" className="hover:text-[var(--gold)]">Inicio</a>
-          <span className="mx-2">/</span>
-          <a href="/productos" className="hover:text-[var(--gold)]">Productos</a>
-          {product.categories?.[0] && (
-            <>
-              <span className="mx-2">/</span>
-              <a href={`/productos`} className="hover:text-[var(--gold)] capitalize">
-                {product.categories[0].name?.es}
-              </a>
-            </>
-          )}
-          <span className="mx-2">/</span>
-          <span className="text-[var(--black)]">{product.name?.es}</span>
-        </nav>
 
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
-          {/* Gallery */}
-          <div>
-            {images.length > 0 ? (
-              <div className="flex gap-3">
-                {/* Thumbnails — hidden on mobile */}
-                {images.length > 1 && (
-                  <div className="hidden md:flex flex-col gap-2 w-16">
-                    {images.slice(0, 5).map((img, i) => (
-                      <div key={img.id} className="relative aspect-square bg-[var(--cream)] rounded overflow-hidden">
-                        <Image src={img.src} alt={`${product.name?.es} ${i + 1}`} fill className="object-cover" sizes="64px" />
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {/* Main image */}
-                <div className="flex-1 relative aspect-square bg-[var(--cream)] rounded overflow-hidden">
-                  <Image
-                    src={images[0].src}
-                    alt={product.name?.es ?? 'Producto'}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="aspect-square bg-[var(--cream)] rounded flex items-center justify-center">
-                <span className="text-[var(--gray-400)] text-sm">Sin imagen</span>
-              </div>
+      <div className="section-py">
+        <div className="container-site">
+
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-1.5 text-xs text-[var(--gray-400)] tracking-wide mb-8 flex-wrap">
+            <Link href="/" className="hover:text-[var(--gold)] transition-colors">Inicio</Link>
+            <span>/</span>
+            <Link href="/productos" className="hover:text-[var(--gold)] transition-colors">Productos</Link>
+            {catName && (
+              <>
+                <span>/</span>
+                <Link href={catHref} className="hover:text-[var(--gold)] transition-colors capitalize">{catName}</Link>
+              </>
             )}
-          </div>
+            <span>/</span>
+            <span className="text-[var(--black)] truncate max-w-[200px]">{product.name?.es}</span>
+          </nav>
 
-          {/* Product info */}
-          <div className="flex flex-col">
-            {/* Category badge */}
-            {product.categories?.[0] && (
-              <a
-                href="/productos"
-                className="text-[10px] tracking-widest uppercase text-[var(--gold)] mb-3 hover:underline"
-              >
-                {product.categories[0].name?.es}
-              </a>
-            )}
+          {/* Grid principal */}
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-20">
 
-            <h1 className="font-serif text-3xl md:text-4xl font-light mb-4">{product.name?.es}</h1>
+            {/* ── GALERÍA ── */}
+            <ProductGallery images={images} productName={product.name?.es ?? 'Producto'} />
 
-            {/* Price */}
-            <div className="flex items-baseline gap-3 mb-6">
-              {promo ? (
-                <>
-                  <span className="text-2xl font-medium text-[var(--gold)]">{formatPrice(promo)}</span>
-                  <span className="text-base text-[var(--gray-400)] line-through">{formatPrice(price)}</span>
-                  <span className="text-xs bg-[var(--gold)] text-white px-2 py-0.5 rounded">OFERTA</span>
-                </>
-              ) : (
-                <span className="text-2xl font-medium">{formatPrice(price)}</span>
+            {/* ── INFO ── */}
+            <div className="flex flex-col">
+
+              {/* Categoría */}
+              {catName && (
+                <Link
+                  href={catHref}
+                  className="text-[10px] tracking-[0.25em] uppercase text-[var(--gold)] mb-3 hover:underline w-fit"
+                >
+                  {catName}
+                </Link>
               )}
-            </div>
 
-            {/* Variant selector + Add to cart */}
-            <AddToCartSection product={product} />
+              {/* Nombre */}
+              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-4">
+                {product.name?.es}
+              </h1>
 
-            {/* Description */}
-            {product.description?.es && (
-              <div className="mt-8 pt-8 border-t border-[var(--gray-200)]">
-                <h3 className="text-xs tracking-widest uppercase text-[var(--gray-400)] mb-3">Descripción</h3>
-                <div
-                  className="text-sm text-[var(--gray-600)] leading-relaxed prose prose-sm max-w-none"
-                  dangerouslySetInnerHTML={{ __html: product.description.es }}
-                />
+              {/* Precio */}
+              <div className="flex items-baseline gap-3 mb-6">
+                {promo ? (
+                  <>
+                    <span className="text-2xl md:text-3xl font-medium text-[var(--gold)]">
+                      {formatPrice(promo)}
+                    </span>
+                    <span className="text-base text-[var(--gray-400)] line-through">
+                      {formatPrice(price)}
+                    </span>
+                    <span className="text-[10px] tracking-widest uppercase bg-[var(--gold)] text-white px-2.5 py-1 rounded">
+                      Oferta
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-2xl md:text-3xl font-medium">{formatPrice(price)}</span>
+                )}
               </div>
-            )}
 
-            {/* Meta */}
-            <div className="mt-6 flex flex-col gap-2 text-xs text-[var(--gray-400)]">
-              <p>✓ Envío a todo el país</p>
-              <p>✓ Envío gratis CABA y GBA Norte +$200.000</p>
-              <p>✓ Retiro en Teodoro García 2959, Colegiales</p>
+              {/* Selector de variantes + carrito */}
+              <AddToCartSection product={product} />
+
+              {/* Garantías */}
+              <div className="mt-6 pt-6 border-t border-[var(--gray-200)] grid grid-cols-2 gap-3">
+                {[
+                  { icon: Truck, text: 'Envío a todo el país' },
+                  { icon: MapPin, text: 'Retiro en Colegiales' },
+                  { icon: Shield, text: 'Compra 100% segura' },
+                  { icon: RotateCcw, text: 'Cambios y devoluciones' },
+                ].map(({ icon: Icon, text }) => (
+                  <div key={text} className="flex items-center gap-2 text-xs text-[var(--gray-600)]">
+                    <Icon size={14} className="text-[var(--gold)] flex-shrink-0" />
+                    <span>{text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Descripción */}
+              {product.description?.es && (
+                <div className="mt-6 pt-6 border-t border-[var(--gray-200)]">
+                  <details className="group" open>
+                    <summary className="flex items-center justify-between cursor-pointer list-none text-xs tracking-[0.2em] uppercase text-[var(--gray-400)] select-none">
+                      <span>Descripción</span>
+                      <span className="group-open:rotate-180 transition-transform duration-200">▾</span>
+                    </summary>
+                    <div
+                      className="mt-4 text-sm text-[var(--gray-600)] leading-relaxed prose prose-sm max-w-none"
+                      dangerouslySetInnerHTML={{ __html: product.description.es }}
+                    />
+                  </details>
+                </div>
+              )}
+
+              {/* Envío gratis */}
+              <p className="mt-6 text-[11px] tracking-wide text-[var(--gray-400)] border border-[var(--gray-200)] rounded px-3 py-2">
+                🚚 <strong className="text-[var(--black)]">Envío gratis</strong> en CABA y GBA Norte en compras +$200.000
+              </p>
             </div>
           </div>
+
+          {/* Productos relacionados */}
+          {related.length > 0 && (
+            <div className="mt-20 pt-16 border-t border-[var(--gray-200)]">
+              <div className="flex items-end justify-between mb-8">
+                <h2 className="font-serif text-2xl md:text-3xl font-light">También te puede gustar</h2>
+                <Link href="/productos" className="text-xs tracking-widest uppercase underline hover:text-[var(--gold)] hidden md:block">
+                  Ver todos
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
+                {related.map((p) => (
+                  <ProductCard key={p.id} product={p} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* Related products */}
-        {related.length > 0 && (
-          <div className="mt-20">
-            <h2 className="font-serif text-2xl font-light mb-8">También te puede gustar</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
-              {related.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
-    </div>
+    </>
   )
 }

@@ -5,12 +5,11 @@ import { ShoppingBag, Menu, X, ChevronDown } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 
 const CATEGORIES = [
-  { name: 'Velas de Soja', href: '/velas', sub: ['Clásicas', 'XL', 'Ediciones Especiales'] },
+  { name: 'Velas de Soja', href: '/velas-de-soja' },
   { name: 'Jabones Naturales', href: '/jabones-naturales' },
   { name: 'Aromatizantes', href: '/aromatizantes' },
-  { name: 'Difusores', href: '/aromatizantes' },
   { name: 'Bienestar', href: '/bienestar' },
-  { name: 'Boxes - Kits', href: '/boxes' },
+  { name: 'Boxes - Kits', href: '/boxes-kits' },
   { name: 'Cuidado Corporal', href: '/cuidado-corporal' },
 ]
 

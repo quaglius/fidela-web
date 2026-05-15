@@ -53,11 +53,11 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2 text-sm">
               {[
-                ['Velas de Soja', '/velas'],
+                ['Velas de Soja', '/velas-de-soja'],
                 ['Jabones Naturales', '/jabones-naturales'],
                 ['Aromatizantes', '/aromatizantes'],
                 ['Bienestar', '/bienestar'],
-                ['Boxes - Kits', '/boxes'],
+                ['Boxes - Kits', '/boxes-kits'],
                 ['Cuidado Corporal', '/cuidado-corporal'],
               ].map(([label, href]) => (
                 <li key={href}>
