@@ -40,7 +40,7 @@ export default function TiendasPage() {
 
             {/* Details */}
             <div>
-              <h2 className="font-serif text-3xl md:text-4xl font-light mb-6">
+              <h2 className="font-serif text-2xl md:text-3xl font-light mb-6">
                 Teodoro García 2959
               </h2>
               <p className="text-sm text-[var(--gray-600)] leading-relaxed mb-8">

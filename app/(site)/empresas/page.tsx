@@ -60,7 +60,7 @@ export default function EmpresasPage() {
 
         <div className="relative container-site text-white">
           <p className="text-[10px] tracking-[0.45em] uppercase text-[var(--gold)] mb-5">Ventas corporativas</p>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-light leading-none mb-5 max-w-2xl">
+          <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-light leading-none mb-5 max-w-2xl">
             Regalos que<br />se recuerdan
           </h1>
           <p className="text-sm text-white/65 max-w-lg leading-relaxed mb-8">
@@ -108,7 +108,7 @@ export default function EmpresasPage() {
         <div className="container-site">
           <div className="text-center mb-10">
             <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-3">Nuestros productos</p>
-            <h2 className="font-serif text-3xl md:text-4xl font-light">Una colección diseñada para impresionar</h2>
+            <h2 className="font-serif text-2xl md:text-3xl font-light">Una colección diseñada para impresionar</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
             {GALLERY.map((src, i) => (
@@ -135,7 +135,7 @@ export default function EmpresasPage() {
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
             <div>
               <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-4">Casos de uso</p>
-              <h2 className="font-serif text-3xl md:text-4xl font-light mb-6 leading-snug">
+              <h2 className="font-serif text-2xl md:text-3xl font-light mb-6 leading-snug">
                 Cada empresa tiene<br />su propia historia
               </h2>
               <p className="text-sm text-[var(--gray-600)] leading-relaxed mb-8">
@@ -187,7 +187,7 @@ export default function EmpresasPage() {
         <div className="container-site">
           <div className="text-center mb-12">
             <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-3">Por qué elegirnos</p>
-            <h2 className="font-serif text-3xl md:text-4xl font-light">Lo que nos hace distintos</h2>
+            <h2 className="font-serif text-2xl md:text-3xl font-light">Lo que nos hace distintos</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {BENEFICIOS.map(({ icon: Icon, title, desc }) => (

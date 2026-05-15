@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Roboto_Mono } from 'next/font/google'
+import { Roboto_Mono, Plus_Jakarta_Sans } from 'next/font/google'
 import { Suspense } from 'react'
 import './globals.css'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
@@ -11,6 +11,13 @@ const mono = Roboto_Mono({
   weight: ['300', '400', '500', '700'],
   style: ['normal', 'italic'],
   variable: '--font-mono',
+  display: 'swap',
+})
+
+const sans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-sans',
   display: 'swap',
 })
 
@@ -51,7 +58,7 @@ const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ''
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={mono.variable}>
+    <html lang="es" className={`${mono.variable} ${sans.variable}`}>
       <body>
         <OrganizationJsonLd />
         {children}

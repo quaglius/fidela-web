@@ -113,7 +113,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
               )}
 
               {/* Nombre */}
-              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-4">
+              <h1 className="font-serif text-2xl md:text-3xl lg:text-5xl font-light leading-tight mb-4">
                 {product.name?.es}
               </h1>
 

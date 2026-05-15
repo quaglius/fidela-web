@@ -28,27 +28,30 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* ── BASE TYPOGRAPHY — Roboto Mono throughout ────────────────────────────── */
+/* ── BASE TYPOGRAPHY ─────────────────────────────────────────────────────── */
+/* Body: Plus Jakarta Sans (igual que fidela.com.ar --body-font)             */
+/* Display/títulos: Roboto Mono 300 vía .font-serif (igual que --heading-font) */
 body {
   color: var(--black);
   background: var(--white);
-  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
+  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
   font-weight: 400;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Override Tailwind's font-serif utility to use Roboto Mono 300 (display weight) */
+/* Roboto Mono para títulos display — peso 300 da elegancia */
 .font-serif {
-  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
+  font-family: var(--font-mono), 'Roboto Mono', monospace;
   font-weight: 300;
   letter-spacing: -0.02em;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
-  line-height: 1.1;
+  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.15;
 }
 
 /* ── LAYOUT UTILITIES ────────────────────────────────────────────────────── */
@@ -76,7 +79,7 @@ h1, h2, h3, h4, h5, h6 {
 .announcement-bar-promo {
   background: #C22020;
   color: #fff;
-  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
+  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -125,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-gold {
   background: var(--gold);
   color: var(--white);
-  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
+  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
   font-weight: 500;
   letter-spacing: 0.12em;
   transition: background var(--duration-fast) var(--ease-out),
@@ -142,7 +145,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-outline {
   border: 1px solid var(--black);
   color: var(--black);
-  font-family: var(--font-mono), 'Roboto Mono', ui-monospace, monospace;
+  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
   font-weight: 500;
   letter-spacing: 0.12em;
   transition: background var(--duration-fast) var(--ease-out),

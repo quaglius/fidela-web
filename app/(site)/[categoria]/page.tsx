@@ -125,7 +125,7 @@ export default async function CategoriaPage({ params }: { params: { categoria: s
             <span>/</span>
             <span className="text-white/70">{category.name?.es}</span>
           </nav>
-          <h1 className="font-serif text-4xl md:text-6xl font-light leading-none mb-3">
+          <h1 className="font-serif text-2xl md:text-4xl font-light leading-none mb-3">
             {category.name?.es}
           </h1>
           {hero?.description && (

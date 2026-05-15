@@ -94,7 +94,7 @@ export default function NuestrosAromasPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20" />
         <div className="relative container-site text-white">
           <p className="text-[10px] tracking-[0.45em] uppercase text-[var(--gold)] mb-4">8 blends de autor</p>
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light leading-tight mb-4 max-w-2xl">
+          <h1 className="font-serif text-2xl md:text-3xl lg:text-5xl font-light leading-tight mb-4 max-w-2xl">
             Nuestros Aromas
           </h1>
           <p className="text-sm text-white/65 max-w-md tracking-wide leading-relaxed">
@@ -113,7 +113,7 @@ export default function NuestrosAromasPage() {
               <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-4">
                 Proceso &amp; Filosofía
               </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-light mb-6 leading-snug">
+              <h2 className="font-serif text-2xl md:text-3xl font-light mb-6 leading-snug">
                 Fragancias creadas<br />con intención
               </h2>
               <p className="text-sm text-[var(--gray-600)] leading-relaxed mb-5">
@@ -173,7 +173,7 @@ export default function NuestrosAromasPage() {
         <div className="container-site">
           <div className="text-center mb-12 md:mb-16">
             <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-3">Colección completa</p>
-            <h2 className="font-serif text-3xl md:text-4xl font-light">Los 8 blends</h2>
+            <h2 className="font-serif text-2xl md:text-3xl font-light">Los 8 blends</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0 divide-y divide-[var(--gray-100)]">
@@ -238,7 +238,7 @@ export default function NuestrosAromasPage() {
       <section className="bg-[var(--black)] section-py text-white text-center">
         <div className="container-site max-w-xl mx-auto">
           <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-4">Hot Sale</p>
-          <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">
+          <h2 className="font-serif text-2xl md:text-3xl font-light mb-4">
             30% OFF en toda la tienda
           </h2>
           <p className="text-sm text-white/60 mb-8">

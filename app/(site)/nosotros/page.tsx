@@ -51,7 +51,7 @@ export default function NosotrosPage() {
       {/* Values */}
       <section className="section-py bg-[var(--cream)]">
         <div className="container-site">
-          <h2 className="font-serif text-3xl md:text-4xl font-light text-center mb-12">
+          <h2 className="font-serif text-2xl md:text-3xl font-light text-center mb-12">
             Lo que nos mueve
           </h2>
           <div className="grid md:grid-cols-3 gap-8">

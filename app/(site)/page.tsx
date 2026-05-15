@@ -175,7 +175,7 @@ export default async function HomePage() {
       <section className="section-py bg-[var(--cream)]">
         <div className="container-site">
           <FadeUp className="flex items-end justify-between mb-8">
-            <h2 className="font-serif text-3xl md:text-4xl font-light">Explorá por producto</h2>
+            <h2 className="font-serif text-2xl md:text-3xl font-light">Explorá por producto</h2>
             <Link href="/productos" className="text-xs tracking-widest uppercase underline hover:text-[var(--gold)] transition-colors hidden md:block">
               Ver todo
             </Link>
@@ -212,7 +212,7 @@ export default async function HomePage() {
             <FadeUp className="flex items-end justify-between mb-8">
               <div>
                 <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--gold)] mb-1">Lo más elegido</p>
-                <h2 className="font-serif text-3xl md:text-4xl font-light">Más vendidos</h2>
+                <h2 className="font-serif text-2xl md:text-3xl font-light">Más vendidos</h2>
               </div>
               <Link href="/productos" className="text-xs tracking-widest uppercase underline hover:text-[var(--gold)] transition-colors hidden md:block">
                 Ver todos
@@ -238,7 +238,7 @@ export default async function HomePage() {
           <FadeUp className="flex items-end justify-between mb-6">
             <div>
               <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--gold)] mb-2">8 blends propios</p>
-              <h2 className="font-serif text-3xl md:text-4xl font-light text-white">Nuestros aromas</h2>
+              <h2 className="font-serif text-2xl md:text-3xl font-light text-white">Nuestros aromas</h2>
             </div>
             <Link href="/nuestros-aromas" className="text-xs tracking-widest uppercase underline text-white/50 hover:text-[var(--gold)] transition-colors hidden md:block">
               Ver todos
@@ -353,7 +353,7 @@ export default async function HomePage() {
             {/* Text */}
             <FadeUp className="order-1 md:order-2" delay={150}>
               <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-4">Visitanos</p>
-              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light mb-5 leading-tight">
+              <h2 className="font-serif text-2xl md:text-3xl lg:text-5xl font-light mb-5 leading-tight">
                 Nuestro<br />Concept Store
               </h2>
               <p className="text-[var(--gray-600)] text-sm leading-relaxed mb-8">

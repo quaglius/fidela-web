@@ -87,7 +87,7 @@ export default async function BlendPage({ params }: { params: { blend: string } 
                 {familyLabel}
               </span>
             </div>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-light leading-none mb-4 tracking-tight">
+            <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-light leading-none mb-4 tracking-tight">
               {aroma.name}
             </h1>
             <p className="text-sm md:text-base italic text-white/65 leading-relaxed">
@@ -200,7 +200,7 @@ export default async function BlendPage({ params }: { params: { blend: string } 
             {/* Texto derecha */}
             <div className="order-1 md:order-2">
               <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-4">Origen &amp; inspiración</p>
-              <h2 className="font-serif text-3xl md:text-4xl font-light mb-6 leading-snug">
+              <h2 className="font-serif text-2xl md:text-3xl font-light mb-6 leading-snug">
                 La historia detrás del aroma
               </h2>
               <p className="text-sm text-[var(--gray-600)] leading-relaxed mb-8">
@@ -320,7 +320,7 @@ export default async function BlendPage({ params }: { params: { blend: string } 
       <section className="bg-[var(--black)] section-py text-white text-center">
         <div className="container-site max-w-lg mx-auto">
           <p className="text-[9px] tracking-[0.4em] uppercase text-[var(--gold)] mb-4">Hot Sale · 30% OFF</p>
-          <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">
+          <h2 className="font-serif text-2xl md:text-3xl font-light mb-4">
             Llevate {aroma.name}
           </h2>
           <p className="text-sm text-white/50 mb-8 leading-relaxed">
