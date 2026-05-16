@@ -19,7 +19,7 @@
 
     /* ── HERO ─────────────────────────────────────────────────────────────────── */
     .hero{position:relative;background:var(--black);overflow:hidden}
-    .hero-img{width:100%;height:50vw;min-height:280px;max-height:500px;object-fit:cover;display:block;opacity:.5}
+    .hero-img{width:100%;height:max(62vw,580px);object-fit:cover;display:block;opacity:.5}
     .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.3) 0%,rgba(0,0,0,.85) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center}
     .hot-sale-tag{background:var(--red);color:#fff;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:6px 16px;border-radius:2px;margin-bottom:16px;display:inline-block}
     .hero-pct{font-size:clamp(72px,20vw,140px);font-weight:700;color:var(--gold);line-height:.9;letter-spacing:-.04em}
@@ -49,10 +49,16 @@
     @media(min-width:640px){.prod-grid{grid-template-columns:repeat(4,1fr)}}
     .prod-card{background:#fff;border-radius:10px;overflow:hidden;text-decoration:none;color:var(--black);display:block;transition:transform .2s,box-shadow .2s}
     .prod-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+    .prod-card-img{position:relative}
     .prod-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
     .prod-card-body{padding:12px}
-    .prod-card-name{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+    .prod-card-name{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
     .prod-badge{display:inline-block;background:var(--red);color:#fff;font-size:8px;font-weight:700;letter-spacing:.1em;padding:3px 8px;border-radius:2px;text-transform:uppercase}
+    /* Price overlay */
+    .price-overlay{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:6px;padding:5px 8px;text-align:right;line-height:1.25}
+    .price-overlay-off{display:block;font-size:7px;font-weight:700;color:var(--red);letter-spacing:.12em;text-transform:uppercase}
+    .price-overlay-now{display:block;font-size:13px;font-weight:700;color:#fff;letter-spacing:-.01em}
+    .price-overlay-was{display:block;font-size:9px;color:rgba(255,255,255,.45);text-decoration:line-through}
 
     /* ── MID CTA ──────────────────────────────────────────────────────────────── */
     .mid-cta{background:var(--black);color:#fff;padding:64px 24px;text-align:center}
@@ -152,28 +158,56 @@
   <h2 class="title">Elegí tu aroma favorito</h2>
   <div class="prod-grid">
     <a class="prod-card" href="/velas-de-soja">
-      <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8842-scaled-e1681317841299-1536x1536-62758a2ee6f417ab8417207386037479-480-0.webp" alt="Velas de Soja" loading="lazy">
+      <div class="prod-card-img">
+        <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8842-scaled-e1681317841299-1536x1536-62758a2ee6f417ab8417207386037479-480-0.webp" alt="Velas de Soja" loading="lazy">
+        <div class="price-overlay">
+          <span class="price-overlay-off">-30%</span>
+          <span class="price-overlay-now">$4.550</span>
+          <span class="price-overlay-was">$6.500</span>
+        </div>
+      </div>
       <div class="prod-card-body">
         <div class="prod-card-name">Velas de Soja</div>
         <span class="prod-badge">30% OFF</span>
       </div>
     </a>
     <a class="prod-card" href="/aromatizantes">
-      <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp" alt="Difusores" loading="lazy">
+      <div class="prod-card-img">
+        <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp" alt="Difusores" loading="lazy">
+        <div class="price-overlay">
+          <span class="price-overlay-off">-30%</span>
+          <span class="price-overlay-now">$5.250</span>
+          <span class="price-overlay-was">$7.500</span>
+        </div>
+      </div>
       <div class="prod-card-body">
         <div class="prod-card-name">Difusores</div>
         <span class="prod-badge">30% OFF</span>
       </div>
     </a>
     <a class="prod-card" href="/jabones-naturales">
-      <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8453-scaled-e1685916235552-1534x1536-0788f88e8f8219233017219543914857-480-0.webp" alt="Jabones" loading="lazy">
+      <div class="prod-card-img">
+        <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8453-scaled-e1685916235552-1534x1536-0788f88e8f8219233017219543914857-480-0.webp" alt="Jabones" loading="lazy">
+        <div class="price-overlay">
+          <span class="price-overlay-off">-30%</span>
+          <span class="price-overlay-now">$2.450</span>
+          <span class="price-overlay-was">$3.500</span>
+        </div>
+      </div>
       <div class="prod-card-body">
         <div class="prod-card-name">Jabones Naturales</div>
         <span class="prod-badge">30% OFF</span>
       </div>
     </a>
     <a class="prod-card" href="/boxes-kits">
-      <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp" alt="Boxes" loading="lazy">
+      <div class="prod-card-img">
+        <img src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp" alt="Boxes" loading="lazy">
+        <div class="price-overlay">
+          <span class="price-overlay-off">-30%</span>
+          <span class="price-overlay-now">$8.400</span>
+          <span class="price-overlay-was">$12.000</span>
+        </div>
+      </div>
       <div class="prod-card-body">
         <div class="prod-card-name">Boxes & Kits</div>
         <span class="prod-badge">30% OFF</span>

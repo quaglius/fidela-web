@@ -40,7 +40,8 @@ export default function CatalogFilters({
   const cleanCategories = dedupeCategories(categories.filter(c => !c.parent))
   const router = useRouter()
   const pathname = usePathname()
-  const [openSection, setOpenSection] = useState<string | null>('categoria')
+  // null = all collapsed (mobile default); desktop always shows via md:block
+  const [openSection, setOpenSection] = useState<string | null>(null)
 
   function setParam(key: string, value: string) {
     const params = new URLSearchParams(searchParams as Record<string, string>)
@@ -84,56 +85,60 @@ export default function CatalogFilters({
       <div className="border-t border-[var(--gray-200)] pt-4 mb-4">
         <button
           onClick={() => setOpenSection(openSection === 'categoria' ? null : 'categoria')}
-          className="flex items-center justify-between w-full text-[10px] tracking-widest uppercase text-[var(--gray-400)] mb-3"
+          className="flex items-center justify-between w-full text-[10px] tracking-widest uppercase text-[var(--gray-400)] mb-3 md:cursor-default"
         >
-          Categoría <ChevronDown size={12} className={openSection === 'categoria' ? 'rotate-180' : ''} />
+          Categoría
+          <ChevronDown
+            size={12}
+            className={`md:hidden transition-transform duration-200 ${openSection === 'categoria' ? 'rotate-180' : ''}`}
+          />
         </button>
-        {openSection === 'categoria' && (
-          <ul className="flex flex-col gap-1.5">
-            {cleanCategories.map((cat) => (
-              <li key={cat.id}>
-                <button
-                  onClick={() => setParam('categoria', cat.name?.es === searchParams.categoria ? '' : cat.name?.es ?? '')}
-                  className={`text-left w-full px-1 py-1 rounded transition-colors ${
-                    searchParams.categoria === cat.name?.es
-                      ? 'text-[var(--gold)] font-medium'
-                      : 'hover:text-[var(--gold)]'
-                  }`}
-                >
-                  {cat.name?.es}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul className={`flex flex-col gap-1.5 ${openSection === 'categoria' ? 'block' : 'hidden'} md:block`}>
+          {cleanCategories.map((cat) => (
+            <li key={cat.id}>
+              <button
+                onClick={() => setParam('categoria', cat.name?.es === searchParams.categoria ? '' : cat.name?.es ?? '')}
+                className={`text-left w-full px-1 py-1 rounded transition-colors ${
+                  searchParams.categoria === cat.name?.es
+                    ? 'text-[var(--gold)] font-medium'
+                    : 'hover:text-[var(--gold)]'
+                }`}
+              >
+                {cat.name?.es}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Aroma */}
       <div className="border-t border-[var(--gray-200)] pt-4">
         <button
           onClick={() => setOpenSection(openSection === 'aroma' ? null : 'aroma')}
-          className="flex items-center justify-between w-full text-[10px] tracking-widest uppercase text-[var(--gray-400)] mb-3"
+          className="flex items-center justify-between w-full text-[10px] tracking-widest uppercase text-[var(--gray-400)] mb-3 md:cursor-default"
         >
-          Aroma <ChevronDown size={12} className={openSection === 'aroma' ? 'rotate-180' : ''} />
+          Aroma
+          <ChevronDown
+            size={12}
+            className={`md:hidden transition-transform duration-200 ${openSection === 'aroma' ? 'rotate-180' : ''}`}
+          />
         </button>
-        {openSection === 'aroma' && (
-          <ul className="flex flex-col gap-1.5">
-            {AROMAS_FILTER.map((a) => (
-              <li key={a}>
-                <button
-                  onClick={() => setParam('aroma', a === searchParams.aroma ? '' : a)}
-                  className={`text-left w-full px-1 py-1 rounded transition-colors ${
-                    searchParams.aroma === a
-                      ? 'text-[var(--gold)] font-medium'
-                      : 'hover:text-[var(--gold)]'
-                  }`}
-                >
-                  {a}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul className={`flex flex-col gap-1.5 ${openSection === 'aroma' ? 'block' : 'hidden'} md:block`}>
+          {AROMAS_FILTER.map((a) => (
+            <li key={a}>
+              <button
+                onClick={() => setParam('aroma', a === searchParams.aroma ? '' : a)}
+                className={`text-left w-full px-1 py-1 rounded transition-colors ${
+                  searchParams.aroma === a
+                    ? 'text-[var(--gold)] font-medium'
+                    : 'hover:text-[var(--gold)]'
+                }`}
+              >
+                {a}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   )
