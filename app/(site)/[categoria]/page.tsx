@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getCategories, getAllProducts } from '@/lib/tiendanube'
-import ProductCard from '@/components/site/ProductCard'
+import { getCategories, getAllProducts, explodeByFragrance } from '@/lib/tiendanube'
+import VariantCard from '@/components/site/VariantCard'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -100,6 +100,7 @@ export default async function CategoriaPage({ params }: { params: { categoria: s
     p.categories?.some((c) => catIds.includes(c.id))
   )
 
+  const cards = explodeByFragrance(products)
   const hero = CATEGORY_HERO[params.categoria]
 
   return (
@@ -131,13 +132,13 @@ export default async function CategoriaPage({ params }: { params: { categoria: s
           {hero?.description && (
             <p className="text-sm text-white/60 max-w-md leading-relaxed mt-2">{hero.description}</p>
           )}
-          <p className="text-[10px] tracking-widest uppercase text-[var(--gold)] mt-4">{products.length} productos · 30% OFF</p>
+          <p className="text-[10px] tracking-widest uppercase text-[var(--gold)] mt-4">{cards.length} opciones · 30% OFF</p>
         </div>
       </div>
 
       <div className="section-py">
         <div className="container-site">
-          {products.length === 0 ? (
+          {cards.length === 0 ? (
             <div className="text-center py-20 text-[var(--gray-400)]">
               <p className="font-serif text-xl mb-3">No hay productos en esta categoría aún</p>
               <Link href="/productos" className="text-xs tracking-widest uppercase underline hover:text-[var(--gold)]">
@@ -146,8 +147,15 @@ export default async function CategoriaPage({ params }: { params: { categoria: s
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
-              {products.map((p, i) => (
-                <ProductCard key={p.id} product={p} priority={i < 4} />
+              {cards.map((card, i) => (
+                <VariantCard
+                  key={`${card.product.id}-${card.variant.id}`}
+                  product={card.product}
+                  variant={card.variant}
+                  fragranceName={card.fragranceName}
+                  fragranceColor={card.fragranceColor}
+                  priority={i < 4}
+                />
               ))}
             </div>
           )}

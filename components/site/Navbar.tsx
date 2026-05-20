@@ -2,8 +2,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { ShoppingBag, Menu, X, ChevronDown } from 'lucide-react'
+import { ShoppingBag, Menu, X, ChevronDown, Search } from 'lucide-react'
 import { useCart } from '@/lib/cart'
+import dynamic from 'next/dynamic'
+
+const SearchOverlay = dynamic(() => import('./SearchOverlay'), { ssr: false })
+
 
 const CATEGORIES = [
   { name: 'Velas de Soja', href: '/velas-de-soja' },
@@ -26,6 +30,7 @@ export default function Navbar({ announcement }: { announcement?: string }) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
   const totalItems = items.reduce((s, i) => s + i.quantity, 0)
 
   useEffect(() => {
@@ -90,8 +95,8 @@ export default function Navbar({ announcement }: { announcement?: string }) {
                 </button>
                 {activeMenu === 'productos' && (
                   <div className="absolute top-full left-0 bg-white shadow-xl border-t-2 border-[var(--gold)] min-w-[210px] py-3 z-50">
-                    <Link href="/productos" className="flex items-center gap-2 px-6 py-2.5 text-[11px] tracking-widest uppercase font-semibold text-[var(--gold)] hover:bg-[var(--cream)] transition-colors duration-150 border-b border-gray-100 mb-1">
-                      Todos los productos →
+                    <Link href="/productos" className="block px-6 py-2.5 text-[11px] tracking-widest uppercase font-semibold text-[var(--gold)] hover:bg-[var(--cream)] transition-colors duration-150 border-b border-gray-100 mb-1 whitespace-nowrap">
+                      Todos los productos
                     </Link>
                     {CATEGORIES.map((cat) => (
                       <Link
@@ -150,19 +155,28 @@ export default function Navbar({ announcement }: { announcement?: string }) {
               </Link>
             </div>
 
-            {/* Cart icon */}
-            <button
-              onClick={open}
-              className="relative p-2 -mr-2 cursor-pointer hover:text-[var(--gold)] transition-colors duration-150"
-              aria-label="Carrito"
-            >
-              <ShoppingBag size={22} />
-              {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#D62B2B] text-white text-[9px] rounded-full flex items-center justify-center font-bold">
-                  {totalItems > 9 ? '9+' : totalItems}
-                </span>
-              )}
-            </button>
+            {/* Search + Cart */}
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setShowSearch(true)}
+                className="p-2 cursor-pointer hover:text-[var(--gold)] transition-colors duration-150"
+                aria-label="Buscar"
+              >
+                <Search size={20} />
+              </button>
+              <button
+                onClick={open}
+                className="relative p-2 -mr-2 cursor-pointer hover:text-[var(--gold)] transition-colors duration-150"
+                aria-label="Carrito"
+              >
+                <ShoppingBag size={22} />
+                {totalItems > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#D62B2B] text-white text-[9px] rounded-full flex items-center justify-center font-bold">
+                    {totalItems > 9 ? '9+' : totalItems}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -214,6 +228,8 @@ export default function Navbar({ announcement }: { announcement?: string }) {
           </div>
         )}
       </nav>
+
+      {showSearch && <SearchOverlay onClose={() => setShowSearch(false)} />}
     </>
   )
 }

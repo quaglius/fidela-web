@@ -6,7 +6,13 @@ import { ShoppingBag, Zap, CheckCircle2 } from 'lucide-react'
 import { trackEvent } from '@/components/analytics/GoogleAnalytics'
 import { trackMetaEvent } from '@/components/analytics/MetaPixel'
 
-export default function AddToCartSection({ product }: { product: TNProduct }) {
+export default function AddToCartSection({
+  product,
+  initialVariantId,
+}: {
+  product: TNProduct
+  initialVariantId?: string
+}) {
   const { addItem } = useCart()
   const variants = product.variants ?? []
   const attributes = product.attributes ?? []
@@ -20,8 +26,12 @@ export default function AddToCartSection({ product }: { product: TNProduct }) {
       .filter((v): v is string => !!v && !seen.has(v) && (seen.add(v), true))
   })
 
+  const preselected = initialVariantId
+    ? (variants.find((v) => String(v.id) === initialVariantId) ?? variants[0])
+    : variants[0]
+
   const [selections, setSelections] = useState<string[]>(
-    attributes.map((_, i) => variants[0]?.values?.[i]?.es ?? '')
+    attributes.map((_, i) => preselected?.values?.[i]?.es ?? '')
   )
   const [added, setAdded] = useState(false)
   const [qty, setQty] = useState(1)

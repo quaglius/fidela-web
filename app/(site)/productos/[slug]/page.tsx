@@ -35,7 +35,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
+export default async function ProductPage({
+  params,
+  searchParams,
+}: {
+  params: { slug: string }
+  searchParams?: { variant?: string }
+}) {
   const product = await getProductByHandle(params.slug)
   if (!product) notFound()
 
@@ -137,7 +143,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
               </div>
 
               {/* Selector de variantes + carrito */}
-              <AddToCartSection product={product} />
+              <AddToCartSection product={product} initialVariantId={searchParams?.variant} />
 
               {/* Garantías */}
               <div className="mt-6 pt-6 border-t border-[var(--gray-200)] grid grid-cols-2 gap-3">

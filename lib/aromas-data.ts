@@ -1,3 +1,9 @@
+export interface AromaPrinciple {
+  name: string
+  type: string
+  description: string
+}
+
 export interface AromaData {
   number: number
   name: string
@@ -9,14 +15,17 @@ export interface AromaData {
   description: string
   story: string
   notes: { top: string; heart: string; base: string }
+  aromaticProfile?: string
+  principles?: AromaPrinciple[]
+  ritualText?: string
   image: string
   images: string[]
   properties: string[]
   environments: string[]
   // Brand graphics (2026 collection only)
-  trama?: string       // colored full-bleed background pattern
-  tramaLight?: string  // light version for secondary sections
-  icon?: string        // botanical illustration (black on white, use multiply blend)
+  trama?: string
+  tramaLight?: string
+  icon?: string
 }
 
 // ── Colección 2026 — 4 fragancias oficiales ────────────────────────────────
@@ -28,14 +37,23 @@ export const AROMAS: AromaData[] = [
     family: 'Floral',
     slug: 'velvet',
     color: '#7E2738',
-    tagline: 'La elegancia en su estado más puro',
-    description: 'Rosa Búlgara y Peonías en su máxima expresión. Una fragancia floral aterciopelada que envuelve cada espacio con sofisticación y gracia natural.',
-    story: 'Al alba del verano, cuando el rocío todavía cubre la superficie del jardín y las rosas abren en su máximo esplendor, se produce el antiguo ritual familiar de recolección floral. Velvet captura ese instante preciso: la flor en su plenitud, antes de que el sol la transforme.',
+    tagline: 'Un refugio de suavidad, delicadeza y distinción.',
+    description: 'Rosas abiertas, flores suaves y acordes aterciopelados despliegan un universo sofisticado y envolvente que recuerda la suavidad de las manos, la elegancia silenciosa y el refugio íntimo del hogar. Homenaje a la delicadeza del tacto, transforma el espacio en un refugio de memoria y confort.',
+    story: 'Al alba del verano, cuando el rocío todavía cubre la superficie del jardín y las rosas abren en su máximo esplendor, se produce el antiguo ritual familiar de recolección floral. Este blend honra los pétalos recién cortados, la feminidad en su forma más profunda y la belleza delicada de lo heredado.',
     notes: { top: 'Floral-verde suave', heart: 'Rosa Búlgara, Peonías, Higo', base: 'Muguet & Almizcle' },
+    aromaticProfile: 'Salida floral-verde suave, corazón romántico y elegante, base almizclada aterciopelada y sofisticada.',
+    principles: [
+      { name: 'Rosa Búlgara', type: 'Flor', description: 'Uno de los tesoros más preciados de la perfumería botánica. En la complejidad de sus pétalos se despliega una fragancia rica, roja y aterciopelada con matices verdes, dulces y especiados. Aporta sofisticación, feminidad y una profundidad que constituye el corazón de esta composición.' },
+      { name: 'Peonías', type: 'Flor', description: 'Exuberante, delicada y luminosa. Sus pétalos liberan una frescura suave y envolvente, donde conviven transparencia y sensualidad. Expande la estructura floral con ligereza y elegancia.' },
+      { name: 'Higo', type: 'Fruto', description: 'Verde, cremoso y ligeramente dulce, su aroma reúne hoja, savia y pulpa en una textura vegetal profunda. Introduce una calidez aterciopelada que madura la composición y aporta cuerpo.' },
+      { name: 'Muguet', type: 'Flor', description: 'Ligero, blanco y cristalino. Frescura limpia y etérea que ilumina la fragancia desde su centro más delicado.' },
+      { name: 'White Musk', type: 'Base botánica', description: 'El velo íntimo de la composición. Su textura limpia y persistente prolonga el perfume con suavidad aterciopelada, aportando duración y una sensualidad silenciosa.' },
+    ],
+    ritualText: 'Velvet invita a crear una atmósfera de belleza silenciosa, donde cada nota perfuma el presente mientras evoca memorias delicadas.',
     image: '/media/_MG_3566.jpg',
     images: ['/media/_MG_3566.jpg', '/media/MG_9578-scaled.jpg'],
-    properties: ['floral', 'aterciopelado', 'elegante', 'almizclado'],
-    environments: ['dormitorios', 'living', 'recibidores', 'espacios de pausa'],
+    properties: ['floral', 'aterciopelada', 'elegante', 'verde', 'almizclada'],
+    environments: ['dormitorios', 'livings', 'recibidores', 'espacios de pausa'],
     trama: '/brand/graphics/trama-velvet.png',
     tramaLight: '/brand/graphics/trama-velvet-light.png',
     icon: '/brand/graphics/icon-velvet.png',
@@ -47,13 +65,21 @@ export const AROMAS: AromaData[] = [
     family: 'Terra',
     slug: 'linaje',
     color: '#CB6F36',
-    tagline: 'La huella que une pasado y presente',
-    description: 'Sándalo y Ámbar de profundidad cálida, con la chispa de la Pimienta Rosa y la dulzura de la Frambuesa. Un aroma que magnetiza y perdura.',
-    story: 'El linaje es la huella invisible que une pasado y presente: raíces profundas, gestos heredados y vínculos que perduran más allá del tiempo. Esta fragancia lleva esa esencia — amaderada, especiada, sensual — como quien lleva en el cuerpo la historia de su familia.',
+    tagline: 'Raíces profundas, presencia cálida y sensualidad duradera.',
+    description: 'Especias vibrantes, maderas sagradas y resinas envolventes construyen un blend profundamente magnético, donde la energía del presente dialoga con la profundidad de lo ancestral. Perfume de raíz cálida, sensualidad balsámica y elegancia duradera. Encarna la intimidad, la conexión emocional y la fuerza silenciosa de aquello que permanece.',
+    story: 'El linaje es la huella invisible que une pasado y presente: raíces profundas, gestos heredados y vínculos que perduran más allá del tiempo. Es memoria viva, refugio y permanencia transformados en presencia.',
     notes: { top: 'Especiada-frutal vibrante', heart: 'Sándalo, Pimienta Rosa, Frambuesa', base: 'Ámbar sensual y duradero' },
+    aromaticProfile: 'Salida especiada-frutal vibrante, corazón cálido amaderado, base ambarada sensual y duradera.',
+    principles: [
+      { name: 'Sándalo', type: 'Madera', description: 'Sagrada, cremosa y profundamente balsámica. Su aroma cálido y meditativo despliega una riqueza suave que envuelve la composición con profundidad, sensualidad y permanencia.' },
+      { name: 'Pimienta Rosa', type: 'Fruto', description: 'Vibrante, especiada y ligeramente frutal. Sus bayas liberan una energía chispeante que aporta frescura rosada, magnetismo y una apertura luminosa.' },
+      { name: 'Frambuesa', type: 'Fruto', description: 'Dulce, jugosa y delicadamente ácida. Introduce una dimensión frutal que suaviza las especias y aporta dinamismo seductor al corazón del perfume.' },
+      { name: 'Ámbar', type: 'Resina', description: 'Cálido, envolvente y balsámico. Su profundidad resinosa sostiene la estructura con sensualidad, permanencia y una elegancia duradera.' },
+    ],
+    ritualText: 'Linaje crea una atmósfera envolvente. Pensada para momentos de luz tenue, que invita a bajar el ritmo, conectar y permanecer.',
     image: '/media/_MG_3545.jpg',
     images: ['/media/_MG_3545.jpg', '/media/MG_9590-scaled.jpg'],
-    properties: ['amaderado', 'especiado', 'cálido', 'balsámico'],
+    properties: ['amaderada', 'especiada', 'cálida', 'sensual', 'balsámica'],
     environments: ['espacios íntimos', 'rincones de lectura', 'meditación nocturna', 'ambientes de encuentro'],
     trama: '/brand/graphics/trama-linaje.png',
     tramaLight: '/brand/graphics/trama-linaje-light.png',
@@ -66,14 +92,23 @@ export const AROMAS: AromaData[] = [
     family: 'Terra',
     slug: 'roble',
     color: '#496130',
-    tagline: 'El silencio profundo del taller',
-    description: 'Cardamomo y Vetiver sobre un corazón de Cedro. Una fragancia amaderada y estructurada que invita al pensamiento y la calma interior.',
-    story: 'En el aroma de la madera trabajada, donde el tiempo permanece suspendido entre herramientas heredadas, vetas nobles y el silencio profundo del taller, habita la memoria del oficio. Roble es ese lugar: íntimo, concentrado, lleno de presencia.',
+    tagline: 'Maderas nobles y especias profundas para habitar lo esencial.',
+    description: 'Especias exóticas, raíces terrosas y maderas nobles despliegan una fragancia introspectiva, sofisticada y enigmática que narra un viaje hacia lo esencial. Perfume de carácter sereno, estructura profunda y misterio elegante. Encarna la permanencia, la contemplación y la fuerza silenciosa de aquello que perdura.',
+    story: 'En el aroma de la madera trabajada, donde el tiempo permanece suspendido entre herramientas heredadas, vetas nobles y el silencio profundo del taller, habita la memoria del oficio. Un homenaje sensorial a quienes construyen con paciencia, visión y una íntima conexión con la materia.',
     notes: { top: 'Especiada fresca', heart: 'Cardamomo, Vetiver, Cedro', base: 'White Musk & Ámbar cálido' },
+    aromaticProfile: 'Salida especiada fresca, corazón amaderado estructurado, base cálida almizclada y profunda.',
+    principles: [
+      { name: 'Cardamomo', type: 'Semilla', description: 'Exótico, fresco y especiado. Sus semillas concentran una intensidad aromática vibrante con matices verdes, cítricos y cálidos. Aporta misterio y sofisticación desde la apertura.' },
+      { name: 'Vetiver', type: 'Raíz', description: 'Profundo, seco y terroso. Su estructura mineral y amaderada desarrolla una presencia estable que aporta introspección, carácter y solidez.' },
+      { name: 'Cedro', type: 'Madera', description: 'Noble, seco y resinoso. Despliega una arquitectura aromática serena que evoca permanencia, estructura y la belleza del oficio.' },
+      { name: 'White Musk', type: 'Base aromática', description: 'Limpio, aterciopelado y persistente. Suaviza la intensidad de las maderas y prolonga la composición con equilibrio.' },
+      { name: 'Ámbar', type: 'Resina', description: 'Dulce, cálido y balsámico. Aporta profundidad, duración y una presencia envolvente.' },
+    ],
+    ritualText: 'Roble acompaña momentos de creación, contemplación y enfoque.',
     image: '/media/_MG_3533.jpg',
     images: ['/media/_MG_3533.jpg', '/media/MG_9566-scaled.jpg'],
-    properties: ['amaderado', 'terroso', 'introspectivo', 'elegante'],
-    environments: ['estudios creativos', 'bibliotecas', 'home office', 'entradas'],
+    properties: ['amaderada', 'especiada', 'terrosa', 'elegante', 'introspectiva'],
+    environments: ['estudios creativos', 'bibliotecas', 'hoteles', 'espacios de trabajo', 'entradas'],
     trama: '/brand/graphics/trama-roble.png',
     tramaLight: '/brand/graphics/trama-roble-light.png',
     icon: '/brand/graphics/icon-roble.png',
@@ -85,14 +120,23 @@ export const AROMAS: AromaData[] = [
     family: 'Fresco',
     slug: 'brisa',
     color: '#77C1EC',
-    tagline: 'La claridad de la mañana',
-    description: 'Verbena y Lima Ácida con el dulzor del Pomelo Rosado y el Higo. Una fragancia cítrica y herbal que transforma cualquier espacio en energía renovada.',
-    story: 'Una casa luminosa despierta con las ventanas abiertas, mientras el aire fresco recorre cada rincón y la claridad de la mañana transforma el espacio en renovación. Brisa captura ese instante cotidiano: fresco, luminoso, lleno de posibilidad.',
+    tagline: 'Frescura viva y cítrica que revitaliza cuerpo y espacio.',
+    description: 'Cítricos radiantes, verdes frescos y notas botánicas revitalizantes construyen una experiencia limpia, luminosa y expansiva que despeja, purifica y revitaliza. Perfume de luz suave, frescura viva y renovación cotidiana. Encarna el bienestar, la claridad y la energía serena de los nuevos comienzos.',
+    story: 'Una casa luminosa despierta con las ventanas abiertas, mientras el aire fresco recorre cada rincón y la claridad de la mañana transforma el espacio en renovación. Brisa nace como un homenaje al instante preciso donde todo vuelve a ordenarse y comenzar de nuevo.',
     notes: { top: 'Cítrica brillante', heart: 'Verbena, Lima Ácida, Pomelo Rosado', base: 'Higo & Muguet suave' },
+    aromaticProfile: 'Salida cítrica brillante, corazón herbal fresco, base verde suave y revitalizante.',
+    principles: [
+      { name: 'Verbena', type: 'Flor', description: 'Herbal, cítrica y revitalizante. Sus hojas liberan una frescura luminosa asociada a limpieza, claridad y renovación, constituyendo el impulso vital de esta composición.' },
+      { name: 'Lima Ácida', type: 'Cítrico', description: 'Brillante, verde y chispeante. Su pulpa intensa aporta una energía refrescante que despeja, estimula y revitaliza.' },
+      { name: 'Pomelo Rosado', type: 'Fruto', description: 'Jugoso, radiante y ligeramente amargo. Introduce una vitalidad expansiva y luminosa que dinamiza el corazón cítrico del perfume.' },
+      { name: 'Muguet', type: 'Flor', description: 'Ligero, blanco y cristalino, despliega una frescura limpia y etérea que ilumina la fragancia desde su centro más delicado.' },
+      { name: 'Higo', type: 'Fruto', description: 'Verde, suave y delicadamente dulce. Su textura aterciopelada equilibra la frescura con profundidad y serenidad.' },
+    ],
+    ritualText: 'Brisa revitaliza el aire y transforma el espacio en una experiencia de renovación.',
     image: '/media/_MG_3521.jpg',
     images: ['/media/_MG_3521.jpg', '/media/MG_9617-scaled.jpg'],
-    properties: ['cítrico', 'herbal', 'fresco', 'luminoso'],
-    environments: ['cocinas', 'estudios', 'espacios creativos', 'ambientes de bienestar'],
+    properties: ['cítrica', 'herbal', 'fresca', 'luminosa', 'verde'],
+    environments: ['cocinas', 'estudios', 'espacios creativos', 'galerías', 'bienestar cotidiano'],
     trama: '/brand/graphics/trama-brisa.png',
     tramaLight: '/brand/graphics/trama-brisa-light.png',
     icon: '/brand/graphics/icon-brisa.png',

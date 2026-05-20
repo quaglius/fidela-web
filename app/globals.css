@@ -104,6 +104,14 @@ body {
   letter-spacing: -0.02em;
 }
 
+/* Nombres de aroma — EB Garamond itálica (brandbook 2026) */
+.font-garamond {
+  font-family: var(--font-garamond), 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans), sans-serif;
   line-height: 1.15;

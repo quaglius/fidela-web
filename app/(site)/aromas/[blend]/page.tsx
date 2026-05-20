@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AROMAS, getAllAromas, getAromaBySlug } from '@/lib/aromas-data'
+import { getAllAromas, getAromaBySlug } from '@/lib/aromas-data'
 import { getAllProducts } from '@/lib/tiendanube'
 import ProductCard from '@/components/site/ProductCard'
 
@@ -50,8 +50,6 @@ export default async function BlendPage({ params }: { params: { blend: string } 
   const aromaIndex = allAromas.findIndex((a) => a.slug === aroma.slug)
   const prevAroma = allAromas[aromaIndex - 1] ?? null
   const nextAroma = allAromas[aromaIndex + 1] ?? null
-
-  const hasGraphics = !!(aroma.trama && aroma.icon)
 
   return (
     <div>
@@ -120,7 +118,7 @@ export default async function BlendPage({ params }: { params: { blend: string } 
             </p>
 
             {/* Nombre */}
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-light leading-none mb-5 tracking-tight">
+            <h1 className="font-garamond text-5xl md:text-7xl lg:text-8xl leading-none mb-5">
               {aroma.name}
             </h1>
 
@@ -206,7 +204,32 @@ export default async function BlendPage({ params }: { params: { blend: string } 
                     </div>
                   ))}
                 </div>
+                {aroma.aromaticProfile && (
+                  <p className="mt-5 text-xs text-[var(--negro-fidela)]/45 leading-relaxed italic">
+                    {aroma.aromaticProfile}
+                  </p>
+                )}
               </div>
+
+              {/* Principios activos */}
+              {aroma.principles && aroma.principles.length > 0 && (
+                <div className="border-t border-[var(--pantone-fidela)] pt-6 mt-2">
+                  <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/35 mb-5">
+                    Principios activos
+                  </p>
+                  <div className="flex flex-col gap-5">
+                    {aroma.principles.map((p) => (
+                      <div key={p.name}>
+                        <p className="font-mono text-[9px] tracking-widest uppercase mb-1.5">
+                          <span style={{ color: aroma.color }}>{p.name}</span>
+                          <span className="text-[var(--negro-fidela)]/30"> · {p.type}</span>
+                        </p>
+                        <p className="text-xs text-[var(--negro-fidela)]/55 leading-relaxed">{p.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Imagen */}
@@ -369,6 +392,11 @@ export default async function BlendPage({ params }: { params: { blend: string } 
                   </div>
                 ))}
               </div>
+              {aroma.ritualText && (
+                <p className="mt-6 text-sm text-[var(--negro-fidela)]/55 leading-relaxed max-w-lg">
+                  {aroma.ritualText}
+                </p>
+              )}
             </div>
 
             {/* Familia + detalle */}

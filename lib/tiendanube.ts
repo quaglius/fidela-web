@@ -128,3 +128,83 @@ export function formatPrice(price: string | number): string {
 export function getProductMainImage(product: TNProduct): string {
   return product.images?.[0]?.src ?? '/placeholder-product.jpg'
 }
+
+// ── Fragrance variant utilities ───────────────────────────────────────────────
+
+const FRAGRANCE_KNOWN_COLORS: Record<string, string> = {
+  'velvet':           '#7E2738',
+  'linaje':           '#CB6F36',
+  'roble':            '#496130',
+  'brisa':            '#77C1EC',
+  'floral velvet':    '#C4879C',
+  'menta negra':      '#2E6B56',
+  'french lavender':  '#7B6BA8',
+  'vainilla ambar':   '#C49A44',
+  'vainilla ámbar':   '#C49A44',
+  'té negro':         '#8B5E3C',
+  'te negro':         '#8B5E3C',
+  'ámbar oud':        '#9B4E1A',
+  'ambar oud':        '#9B4E1A',
+  'cedro marino':     '#4A7B8C',
+  'bosque y papiro':  '#5B6B3A',
+}
+
+const FRAGRANCE_PALETTE = [
+  '#7E2738', '#CB6F36', '#496130', '#77C1EC',
+  '#7B6BA8', '#2E6B56', '#C4879C', '#8B5E3C',
+  '#9B4E1A', '#4A7B8C', '#5B6B3A', '#C49A44',
+]
+
+export function getVariantColor(name: string): string {
+  const lower = name.toLowerCase().trim()
+  // Exact match
+  if (FRAGRANCE_KNOWN_COLORS[lower]) return FRAGRANCE_KNOWN_COLORS[lower]
+  // Substring match (e.g. "Blend 5 Floral Velvet" → "floral velvet")
+  for (const [key, color] of Object.entries(FRAGRANCE_KNOWN_COLORS)) {
+    if (lower.includes(key)) return color
+  }
+  // Fallback: hash name to palette for a consistent earthy color
+  let hash = 0
+  for (let i = 0; i < name.length; i++) {
+    hash = ((hash << 5) - hash + name.charCodeAt(i)) | 0
+  }
+  return FRAGRANCE_PALETTE[Math.abs(hash) % FRAGRANCE_PALETTE.length]
+}
+
+export function getVariantImage(product: TNProduct, variant: TNVariant): string {
+  if (variant.image_id) {
+    const img = product.images.find((i) => i.id === variant.image_id)
+    if (img) return img.src
+  }
+  return product.images?.[0]?.src ?? '/placeholder-product.jpg'
+}
+
+export interface FlatCard {
+  product: TNProduct
+  variant: TNVariant
+  fragranceName: string
+  fragranceColor: string | undefined
+}
+
+export function explodeByFragrance(products: TNProduct[]): FlatCard[] {
+  const result: FlatCard[] = []
+  for (const product of products) {
+    if (product.variants.length > 1) {
+      for (const variant of product.variants) {
+        const fragranceName = variant.values.map((v) => v.es).filter(Boolean).join(' / ')
+        result.push({
+          product,
+          variant,
+          fragranceName,
+          fragranceColor: getVariantColor(fragranceName),
+        })
+      }
+    } else {
+      const variant = product.variants[0]
+      if (variant) {
+        result.push({ product, variant, fragranceName: '', fragranceColor: undefined })
+      }
+    }
+  }
+  return result
+}

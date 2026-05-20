@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getAllProducts, type TNProduct } from '@/lib/tiendanube'
-import ProductCard from '@/components/site/ProductCard'
+import { getAllProducts, explodeByFragrance, type TNProduct } from '@/lib/tiendanube'
+import VariantCard from '@/components/site/VariantCard'
 import FadeUp from '@/components/ui/FadeUp'
 import { MapPin, Clock, MessageCircle, ArrowRight } from 'lucide-react'
 
@@ -217,7 +217,7 @@ export default async function HomePage() {
                   </p>
 
                   {/* Nombre Garamond grande */}
-                  <h3 className="font-serif text-3xl font-light text-[var(--blanco-fidela)] mb-4 leading-none">
+                  <h3 className="font-garamond text-3xl text-[var(--blanco-fidela)] mb-4 leading-none">
                     {f.name}
                   </h3>
 
@@ -241,8 +241,17 @@ export default async function HomePage() {
       </section>
 
       {/* ── CATEGORÍAS ───────────────────────────────────────────────────────── */}
-      <section className="section-py bg-[var(--blanco-fidela)]">
-        <div className="container-site">
+      <section className="relative section-py bg-[var(--blanco-fidela)] overflow-hidden">
+        <Image
+          src="/brand/graphics/icon-velvet.png"
+          alt=""
+          width={380}
+          height={380}
+          className="absolute -top-10 -right-10 pointer-events-none select-none object-contain"
+          style={{ mixBlendMode: 'multiply', opacity: 0.06 }}
+          aria-hidden
+        />
+        <div className="container-site relative z-10">
           <FadeUp className="flex items-end justify-between mb-10">
             <div>
               <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-3">
@@ -266,7 +275,7 @@ export default async function HomePage() {
                 <Link
                   href={cat.href}
                   className="relative overflow-hidden group block bg-[var(--pantone-fidela)]"
-                  style={{ aspectRatio: i === 0 ? '2/3' : '3/4' }}
+                  style={{ aspectRatio: '3/4' }}
                 >
                   <Image
                     src={cat.image}
@@ -296,43 +305,69 @@ export default async function HomePage() {
       </section>
 
       {/* ── MÁS VENDIDOS ─────────────────────────────────────────────────────── */}
-      {products.length > 0 && (
-        <section className="section-py bg-white border-t border-[var(--pantone-fidela)]/40">
-          <div className="container-site">
-            <FadeUp className="flex items-end justify-between mb-10">
-              <div>
-                <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-3">
-                  Lo más elegido
-                </p>
-                <h2 className="font-serif text-3xl md:text-4xl font-light text-[var(--negro-fidela)]">
-                  Más vendidos
-                </h2>
-              </div>
-              <Link
-                href="/productos"
-                className="hidden md:flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] uppercase text-[var(--negro-fidela)]/40 hover:text-[var(--negro-fidela)] transition-colors"
-              >
-                Ver todos <ArrowRight size={10} />
-              </Link>
-            </FadeUp>
-            <FadeUp delay={100}>
-              <div className="flex gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-4 md:overflow-visible md:pb-0 snap-x snap-mandatory md:snap-none scrollbar-none">
-                {products.map((p, i) => (
-                  <div key={p.id} className="min-w-[170px] md:min-w-0 snap-start flex-shrink-0 md:flex-shrink">
-                    <ProductCard product={p} priority={i < 4} />
-                  </div>
-                ))}
-              </div>
-            </FadeUp>
-          </div>
-        </section>
-      )}
+      {products.length > 0 && (() => {
+        const cards = explodeByFragrance(products).slice(0, 8)
+        return (
+          <section className="relative section-py bg-white border-t border-[var(--pantone-fidela)]/40 overflow-hidden">
+            <Image
+              src="/brand/graphics/icon-linaje.png"
+              alt=""
+              width={320}
+              height={320}
+              className="absolute bottom-0 -left-10 pointer-events-none select-none object-contain"
+              style={{ mixBlendMode: 'multiply', opacity: 0.06 }}
+              aria-hidden
+            />
+            <div className="container-site relative z-10">
+              <FadeUp className="flex items-end justify-between mb-10">
+                <div>
+                  <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-3">
+                    Lo más elegido
+                  </p>
+                  <h2 className="font-serif text-3xl md:text-4xl font-light text-[var(--negro-fidela)]">
+                    Más vendidos
+                  </h2>
+                </div>
+                <Link
+                  href="/productos"
+                  className="hidden md:flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] uppercase text-[var(--negro-fidela)]/40 hover:text-[var(--negro-fidela)] transition-colors"
+                >
+                  Ver todos <ArrowRight size={10} />
+                </Link>
+              </FadeUp>
+              <FadeUp delay={100}>
+                <div className="flex gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-4 md:overflow-visible md:pb-0 snap-x snap-mandatory md:snap-none scrollbar-none">
+                  {cards.map((card, i) => (
+                    <div key={`${card.product.id}-${card.variant.id}`} className="min-w-[170px] md:min-w-0 snap-start flex-shrink-0 md:flex-shrink">
+                      <VariantCard
+                        product={card.product}
+                        variant={card.variant}
+                        fragranceName={card.fragranceName}
+                        fragranceColor={card.fragranceColor}
+                        priority={i < 4}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </FadeUp>
+            </div>
+          </section>
+        )
+      })()}
 
       {/* ── NUESTRA HISTORIA — teaser editorial ─────────────────────────────── */}
       <section className="section-py bg-[var(--negro-fidela)] relative overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-end pr-10 pointer-events-none select-none opacity-[0.04]">
           <Image src="/brand/logos/isologo-03.png" alt="" width={500} height={500} className="object-contain" aria-hidden />
         </div>
+        <Image
+          src="/brand/graphics/icon-roble.png"
+          alt=""
+          width={300}
+          height={300}
+          className="absolute bottom-0 right-0 pointer-events-none select-none object-contain opacity-[0.05]"
+          aria-hidden
+        />
         <div className="container-site relative z-10">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
@@ -477,8 +512,17 @@ export default async function HomePage() {
       </section>
 
       {/* ── INSTAGRAM ────────────────────────────────────────────────────────── */}
-      <section className="py-14 bg-[var(--blanco-fidela)] border-t border-[var(--pantone-fidela)]/50">
-        <div className="container-site">
+      <section className="relative py-14 bg-[var(--blanco-fidela)] border-t border-[var(--pantone-fidela)]/50 overflow-hidden">
+        <Image
+          src="/brand/graphics/icon-flores.png"
+          alt=""
+          width={280}
+          height={280}
+          className="absolute top-1/2 -translate-y-1/2 right-0 pointer-events-none select-none object-contain"
+          style={{ mixBlendMode: 'multiply', opacity: 0.07 }}
+          aria-hidden
+        />
+        <div className="container-site relative z-10">
           <FadeUp className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-6">
               <Image

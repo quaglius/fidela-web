@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { EB_Garamond } from 'next/font/google'
 import { Suspense } from 'react'
 import './globals.css'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
@@ -14,6 +15,15 @@ const sans = localFont({
     { path: '../public/fonts/SemplicitaPro-Italic.otf',  weight: '400', style: 'italic' },
   ],
   variable: '--font-sans',
+  display: 'swap',
+})
+
+// EB Garamond — nombres de aroma (itálica editorial)
+const garamond = EB_Garamond({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['italic'],
+  variable: '--font-garamond',
   display: 'swap',
 })
 
@@ -71,7 +81,7 @@ const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ''
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="es" className={`${sans.variable} ${mono.variable} ${garamond.variable}`}>
       <body>
         <OrganizationJsonLd />
         {children}
