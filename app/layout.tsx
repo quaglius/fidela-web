@@ -1,23 +1,40 @@
 import type { Metadata } from 'next'
-import { Roboto_Mono, Plus_Jakarta_Sans } from 'next/font/google'
+import localFont from 'next/font/local'
 import { Suspense } from 'react'
 import './globals.css'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { MetaPixel } from '@/components/analytics/MetaPixel'
 import { OrganizationJsonLd } from '@/components/seo/JsonLd'
 
-const mono = Roboto_Mono({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '700'],
-  style: ['normal', 'italic'],
+// Semplicita Pro — tipografía principal (títulos y cuerpo)
+const sans = localFont({
+  src: [
+    { path: '../public/fonts/SemplicitaPro-Regular.otf', weight: '400', style: 'normal' },
+    { path: '../public/fonts/SemplicitaPro-Bold.otf',    weight: '700', style: 'normal' },
+    { path: '../public/fonts/SemplicitaPro-Italic.otf',  weight: '400', style: 'italic' },
+  ],
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+// Chivo Mono — tipografía secundaria (textos técnicos / misceláneos)
+const mono = localFont({
+  src: [
+    { path: '../public/fonts/ChivoMono-Variable.ttf',        weight: '100 900', style: 'normal' },
+    { path: '../public/fonts/ChivoMono-Variable-Italic.ttf', weight: '100 900', style: 'italic' },
+  ],
   variable: '--font-mono',
   display: 'swap',
 })
 
-const sans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-sans',
+// Garamond Premier Pro — tipografía complementaria (nombres de aromas y destacados)
+const serif = localFont({
+  src: [
+    { path: '../public/fonts/GaramondPremrPro-Light.otf',  weight: '300', style: 'normal' },
+    { path: '../public/fonts/GaramondPremrPro-Italic.otf', weight: '400', style: 'italic' },
+    { path: '../public/fonts/GaramondPremrPro-Bold.otf',   weight: '700', style: 'normal' },
+  ],
+  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -58,7 +75,7 @@ const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ''
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${mono.variable} ${sans.variable}`}>
+    <html lang="es" className={`${sans.variable} ${mono.variable} ${serif.variable}`}>
       <body>
         <OrganizationJsonLd />
         {children}

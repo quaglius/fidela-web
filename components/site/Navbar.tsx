@@ -70,7 +70,7 @@ export default function Navbar({ announcement }: { announcement?: string }) {
             {/* Logo */}
             <Link href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 flex-shrink-0">
               <Image
-                src="/logo.png"
+                src="/brand/logos/logotipo-dark.png"
                 alt="FIDELA"
                 width={120}
                 height={48}

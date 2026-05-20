@@ -2,14 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── DESIGN TOKENS ───────────────────────────────────────────────────────── */
+/* ── DESIGN TOKENS — Fidela Brand 2026 ───────────────────────────────────── */
 :root {
-  --black:      #1A1A1A;
+  /* Paleta institucional */
+  --negro-fidela:   #363630;
+  --blanco-fidela:  #EFF0EA;
+  --pantone-fidela: #D5D7C7;
+
+  /* Colores por fragancia */
+  --color-velvet: #7E2738;
+  --color-linaje: #CB6F36;
+  --color-roble:  #496130;
+  --color-brisa:  #77C1EC;
+
+  /* Aliases de sistema (mantienen compatibilidad con componentes existentes) */
+  --black:      #363630;   /* Negro Fidela */
   --white:      #FFFFFF;
-  --cream:      #F5F0EB;
-  --gold:       #C8975A;
-  --gold-light: #E8C99A;
-  --gold-dark:  #A87840;
+  --cream:      #EFF0EA;   /* Blanco Fidela */
+  --gold:       #363630;   /* → Negro Fidela como color de acción principal */
+  --gold-light: #D5D7C7;   /* → Pantone Fidela */
+  --gold-dark:  #2a2a26;   /* → Negro Fidela oscurecido para hover */
   --gray-100:   #F8F8F8;
   --gray-200:   #EEEEEE;
   --gray-400:   #AAAAAA;
@@ -17,8 +29,8 @@
   --gray-800:   #333333;
 
   /* Motion timing */
-  --ease-out:   cubic-bezier(0.0, 0.0, 0.2, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:      cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-slow: 400ms;
@@ -28,13 +40,15 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* ── BASE TYPOGRAPHY ─────────────────────────────────────────────────────── */
-/* Body: Plus Jakarta Sans (igual que fidela.com.ar --body-font)             */
-/* Display/títulos: Roboto Mono 300 vía .font-serif (igual que --heading-font) */
+/* ── BASE TYPOGRAPHY — Fidela Brand 2026 ─────────────────────────────────── */
+/* Body:         Semplicita Pro (principal)                                   */
+/* Títulos:      Semplicita Pro (principal, weight 300)                       */
+/* Aromas/edito: Garamond Premier Pro vía .font-serif                        */
+/* Técnico/misc: Chivo Mono vía .font-mono                                   */
 body {
   color: var(--black);
   background: var(--white);
-  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.65;
@@ -42,15 +56,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Títulos display — Plus Jakarta Sans light, sin espaciado monospace */
+/* Títulos editoriales y nombres de aromas — Garamond Premier Pro */
 .font-serif {
-  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-serif), Georgia, serif;
   font-weight: 300;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-sans), sans-serif;
   line-height: 1.15;
 }
 
@@ -79,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
 .announcement-bar-promo {
   background: #C22020;
   color: #fff;
-  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-mono), monospace;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -128,7 +142,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-gold {
   background: var(--gold);
   color: var(--white);
-  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 500;
   letter-spacing: 0.12em;
   transition: background var(--duration-fast) var(--ease-out),
@@ -138,14 +152,14 @@ h1, h2, h3, h4, h5, h6 {
 .btn-gold:hover {
   background: var(--gold-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(200, 151, 90, 0.35);
+  box-shadow: 0 4px 16px rgba(54, 54, 48, 0.25);
 }
 .btn-gold:active { transform: translateY(0); }
 
 .btn-outline {
   border: 1px solid var(--black);
   color: var(--black);
-  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 500;
   letter-spacing: 0.12em;
   transition: background var(--duration-fast) var(--ease-out),
@@ -163,6 +177,7 @@ h1, h2, h3, h4, h5, h6 {
 .cta-pulse {
   animation: ctaPulse 2.8s ease-in-out infinite;
 }
+
 
 /* ── HOVER LIFT ──────────────────────────────────────────────────────────── */
 .hover-lift {
@@ -221,14 +236,14 @@ h1, h2, h3, h4, h5, h6 {
 .stagger > *:nth-child(7) { transition-delay: 480ms; }
 .stagger > *:nth-child(8) { transition-delay: 560ms; }
 
-/* ── GOLD SHIMMER TEXT ───────────────────────────────────────────────────── */
+/* ── BRAND SHIMMER TEXT ──────────────────────────────────────────────────── */
 .gold-shimmer {
   background: linear-gradient(
     90deg,
-    var(--gold) 0%,
-    var(--gold-light) 40%,
-    var(--gold) 60%,
-    var(--gold-light) 100%
+    var(--negro-fidela) 0%,
+    var(--pantone-fidela) 40%,
+    var(--negro-fidela) 60%,
+    var(--pantone-fidela) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -257,8 +272,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes ctaPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 151, 90, 0); }
-  50%       { box-shadow: 0 0 0 8px rgba(200, 151, 90, 0.2); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(54, 54, 48, 0); }
+  50%       { box-shadow: 0 0 0 8px rgba(54, 54, 48, 0.15); }
 }
 
 @keyframes goldShimmer {

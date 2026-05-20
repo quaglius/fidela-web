@@ -13,9 +13,18 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        mono: ["var(--font-mono)", "Roboto Mono", "ui-monospace", "monospace"],
-        sans: ["var(--font-mono)", "Roboto Mono", "ui-monospace", "monospace"],
-        serif: ["var(--font-mono)", "Roboto Mono", "ui-monospace", "monospace"],
+        sans:  ["var(--font-sans)", "sans-serif"],
+        mono:  ["var(--font-mono)", "ui-monospace", "monospace"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+      },
+      colors: {
+        "negro-fidela":   "#363630",
+        "blanco-fidela":  "#EFF0EA",
+        "pantone-fidela": "#D5D7C7",
+        "velvet":         "#7E2738",
+        "linaje":         "#CB6F36",
+        "roble":          "#496130",
+        "brisa":          "#77C1EC",
       },
       transitionDuration: {
         "250": "250ms",
