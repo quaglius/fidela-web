@@ -74,7 +74,7 @@ export default function NosotrosPage() {
         <div className="container-site">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
-            <div>
+            <div className="relative">
               <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-5">
                 01 — Origen
               </p>
@@ -155,8 +155,16 @@ export default function NosotrosPage() {
       </section>
 
       {/* ── ARTESANÍA + EXPERIMENTACIÓN ─────────────────────────────────────── */}
-      <section className="section-py bg-[var(--blanco-fidela)]">
-        <div className="container-site">
+      <section className="section-py bg-[var(--blanco-fidela)] relative overflow-hidden">
+        <Image
+          src="/brand/graphics/trama-neutral-botanico.png"
+          alt=""
+          fill
+          className="object-cover opacity-[0.22] pointer-events-none select-none"
+          sizes="100vw"
+          aria-hidden
+        />
+        <div className="container-site relative z-10">
           <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-start">
 
             <div className="md:col-span-2 grid grid-cols-2 gap-3">
@@ -244,8 +252,16 @@ export default function NosotrosPage() {
       </section>
 
       {/* ── VALORES ──────────────────────────────────────────────────────────── */}
-      <section className="section-py bg-[var(--blanco-fidela)]">
-        <div className="container-site">
+      <section className="section-py bg-[var(--blanco-fidela)] relative overflow-hidden">
+        <Image
+          src="/brand/graphics/trama-neutral-ramas.png"
+          alt=""
+          fill
+          className="object-cover opacity-[0.18] pointer-events-none select-none"
+          sizes="100vw"
+          aria-hidden
+        />
+        <div className="container-site relative z-10">
           <div className="mb-12">
             <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-4">
               06 — Valores

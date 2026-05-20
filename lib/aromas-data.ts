@@ -13,6 +13,10 @@ export interface AromaData {
   images: string[]
   properties: string[]
   environments: string[]
+  // Brand graphics (2026 collection only)
+  trama?: string       // colored full-bleed background pattern
+  tramaLight?: string  // light version for secondary sections
+  icon?: string        // botanical illustration (black on white, use multiply blend)
 }
 
 // ── Colección 2026 — 4 fragancias oficiales ────────────────────────────────
@@ -32,6 +36,9 @@ export const AROMAS: AromaData[] = [
     images: ['/media/_MG_3566.jpg', '/media/MG_9578-scaled.jpg'],
     properties: ['floral', 'aterciopelado', 'elegante', 'almizclado'],
     environments: ['dormitorios', 'living', 'recibidores', 'espacios de pausa'],
+    trama: '/brand/graphics/trama-velvet.png',
+    tramaLight: '/brand/graphics/trama-velvet-light.png',
+    icon: '/brand/graphics/icon-velvet.png',
   },
   {
     number: 2,
@@ -48,6 +55,9 @@ export const AROMAS: AromaData[] = [
     images: ['/media/_MG_3545.jpg', '/media/MG_9590-scaled.jpg'],
     properties: ['amaderado', 'especiado', 'cálido', 'balsámico'],
     environments: ['espacios íntimos', 'rincones de lectura', 'meditación nocturna', 'ambientes de encuentro'],
+    trama: '/brand/graphics/trama-linaje.png',
+    tramaLight: '/brand/graphics/trama-linaje-light.png',
+    icon: '/brand/graphics/icon-linaje.png',
   },
   {
     number: 3,
@@ -64,6 +74,9 @@ export const AROMAS: AromaData[] = [
     images: ['/media/_MG_3533.jpg', '/media/MG_9566-scaled.jpg'],
     properties: ['amaderado', 'terroso', 'introspectivo', 'elegante'],
     environments: ['estudios creativos', 'bibliotecas', 'home office', 'entradas'],
+    trama: '/brand/graphics/trama-roble.png',
+    tramaLight: '/brand/graphics/trama-roble-light.png',
+    icon: '/brand/graphics/icon-roble.png',
   },
   {
     number: 4,
@@ -80,6 +93,9 @@ export const AROMAS: AromaData[] = [
     images: ['/media/_MG_3521.jpg', '/media/MG_9617-scaled.jpg'],
     properties: ['cítrico', 'herbal', 'fresco', 'luminoso'],
     environments: ['cocinas', 'estudios', 'espacios creativos', 'ambientes de bienestar'],
+    trama: '/brand/graphics/trama-brisa.png',
+    tramaLight: '/brand/graphics/trama-brisa-light.png',
+    icon: '/brand/graphics/icon-brisa.png',
   },
 ]
 

@@ -151,8 +151,16 @@ export default function NuestrosAromasPage() {
       </section>
 
       {/* ── COLECCIÓN ORIGINAL ────────────────────────────────────────────────── */}
-      <section className="section-py bg-[var(--blanco-fidela)]">
-        <div className="container-site">
+      <section className="section-py bg-[var(--blanco-fidela)] relative overflow-hidden">
+        <Image
+          src="/brand/graphics/trama-neutral-rosas.png"
+          alt=""
+          fill
+          className="object-cover opacity-[0.15] pointer-events-none select-none"
+          sizes="100vw"
+          aria-hidden
+        />
+        <div className="container-site relative z-10">
           <div className="mb-12">
             <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-4">
               03 — Colección original
