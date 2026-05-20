@@ -11,12 +11,6 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-      },
-      fontFamily: {
-        sans: ["var(--font-sans)", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
-      },
-      colors: {
         "negro-fidela":   "#363630",
         "blanco-fidela":  "#EFF0EA",
         "pantone-fidela": "#D5D7C7",
@@ -24,6 +18,10 @@ const config: Config = {
         "linaje":         "#CB6F36",
         "roble":          "#496130",
         "brisa":          "#77C1EC",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       transitionDuration: {
         "250": "250ms",
