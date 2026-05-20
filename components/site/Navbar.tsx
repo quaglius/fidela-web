@@ -15,14 +15,10 @@ const CATEGORIES = [
 ]
 
 const AROMAS = [
-  { name: 'Verbena', slug: 'verbena', number: 2 },
-  { name: 'Floral Velvet', slug: 'floral-velvet', number: 5 },
-  { name: 'Oud Imperial', slug: 'oud-imperial', number: 17 },
-  { name: 'French Lavender', slug: 'french-lavander', number: 19 },
-  { name: 'Jengibre & Té Blanco', slug: 'jengibre-te-blanco', number: 21 },
-  { name: 'Cardamom & Woods', slug: 'cardamom-woods', number: 27 },
-  { name: 'Sándalo & Pimienta Rosa', slug: 'sandalo-pimenta-rosa', number: 44 },
-  { name: 'Green Amber', slug: 'green-amber', number: 46 },
+  { name: 'Velvet',  slug: 'velvet',  concept: 'Sofisticación', color: '#7E2738' },
+  { name: 'Linaje',  slug: 'linaje',  concept: 'Magnetismo',    color: '#CB6F36' },
+  { name: 'Roble',   slug: 'roble',   concept: 'Introspección', color: '#496130' },
+  { name: 'Brisa',   slug: 'brisa',   concept: 'Renovación',    color: '#77C1EC' },
 ]
 
 export default function Navbar({ announcement }: { announcement?: string }) {
@@ -120,20 +116,23 @@ export default function Navbar({ announcement }: { announcement?: string }) {
                   POR AROMA <ChevronDown size={11} />
                 </button>
                 {activeMenu === 'aromas' && (
-                  <div className="absolute top-full left-0 bg-white shadow-xl border-t-2 border-[var(--gold)] min-w-[230px] py-3 z-50">
+                  <div className="absolute top-full left-0 bg-white shadow-xl border-t-2 border-[var(--pantone-fidela)] min-w-[220px] py-3 z-50">
                     {AROMAS.map((a) => (
                       <Link
                         key={a.slug}
                         href={`/aromas/${a.slug}`}
-                        className="flex items-center gap-3 px-6 py-2.5 text-[11px] tracking-widest uppercase hover:bg-[var(--cream)] hover:text-[var(--gold)] transition-colors duration-150"
+                        className="flex items-center gap-3 px-5 py-3 hover:bg-[var(--blanco-fidela)] transition-colors duration-150 group"
                       >
-                        <span className="text-[var(--gray-400)] font-light w-6">N°{a.number}</span>
-                        {a.name}
+                        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: a.color }} />
+                        <span className="flex-1">
+                          <span className="block text-[11px] tracking-widest uppercase text-[var(--negro-fidela)] group-hover:text-[var(--negro-fidela)]">{a.name}</span>
+                          <span className="block text-[9px] tracking-[0.15em] uppercase text-[var(--gray-400)] mt-0.5">{a.concept}</span>
+                        </span>
                       </Link>
                     ))}
-                    <div className="mt-2 pt-2 border-t border-gray-100">
-                      <Link href="/nuestros-aromas" className="block px-6 py-2 text-[11px] tracking-widest uppercase font-semibold hover:text-[var(--gold)] transition-colors">
-                        Todos los aromas →
+                    <div className="mt-1 pt-2 border-t border-gray-100">
+                      <Link href="/nuestros-aromas" className="block px-5 py-2 text-[10px] tracking-widest uppercase font-medium text-[var(--gray-400)] hover:text-[var(--negro-fidela)] transition-colors">
+                        Colección completa →
                       </Link>
                     </div>
                   </div>
@@ -198,9 +197,10 @@ export default function Navbar({ announcement }: { announcement?: string }) {
                 <Link
                   key={a.slug}
                   href={`/aromas/${a.slug}`}
-                  className="px-2 py-2.5 text-xs uppercase tracking-widest hover:text-[var(--gold)] transition-colors"
+                  className="flex items-center gap-2.5 px-2 py-2.5 text-xs uppercase tracking-widest hover:text-[var(--negro-fidela)] transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
+                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: a.color }} />
                   {a.name}
                 </Link>
               ))}

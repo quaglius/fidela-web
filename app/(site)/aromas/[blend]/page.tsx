@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AROMAS, getAromaBySlug } from '@/lib/aromas-data'
+import { AROMAS, getAllAromas, getAromaBySlug } from '@/lib/aromas-data'
 import { getAllProducts } from '@/lib/tiendanube'
 import ProductCard from '@/components/site/ProductCard'
 
 export const revalidate = 3600
 
 export function generateStaticParams() {
-  return AROMAS.map((a) => ({ blend: a.slug }))
+  return getAllAromas().map((a) => ({ blend: a.slug }))
 }
 
 export function generateMetadata({ params }: { params: { blend: string } }): Metadata {
@@ -31,8 +31,9 @@ export default async function BlendPage({ params }: { params: { blend: string } 
   const aroma = getAromaBySlug(params.blend)
   if (!aroma) notFound()
 
-  // Sibling aromas (same family, different slug)
-  const siblings = AROMAS.filter((a) => a.family === aroma.family && a.slug !== aroma.slug).slice(0, 3)
+  // Sibling aromas (same family, different slug) — search within same collection tier
+  const allAromas = getAllAromas()
+  const siblings = allAromas.filter((a) => a.family === aroma.family && a.slug !== aroma.slug).slice(0, 3)
 
   // Related TN products
   let relatedProducts: Awaited<ReturnType<typeof getAllProducts>> = []
@@ -48,8 +49,9 @@ export default async function BlendPage({ params }: { params: { blend: string } 
   } catch { /* skip */ }
 
   const familyLabel = FAMILY_LABELS[aroma.family] ?? aroma.family
-  const prevAroma = AROMAS[AROMAS.findIndex((a) => a.slug === aroma.slug) - 1] ?? null
-  const nextAroma = AROMAS[AROMAS.findIndex((a) => a.slug === aroma.slug) + 1] ?? null
+  const aromaIndex = allAromas.findIndex((a) => a.slug === aroma.slug)
+  const prevAroma = allAromas[aromaIndex - 1] ?? null
+  const nextAroma = allAromas[aromaIndex + 1] ?? null
 
   return (
     <div>

@@ -86,7 +86,7 @@ export default async function HomePage() {
           loop
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          src="/media/reel-conceptual-1.mp4"
+          src="/videos/fidela-reel-hero.mp4"
         />
         {/* Overlay oscuro */}
         <div className="absolute inset-0" style={{ background: 'rgba(54,54,48,0.62)' }} />

@@ -76,26 +76,28 @@ export default function Footer() {
             <h4 className="text-[10px] tracking-widest uppercase text-[var(--gray-400)] mb-4">
               Nuestros Aromas
             </h4>
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-2.5">
               {[
-                ['N°2 Verbena', 'verbena'],
-                ['N°5 Floral Velvet', 'floral-velvet'],
-                ['N°17 Oud Imperial', 'oud-imperial'],
-                ['N°19 French Lavender', 'french-lavander'],
-                ['N°21 Jengibre & Té', 'jengibre-te-blanco'],
-                ['N°27 Cardamom & Woods', 'cardamom-woods'],
-                ['N°44 Sándalo & Pimienta', 'sandalo-pimenta-rosa'],
-                ['N°46 Green Amber', 'green-amber'],
-              ].map(([label, slug]) => (
+                { name: 'Velvet',  slug: 'velvet',  color: '#7E2738' },
+                { name: 'Linaje',  slug: 'linaje',  color: '#CB6F36' },
+                { name: 'Roble',   slug: 'roble',   color: '#496130' },
+                { name: 'Brisa',   slug: 'brisa',   color: '#77C1EC' },
+              ].map(({ name, slug, color }) => (
                 <li key={slug}>
                   <Link
                     href={`/aromas/${slug}`}
-                    className="text-[var(--gray-400)] hover:text-white transition-colors text-xs"
+                    className="flex items-center gap-2 text-[var(--gray-400)] hover:text-white transition-colors text-xs group"
                   >
-                    {label}
+                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 opacity-70" style={{ backgroundColor: color }} />
+                    {name}
                   </Link>
                 </li>
               ))}
+              <li className="mt-1">
+                <Link href="/nuestros-aromas" className="text-[var(--gray-400)] hover:text-white transition-colors text-[10px] tracking-widest uppercase">
+                  Ver colección →
+                </Link>
+              </li>
             </ul>
           </div>
 
