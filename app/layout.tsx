@@ -6,7 +6,7 @@ import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { MetaPixel } from '@/components/analytics/MetaPixel'
 import { OrganizationJsonLd } from '@/components/seo/JsonLd'
 
-// Semplicita Pro — tipografía principal (títulos y cuerpo)
+// Semplicita Pro — tipografía principal (todos los pesos y cuerpo)
 const sans = localFont({
   src: [
     { path: '../public/fonts/SemplicitaPro-Regular.otf', weight: '400', style: 'normal' },
@@ -17,24 +17,13 @@ const sans = localFont({
   display: 'swap',
 })
 
-// Chivo Mono — tipografía secundaria (textos técnicos / misceláneos)
+// Chivo Mono — etiquetas, datos técnicos y mono
 const mono = localFont({
   src: [
     { path: '../public/fonts/ChivoMono-Variable.ttf',        weight: '100 900', style: 'normal' },
     { path: '../public/fonts/ChivoMono-Variable-Italic.ttf', weight: '100 900', style: 'italic' },
   ],
   variable: '--font-mono',
-  display: 'swap',
-})
-
-// Garamond Premier Pro — tipografía complementaria (nombres de aromas y destacados)
-const serif = localFont({
-  src: [
-    { path: '../public/fonts/GaramondPremrPro-Light.otf',  weight: '300', style: 'normal' },
-    { path: '../public/fonts/GaramondPremrPro-Italic.otf', weight: '400', style: 'italic' },
-    { path: '../public/fonts/GaramondPremrPro-Bold.otf',   weight: '700', style: 'normal' },
-  ],
-  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -82,7 +71,7 @@ const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ''
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${sans.variable} ${mono.variable} ${serif.variable}`}>
+    <html lang="es" className={`${sans.variable} ${mono.variable}`}>
       <body>
         <OrganizationJsonLd />
         {children}

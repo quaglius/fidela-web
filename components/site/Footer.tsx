@@ -107,10 +107,10 @@ export default function Footer() {
             <ul className="flex flex-col gap-2">
               {[
                 ['Nosotros', '/nosotros'],
+                ['Nuestros Aromas', '/nuestros-aromas'],
                 ['Tiendas', '/tiendas'],
                 ['Empresas', '/empresas'],
                 ['Contacto', '/contacto'],
-                ['Nuestros Aromas', '/nuestros-aromas'],
               ].map(([label, href]) => (
                 <li key={href}>
                   <Link href={href} className="text-[var(--gray-400)] hover:text-white transition-colors text-xs">

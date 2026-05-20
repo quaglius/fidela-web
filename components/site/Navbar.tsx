@@ -40,39 +40,15 @@ export default function Navbar({ announcement }: { announcement?: string }) {
 
   return (
     <>
-      {/* ── ANNOUNCEMENT BAR — video background ──────────────────────────── */}
-      <div className="relative overflow-hidden" style={{ height: '84px' }}>
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/media/reel-conceptual-1.mp4"
-        />
-        {/* dark overlay — keep video atmospheric but readable */}
-        <div className="absolute inset-0" style={{ background: 'rgba(54,54,48,0.78)' }} />
-        <div className="relative z-10 h-full flex flex-col items-center justify-center gap-2 px-4">
-          <div className="flex items-center gap-3 md:gap-5">
-            <span
-              className="text-white font-bold tracking-[0.2em] uppercase px-3 py-1 text-[9px] md:text-[10px] flex-shrink-0"
-              style={{ background: '#C22020' }}
-            >
-              HOT SALE
-            </span>
-            <span
-              className="text-white tracking-[0.22em] uppercase font-medium text-sm md:text-base"
-              style={{ fontFamily: "var(--font-mono,'ChivoMono',monospace)" }}
-            >
-              {announcement ?? '30% OFF EN TODA LA TIENDA'}
-            </span>
-          </div>
-          <p
-            className="text-white/50 tracking-[0.18em] uppercase text-[9px] md:text-[10px]"
-            style={{ fontFamily: "var(--font-mono,'ChivoMono',monospace)" }}
-          >
-            Válido hasta agotar stock · Envío a todo el país
-          </p>
+      {/* ── ANNOUNCEMENT BAR ─────────────────────────────────────────────── */}
+      <div className="bg-[#C22020] py-2.5 px-4">
+        <div className="flex items-center justify-center gap-3">
+          <span className="text-white font-mono text-[8px] font-bold tracking-[0.2em] uppercase px-2 py-0.5 border border-white/50">
+            HOT SALE
+          </span>
+          <span className="text-white font-mono text-[10px] md:text-[11px] tracking-[0.15em] uppercase">
+            {announcement ?? '30% OFF en toda la tienda · hasta agotar stock'}
+          </span>
         </div>
       </div>
 
@@ -164,6 +140,9 @@ export default function Navbar({ announcement }: { announcement?: string }) {
                 )}
               </div>
 
+              <Link href="/nosotros" className="hover:text-[var(--gold)] transition-colors duration-150 uppercase">
+                NOSOTROS
+              </Link>
               <Link href="/tiendas" className="hover:text-[var(--gold)] transition-colors duration-150 uppercase">
                 TIENDAS
               </Link>

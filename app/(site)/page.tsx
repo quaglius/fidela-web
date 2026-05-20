@@ -75,40 +75,59 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* ── HERO — editorial split ────────────────────────────────────────────
-          Izquierda: blanco-fidela + claim Garamond
-          Derecha: foto editorial full-bleed
+      {/* ── HERO — video full-bleed ───────────────────────────────────────────
+          Video de fondo del reel conceptual, visible en mobile y desktop
       ──────────────────────────────────────────────────────────────────────── */}
-      <section className="flex flex-col md:flex-row min-h-[92vh]">
+      <section className="relative flex items-center justify-center overflow-hidden" style={{ minHeight: '100svh' }}>
+        {/* Video de fondo */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/media/reel-conceptual-1.mp4"
+        />
+        {/* Overlay oscuro */}
+        <div className="absolute inset-0" style={{ background: 'rgba(54,54,48,0.62)' }} />
 
-        {/* Izquierda — contenido de marca */}
-        <div className="flex flex-col justify-center bg-[var(--blanco-fidela)] px-8 py-16 md:px-14 lg:px-20 md:w-[45%] lg:w-[42%] z-10">
+        {/* Contenido centrado */}
+        <div className="relative z-10 text-center px-6 py-20 max-w-3xl mx-auto w-full">
 
-          {/* Hot Sale — discreto, on-brand */}
-          <div className="flex items-center gap-3 mb-12">
-            <span className="bg-[var(--negro-fidela)] text-[var(--blanco-fidela)] text-[8px] font-mono tracking-[0.25em] uppercase px-3 py-1.5">
+          {/* Hot Sale — prominente */}
+          <div
+            className="inline-flex items-center gap-3 mb-12 px-5 py-3"
+            style={{ background: 'rgba(194,32,32,0.22)', border: '1px solid rgba(194,32,32,0.55)' }}
+          >
+            <span className="bg-[#C22020] text-white font-mono text-[9px] font-bold tracking-[0.22em] uppercase px-3 py-1.5">
               HOT SALE
             </span>
-            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--negro-fidela)]/40">
-              30% off · toda la tienda
+            <span className="text-white font-mono text-xs md:text-sm tracking-[0.18em] uppercase font-medium">
+              30% OFF en toda la tienda
             </span>
           </div>
 
-          {/* Claim — Garamond grande */}
-          <h1 className="font-serif text-[52px] md:text-[58px] lg:text-[72px] font-light leading-[1.05] text-[var(--negro-fidela)] mb-8">
-            Cada aroma<br />
-            cuenta una<br />
-            historia.
+          {/* Isologo */}
+          <div className="mb-8">
+            <Image
+              src="/brand/logos/isologo-03.png"
+              alt="Fidela"
+              width={72}
+              height={72}
+              className="object-contain opacity-55 mx-auto"
+            />
+          </div>
+
+          {/* Claim principal */}
+          <h1 className="font-serif text-[52px] md:text-[72px] lg:text-[88px] font-light leading-[1.02] text-white mb-8">
+            Cada aroma<br />cuenta una<br />historia.
           </h1>
 
-          <div className="w-10 h-px bg-[var(--negro-fidela)]/25 mb-8" />
-
-          <p className="text-sm text-[var(--negro-fidela)]/55 leading-relaxed mb-12 max-w-[340px]">
-            Blends artesanales elaborados en Buenos Aires.
-            Veganos · Sin ftalatos · Producidos a mano.
+          <p className="text-white/50 font-mono text-[10px] md:text-[11px] tracking-[0.35em] uppercase mb-12">
+            Buenos Aires · Hecho a mano · Desde 1927
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/productos"
               className="btn-gold inline-flex items-center justify-center gap-2 px-8 py-4 text-[11px] tracking-[0.2em] uppercase"
@@ -117,45 +136,17 @@ export default async function HomePage() {
             </Link>
             <Link
               href="/nuestros-aromas"
-              className="btn-outline inline-flex items-center justify-center gap-2 px-8 py-4 text-[11px] tracking-[0.2em] uppercase"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-[11px] tracking-[0.2em] uppercase border border-white/30 text-white hover:border-white hover:bg-white/10 transition-all duration-200"
             >
               Nuestros aromas
             </Link>
           </div>
-
-          {/* Isologo al pie */}
-          <div className="mt-auto pt-16 flex items-center gap-4">
-            <Image src="/brand/logos/isologo-01.png" alt="Fidela" width={48} height={48} className="object-contain opacity-55" />
-            <div>
-              <p className="font-mono text-[8px] tracking-[0.3em] uppercase text-[var(--negro-fidela)]/40">
-                Hecho a mano
-              </p>
-              <p className="font-mono text-[8px] tracking-[0.3em] uppercase text-[var(--negro-fidela)]/40">
-                Buenos Aires
-              </p>
-            </div>
-          </div>
         </div>
 
-        {/* Derecha — foto editorial apilada */}
-        <div className="relative flex-1 h-[55vw] md:h-auto overflow-hidden">
-          {/* Foto principal */}
-          <Image
-            src="/media/MG_9566-scaled.jpg"
-            alt="Fidela — Aromas artesanales"
-            fill
-            className="object-cover object-center"
-            priority
-            sizes="(max-width: 768px) 100vw, 58vw"
-          />
-          {/* Overlay sutil — gradiente izquierda para fusionar con el blanco */}
-          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--blanco-fidela)] to-transparent hidden md:block" />
-
-          {/* Badge año sobre la foto */}
-          <div className="absolute top-6 right-6 border border-white/30 bg-black/20 backdrop-blur-sm px-4 py-2.5 text-white">
-            <p className="font-mono text-[8px] tracking-[0.35em] uppercase">Colección</p>
-            <p className="font-serif text-xl font-light leading-none">2026</p>
-          </div>
+        {/* Scroll cue */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-35 pointer-events-none">
+          <span className="text-white font-mono text-[8px] tracking-[0.3em] uppercase">Scroll</span>
+          <div className="w-px h-8 bg-white/40" />
         </div>
       </section>
 
@@ -336,6 +327,61 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── NUESTRA HISTORIA — teaser editorial ─────────────────────────────── */}
+      <section className="section-py bg-[var(--negro-fidela)] relative overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-end pr-10 pointer-events-none select-none opacity-[0.04]">
+          <Image src="/brand/logos/isologo-03.png" alt="" width={500} height={500} className="object-contain" aria-hidden />
+        </div>
+        <div className="container-site relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+
+            {/* Foto */}
+            <FadeUp>
+              <div className="relative aspect-[3/4] overflow-hidden">
+                <Image
+                  src="/media/MG_9617-scaled.jpg"
+                  alt="Fidela — Origen"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--negro-fidela)]/60 to-transparent" />
+                <div className="absolute bottom-6 left-6">
+                  <p className="font-mono text-[8px] tracking-[0.3em] uppercase text-[var(--pantone-fidela)]">
+                    Buenos Aires · 1927
+                  </p>
+                </div>
+              </div>
+            </FadeUp>
+
+            {/* Texto */}
+            <FadeUp delay={120}>
+              <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--pantone-fidela)] mb-5">
+                Nuestra historia
+              </p>
+              <h2 className="font-serif text-4xl md:text-5xl font-light text-[var(--blanco-fidela)] leading-[1.05] mb-8">
+                Un legado familiar<br />hecho aroma.
+              </h2>
+              <p className="text-sm text-white/50 leading-relaxed mb-5 max-w-md">
+                En 1927, Fidel Gabriele llegó desde Italia y construyó su casa en Ciudadela.
+                En su taller, los aromas eran parte de lo cotidiano: cuero, madera, flores,
+                comidas caseras.
+              </p>
+              <p className="text-sm text-white/50 leading-relaxed mb-10 max-w-md">
+                Años después, sus nietas —Mimi y Kari— volvieron a ese origen para crear Fidela:
+                blends artesanales que honran esa memoria y la proyectan al presente.
+              </p>
+              <Link
+                href="/nosotros"
+                className="inline-flex items-center gap-2 border border-white/20 text-white/60 hover:border-white hover:text-white transition-all duration-200 px-8 py-3.5 font-mono text-[10px] tracking-[0.2em] uppercase"
+              >
+                Conocer más <ArrowRight size={11} />
+              </Link>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
 
       {/* ── CONCEPT STORE — foto-driven ──────────────────────────────────────── */}
       <section className="bg-[var(--negro-fidela)] overflow-hidden relative">
