@@ -334,9 +334,9 @@ export default async function HomePage() {
         {/* Grid de fotos — full width */}
         <div className="grid grid-cols-3 md:grid-cols-4 h-[60vw] md:h-[50vh] lg:h-[65vh]">
           {[
-            { src: '/media/_MG_3383.jpg', span: 'col-span-2 md:col-span-2' },
-            { src: '/media/_MG_3413.jpg', span: 'col-span-1' },
-            { src: '/media/_MG_3442.jpg', span: 'col-span-1 hidden md:block' },
+            { src: '/media/MG_3585.jpg', span: 'col-span-2 md:col-span-2' },
+            { src: '/media/MG_3587.jpg', span: 'col-span-1' },
+            { src: '/media/MG_3669.jpg', span: 'col-span-1 hidden md:block' },
           ].map((photo, i) => (
             <div key={i} className={`relative overflow-hidden ${photo.span}`}>
               <Image
@@ -399,10 +399,10 @@ export default async function HomePage() {
         {/* Segunda fila de fotos */}
         <div className="grid grid-cols-4 h-[25vw] md:h-[22vh] border-t border-white/8">
           {[
-            '/media/_MG_3447.jpg',
-            '/media/_MG_3456.jpg',
-            '/media/_MG_3463.jpg',
-            '/media/_MG_3472.jpg',
+            '/media/MG_3586.jpg',
+            '/media/MG_3280.jpg',
+            '/media/MG_3264.jpg',
+            '/media/MG_3743.jpg',
           ].map((src, i) => (
             <div key={i} className="relative overflow-hidden border-r border-white/8 last:border-r-0">
               <Image

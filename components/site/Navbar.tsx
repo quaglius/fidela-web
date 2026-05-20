@@ -40,12 +40,29 @@ export default function Navbar({ announcement }: { announcement?: string }) {
 
   return (
     <>
-      {/* ── ANNOUNCEMENT BAR ─────────────────────────────────────────────── */}
-      <div className="announcement-bar-promo">
-        <div className="announcement-bar-inner">
-          <span className="announcement-bar-promo-pill">HOT SALE</span>
-          <span className="mx-3 font-medium tracking-widest">
-            {announcement ?? '30% OFF EN TODA LA TIENDA · HASTA AGOTAR STOCK'}
+      {/* ── ANNOUNCEMENT BAR — video background ──────────────────────────── */}
+      <div className="relative overflow-hidden" style={{ height: '68px' }}>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/media/reel-conceptual-1.mp4"
+        />
+        <div className="absolute inset-0 bg-[var(--negro-fidela)]/72" />
+        <div className="relative z-10 h-full flex items-center justify-center gap-3 md:gap-5 px-4">
+          <span className="bg-[#C22020] text-white font-mono text-[8px] md:text-[9px] font-bold tracking-[0.18em] uppercase px-2.5 py-1.5 flex-shrink-0">
+            HOT SALE
+          </span>
+          <span
+            className="text-white font-mono text-[11px] md:text-sm tracking-[0.18em] uppercase font-medium"
+            style={{ fontFamily: "var(--font-mono), 'ChivoMono', monospace" }}
+          >
+            {announcement ?? '30% OFF en toda la tienda'}
+          </span>
+          <span className="text-white/45 font-mono text-[9px] tracking-widest uppercase hidden md:block">
+            · hasta agotar stock
           </span>
         </div>
       </div>

@@ -2,6 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── FUENTES BRAND — carga CSS directa como garantía en cualquier deploy ─── */
+@font-face {
+  font-family: 'SemplicitaPro';
+  src: url('/fonts/SemplicitaPro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SemplicitaPro';
+  src: url('/fonts/SemplicitaPro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SemplicitaPro';
+  src: url('/fonts/SemplicitaPro-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ChivoMono';
+  src: url('/fonts/ChivoMono-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ChivoMono';
+  src: url('/fonts/ChivoMono-Variable-Italic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GaramondPremierPro';
+  src: url('/fonts/GaramondPremrPro-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GaramondPremierPro';
+  src: url('/fonts/GaramondPremrPro-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GaramondPremierPro';
+  src: url('/fonts/GaramondPremrPro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ── DESIGN TOKENS — Fidela Brand 2026 ───────────────────────────────────── */
 :root {
   /* Paleta institucional */
@@ -48,7 +106,7 @@ html { scroll-behavior: smooth; }
 body {
   color: var(--black);
   background: var(--blanco-fidela);
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-sans), 'SemplicitaPro', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.65;
@@ -58,7 +116,7 @@ body {
 
 /* Títulos editoriales y nombres de aromas — Garamond Premier Pro */
 .font-serif {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-serif), 'GaramondPremierPro', Georgia, serif;
   font-weight: 300;
   letter-spacing: -0.02em;
 }
@@ -93,7 +151,7 @@ h1, h2, h3, h4, h5, h6 {
 .announcement-bar-promo {
   background: #C22020;
   color: #fff;
-  font-family: var(--font-mono), monospace;
+  font-family: var(--font-mono), 'ChivoMono', monospace;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.1em;

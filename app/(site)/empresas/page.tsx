@@ -23,12 +23,12 @@ const CASOS = [
 ]
 
 const GALLERY = [
-  'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8453-scaled-e1685916235552-1534x1536-0788f88e8f8219233017219543914857-480-0.webp',
-  'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp',
-  'https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp',
-  'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6325-scaled-e1681511963528-1536x1536-63c86a7359b0c0a91a17219540086209-480-0.webp',
-  'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp',
-  'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6420-scaled-e1696461568818-1536x1536-77992b0b0802559e1b17219546572465-480-0.webp',
+  '/media/MG_9534-scaled.jpg',
+  '/media/MG_9538-scaled.jpg',
+  '/media/MG_9551-scaled.jpg',
+  '/media/MG_9555-scaled.jpg',
+  '/media/MG_9578-scaled.jpg',
+  '/media/MG_9594-scaled.jpg',
 ]
 
 const PRODUCTOS_B2B = [
@@ -48,7 +48,7 @@ export default function EmpresasPage() {
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <section className="relative h-[70vh] md:h-[80vh] min-h-[500px] overflow-hidden flex items-center">
         <Image
-          src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8453-scaled-e1685916235552-1534x1536-0788f88e8f8219233017219543914857-480-0.webp"
+          src="/media/MG_9566-scaled.jpg"
           alt="FIDELA Empresas"
           fill
           className="object-cover object-center scale-[1.03]"
@@ -75,7 +75,7 @@ export default function EmpresasPage() {
               Cotizar ahora
             </a>
             <a
-              href="https://wa.me/5491112345678?text=Hola%2C%20me%20interesa%20el%20gifting%20corporativo%20de%20FIDELA"
+              href="https://wa.me/5491163369052?text=Hola%2C%20me%20interesa%20el%20gifting%20corporativo%20de%20FIDELA"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-white/30 text-white px-7 py-3.5 text-xs tracking-[0.2em] uppercase rounded hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
@@ -159,7 +159,7 @@ export default function EmpresasPage() {
             <div className="relative">
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp"
+                  src="/media/MG_9590-scaled.jpg"
                   alt="Box corporativo FIDELA"
                   fill
                   className="object-cover"
@@ -221,7 +221,7 @@ export default function EmpresasPage() {
               </ul>
               {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/5491112345678?text=Hola%2C%20quiero%20pedir%20un%20cat%C3%A1logo%20corporativo"
+                href="https://wa.me/5491163369052?text=Hola%2C%20quiero%20pedir%20un%20cat%C3%A1logo%20corporativo"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-[#25D366] text-white px-6 py-3 rounded text-xs tracking-widest uppercase hover:bg-[#1ebe5d] transition-colors"
