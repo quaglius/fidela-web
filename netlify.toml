@@ -20,3 +20,7 @@
   for = "/api/*"
   [headers.values]
     Cache-Control = "no-store"
+
+[context."feat/brand-2026"]
+  command = "npm run build"
+  publish = ".next"
