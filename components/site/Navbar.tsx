@@ -52,8 +52,8 @@ export default function Navbar({ announcement }: { announcement?: string }) {
 
       {/* ── MAIN NAVBAR ──────────────────────────────────────────────────────── */}
       <nav
-        className={`sticky top-0 z-40 bg-white transition-shadow duration-200 ${
-          scrolled ? 'shadow-sm' : 'border-b border-[var(--gray-200)]'
+        className={`sticky top-0 z-40 bg-[var(--blanco-fidela)] transition-shadow duration-200 ${
+          scrolled ? 'shadow-sm' : 'border-b border-[var(--pantone-fidela)]'
         }`}
       >
         <div className="container-site">

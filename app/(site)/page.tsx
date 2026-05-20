@@ -9,58 +9,58 @@ import { MapPin, Clock, MessageCircle, ArrowRight } from 'lucide-react'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'FIDELA — Aromas con Historia',
+  title: 'FIDELA — Cada aroma cuenta una historia',
   description:
-    'Velas de soja, difusores y jabones naturales artesanales. 30% OFF Hot Sale. Concept Store en Colegiales, Buenos Aires.',
+    'Perfumes artesanales elaborados en Buenos Aires. Veganos, sin ftalatos, producidos a mano. Concept Store en Colegiales.',
   openGraph: {
-    title: 'FIDELA — 30% OFF · Aromas con Historia',
-    description: '30% OFF en toda la tienda. Hasta agotar stock.',
-    images: [{ url: '/hero-bg.jpg', width: 1200, height: 800 }],
+    title: 'FIDELA — Cada aroma cuenta una historia',
+    description: 'Perfumes artesanales elaborados en Buenos Aires. Veganos, sin ftalatos, producidos a mano.',
+    images: [{ url: '/media/MG_9566-scaled.jpg', width: 1200, height: 800 }],
   },
 }
 
-/* ── Category images — real product shots ────────────────────────────────── */
+/* ── Categorías ──────────────────────────────────────────────────────────── */
 const CATEGORIES_GRID = [
-  {
-    name: 'Velas de Soja',
-    href: '/velas-de-soja',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp',
-  },
-  {
-    name: 'Difusores',
-    href: '/aromatizantes',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6325-scaled-e1681511963528-1536x1536-63c86a7359b0c0a91a17219540086209-480-0.webp',
-  },
-  {
-    name: 'Boxes - Kits',
-    href: '/boxes-kits',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp',
-  },
-  {
-    name: 'Jabones',
-    href: '/jabones-naturales',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/flor-e1701974637186-699f7d0d30eb9c43e717206293620302-480-0.webp',
-  },
+  { name: 'Velas de Soja',    href: '/velas-de-soja',      image: '/media/globo-brillante-1024x1024.jpg' },
+  { name: 'Difusores',        href: '/aromatizantes',       image: '/media/difusor-varillas-onduladas.jpg' },
+  { name: 'Boxes · Kits',     href: '/boxes-kits',          image: '/media/caja-jabones-tres.jpg' },
+  { name: 'Jabones',          href: '/jabones-naturales',   image: '/media/flor.jpg' },
 ]
 
-/* ── Aromas grid ─────────────────────────────────────────────────────────── */
-const AROMAS_GRID = [
-  { number: 2,  name: 'Verbena',              family: 'Fresco', slug: 'verbena',             color: '#8BAF8B',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8842-scaled-e1681317841299-1536x1536-62758a2ee6f417ab8417207386037479-480-0.webp' },
-  { number: 5,  name: 'Floral Velvet',        family: 'Floral', slug: 'floral-velvet',       color: '#C9A8C4',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8453-scaled-e1685916235552-1534x1536-0788f88e8f8219233017219543914857-480-0.webp' },
-  { number: 17, name: 'Oud Imperial',         family: 'Terra',  slug: 'oud-imperial',        color: '#9C7443',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/fidela_1500x1500-d6cea907ea13a1799e17662504066445-480-0.webp' },
-  { number: 19, name: 'French Lavender',      family: 'Floral', slug: 'french-lavander',    color: '#A89BC9',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp' },
-  { number: 21, name: 'Jengibre & Té Blanco', family: 'Fresco', slug: 'jengibre-te-blanco',  color: '#C4B48A',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6420-scaled-e1696461568818-1536x1536-77992b0b0802559e1b17219546572465-480-0.webp' },
-  { number: 27, name: 'Cardamom & Woods',     family: 'Terra',  slug: 'cardamom-woods',      color: '#8C7060',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp' },
-  { number: 44, name: 'Sándalo & Pimienta Rosa', family: 'Terra', slug: 'sandalo-pimenta-rosa', color: '#C48A8A',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6325-scaled-e1681511963528-1536x1536-63c86a7359b0c0a91a17219540086209-480-0.webp' },
-  { number: 46, name: 'Green Amber',          family: 'Fresco', slug: 'green-amber',         color: '#7A9E7A',
-    image: 'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp' },
+/* ── 4 Fragancias 2026 ───────────────────────────────────────────────────── */
+const FRAGANCIAS = [
+  {
+    name: 'Velvet',
+    concept: 'Sofisticación',
+    color: '#7E2738',
+    ingredients: 'Rosa Búlgara · Peonías · Higo · Muguet',
+    slug: 'velvet',
+    photo: '/media/_MG_3566.jpg',
+  },
+  {
+    name: 'Linaje',
+    concept: 'Magnetismo',
+    color: '#CB6F36',
+    ingredients: 'Sándalo · Pimienta Rosa · Ámbar · Frambuesa',
+    slug: 'linaje',
+    photo: '/media/_MG_3545.jpg',
+  },
+  {
+    name: 'Roble',
+    concept: 'Introspección',
+    color: '#496130',
+    ingredients: 'Cardamomo · Vetiver · Cedro · White Musk',
+    slug: 'roble',
+    photo: '/media/_MG_3533.jpg',
+  },
+  {
+    name: 'Brisa',
+    concept: 'Renovación',
+    color: '#77C1EC',
+    ingredients: 'Verbena · Lima Ácida · Pomelo Rosado · Higo',
+    slug: 'brisa',
+    photo: '/media/_MG_3521.jpg',
+  },
 ]
 
 async function getFeaturedProducts(): Promise<TNProduct[]> {
@@ -75,127 +75,217 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────────────────
-          Mobile: product photo bg + 30% OFF prominent + CTA accesible sin scroll
-          Desktop: split — texto izquierda / mosaico de productos derecha
+      {/* ── HERO — editorial split ────────────────────────────────────────────
+          Izquierda: blanco-fidela + claim Garamond
+          Derecha: foto editorial full-bleed
       ──────────────────────────────────────────────────────────────────────── */}
-      <section className="relative h-[75vh] md:h-[88vh] min-h-[500px] md:min-h-[600px] flex items-center overflow-hidden bg-[var(--black)]">
+      <section className="flex flex-col md:flex-row min-h-[92vh]">
 
-        {/* BG: video de campaña — con fallback a imagen */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-35 md:opacity-25"
-          poster="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp"
-        >
-          <source src="/videos/fidela-reel-1.mp4" type="video/mp4" />
-        </video>
-        {/* Fallback imagen (mostrada mientras carga el video) */}
-        <Image
-          src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp"
-          alt="FIDELA"
-          fill
-          className="object-cover object-center opacity-35 md:opacity-25 -z-[1]"
-          priority
-          quality={90}
-          sizes="100vw"
-        />
+        {/* Izquierda — contenido de marca */}
+        <div className="flex flex-col justify-center bg-[var(--blanco-fidela)] px-8 py-16 md:px-14 lg:px-20 md:w-[45%] lg:w-[42%] z-10">
 
-        {/* Desktop: mosaico de 4 productos — columna derecha */}
-        <div className="hidden md:grid absolute right-0 inset-y-0 w-[42%] grid-cols-2 grid-rows-2 gap-0.5">
-          {[
-            'https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp',
-            'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_6325-scaled-e1681511963528-1536x1536-63c86a7359b0c0a91a17219540086209-480-0.webp',
-            'https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_9339-scaled-e1696449873304-1536x1536-b7487dc550d9a95c5917209852352855-480-0.webp',
-            'https://acdn-us.mitiendanube.com/stores/004/938/265/products/flor-e1701974637186-699f7d0d30eb9c43e717206293620302-480-0.webp',
-          ].map((src, i) => (
-            <div key={i} className="relative overflow-hidden">
-              <Image src={src} alt="" fill className="object-cover" sizes="22vw" />
-              <div className="absolute inset-0 bg-black/40" />
-            </div>
-          ))}
-          {/* Blend edge */}
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[var(--black)] to-transparent pointer-events-none z-10" />
-        </div>
-
-        {/* Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/30 md:to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
-
-        {/* Content — aligned so CTA is never cut off on small screens */}
-        <div className="relative container-site text-white w-full pt-6 pb-10 md:py-0">
-          {/* Badge */}
-          <div className="hero-badge inline-flex items-center gap-2 mb-4 md:mb-6">
-            <span className="bg-[#D62B2B] text-white text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded">
+          {/* Hot Sale — discreto, on-brand */}
+          <div className="flex items-center gap-3 mb-12">
+            <span className="bg-[var(--negro-fidela)] text-[var(--blanco-fidela)] text-[8px] font-mono tracking-[0.25em] uppercase px-3 py-1.5">
               HOT SALE
             </span>
-            <span className="text-[10px] tracking-[0.25em] uppercase text-white/50">hasta agotar stock</span>
+            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--negro-fidela)]/40">
+              30% off · toda la tienda
+            </span>
           </div>
 
-          {/* 30% OFF — tamaño reducido en mobile para que quepa todo */}
-          <div className="hero-title mb-1">
-            <div className="flex items-end gap-2 md:gap-4 leading-none">
-              <span className="font-serif text-[72px] md:text-[120px] lg:text-[150px] font-light leading-none text-[var(--gold)]">
-                30%
-              </span>
-              <span className="font-serif text-[48px] md:text-[76px] lg:text-[96px] font-light leading-none pb-1 md:pb-2">
-                OFF
-              </span>
-            </div>
-          </div>
-
-          <h1 className="hero-sub font-serif text-lg md:text-2xl lg:text-3xl font-light text-white/85 mb-1">
-            Aromas con Historia
+          {/* Claim — Garamond grande */}
+          <h1 className="font-serif text-[52px] md:text-[58px] lg:text-[72px] font-light leading-[1.05] text-[var(--negro-fidela)] mb-8">
+            Cada aroma<br />
+            cuenta una<br />
+            historia.
           </h1>
-          <p className="text-xs text-white/45 mb-7 md:mb-10 tracking-widest uppercase">
-            Velas · Difusores · Jabones · Buenos Aires
+
+          <div className="w-10 h-px bg-[var(--negro-fidela)]/25 mb-8" />
+
+          <p className="text-sm text-[var(--negro-fidela)]/55 leading-relaxed mb-12 max-w-[340px]">
+            Blends artesanales elaborados en Buenos Aires.
+            Veganos · Sin ftalatos · Producidos a mano.
           </p>
 
-          {/* CTAs */}
-          <div className="hero-ctas flex gap-3 flex-wrap">
+          <div className="flex flex-col sm:flex-row gap-3">
             <Link
               href="/productos"
-              className="btn-gold cta-pulse inline-flex items-center gap-2 px-7 py-3.5 md:px-8 md:py-4 text-xs tracking-[0.2em] uppercase rounded font-medium"
+              className="btn-gold inline-flex items-center justify-center gap-2 px-8 py-4 text-[11px] tracking-[0.2em] uppercase"
             >
-              Ver catálogo <ArrowRight size={13} />
+              Ver catálogo <ArrowRight size={12} />
             </Link>
             <Link
-              href="/aromas"
-              className="inline-flex items-center gap-2 px-7 py-3.5 md:px-8 md:py-4 text-xs tracking-[0.2em] uppercase border border-white/40 text-white hover:border-white hover:bg-white/10 transition-all duration-200 rounded"
+              href="/nuestros-aromas"
+              className="btn-outline inline-flex items-center justify-center gap-2 px-8 py-4 text-[11px] tracking-[0.2em] uppercase"
             >
               Nuestros aromas
             </Link>
           </div>
+
+          {/* Isologo pequeño al pie */}
+          <div className="mt-auto pt-16 flex items-center gap-3 opacity-30">
+            <Image src="/brand/logos/isologo-01.png" alt="Fidela" width={28} height={28} className="object-contain" />
+            <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-[var(--negro-fidela)]">
+              Hecho a mano · Buenos Aires
+            </span>
+          </div>
+        </div>
+
+        {/* Derecha — foto editorial apilada */}
+        <div className="relative flex-1 h-[55vw] md:h-auto overflow-hidden">
+          {/* Foto principal */}
+          <Image
+            src="/media/MG_9566-scaled.jpg"
+            alt="Fidela — Aromas artesanales"
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="(max-width: 768px) 100vw, 58vw"
+          />
+          {/* Overlay sutil — gradiente izquierda para fusionar con el blanco */}
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--blanco-fidela)] to-transparent hidden md:block" />
+
+          {/* Badge año sobre la foto */}
+          <div className="absolute top-6 right-6 border border-white/30 bg-black/20 backdrop-blur-sm px-4 py-2.5 text-white">
+            <p className="font-mono text-[8px] tracking-[0.35em] uppercase">Colección</p>
+            <p className="font-serif text-xl font-light leading-none">2026</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4 FRAGANCIAS 2026 ────────────────────────────────────────────────── */}
+      <section className="bg-[var(--negro-fidela)] overflow-hidden">
+
+        <div className="container-site py-6 md:py-10 border-b border-white/8">
+          <FadeUp className="flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--pantone-fidela)]">
+                Colección 2026
+              </span>
+              <span className="text-white/15 text-lg">—</span>
+              <span className="font-serif text-lg font-light text-[var(--blanco-fidela)]">
+                4 blends propios
+              </span>
+            </div>
+            <Link
+              href="/nuestros-aromas"
+              className="hidden md:flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors duration-200"
+            >
+              Ver todos <ArrowRight size={10} />
+            </Link>
+          </FadeUp>
+        </div>
+
+        {/* Grid de fragancias */}
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+          {FRAGANCIAS.map((f, i) => (
+            <FadeUp key={f.slug} delay={i * 80}>
+              <Link
+                href={`/aromas/${f.slug}`}
+                className="group relative flex flex-col overflow-hidden border-r border-b border-white/8 last:border-r-0 lg:last:border-r-0"
+                style={{ '--fragrance-color': f.color } as React.CSSProperties}
+              >
+                {/* Foto editorial */}
+                <div className="relative aspect-[3/4] overflow-hidden">
+                  <Image
+                    src={f.photo}
+                    alt={f.name}
+                    fill
+                    className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.06]"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  {/* Overlay degradado inferior siempre visible */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--negro-fidela)] via-transparent to-transparent opacity-80" />
+                  {/* Overlay de color de fragancia en hover */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                    style={{ backgroundColor: f.color }}
+                  />
+                  {/* Línea de color superior */}
+                  <div className="absolute top-0 inset-x-0 h-0.5" style={{ backgroundColor: f.color }} />
+                </div>
+
+                {/* Info card */}
+                <div className="relative bg-[var(--negro-fidela)] px-5 py-6 flex-1 group-hover:bg-white/4 transition-colors duration-300">
+                  {/* Concepto */}
+                  <p
+                    className="font-mono text-[9px] tracking-[0.35em] uppercase mb-3 transition-colors duration-300"
+                    style={{ color: f.color }}
+                  >
+                    {f.concept}
+                  </p>
+
+                  {/* Nombre Garamond grande */}
+                  <h3 className="font-serif text-3xl font-light text-[var(--blanco-fidela)] mb-4 leading-none">
+                    {f.name}
+                  </h3>
+
+                  {/* Ingredientes en Chivo Mono */}
+                  <p className="font-mono text-[9px] tracking-wide text-white/35 leading-relaxed">
+                    {f.ingredients}
+                  </p>
+
+                  {/* CTA hover */}
+                  <div className="flex items-center gap-2 mt-5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                    <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/50">
+                      Explorar
+                    </span>
+                    <ArrowRight size={10} className="text-white/50" />
+                  </div>
+                </div>
+              </Link>
+            </FadeUp>
+          ))}
         </div>
       </section>
 
       {/* ── CATEGORÍAS ───────────────────────────────────────────────────────── */}
-      <section className="section-py bg-[var(--cream)]">
+      <section className="section-py bg-[var(--blanco-fidela)]">
         <div className="container-site">
-          <FadeUp className="flex items-end justify-between mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl font-light">Explorá por producto</h2>
-            <Link href="/productos" className="text-xs tracking-widest uppercase underline hover:text-[var(--gold)] transition-colors hidden md:block">
-              Ver todo
+          <FadeUp className="flex items-end justify-between mb-10">
+            <div>
+              <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-3">
+                Toda la línea
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-light text-[var(--negro-fidela)]">
+                Explorá por producto
+              </h2>
+            </div>
+            <Link
+              href="/productos"
+              className="hidden md:flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] uppercase text-[var(--negro-fidela)]/40 hover:text-[var(--negro-fidela)] transition-colors"
+            >
+              Ver todo <ArrowRight size={10} />
             </Link>
           </FadeUp>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {CATEGORIES_GRID.map((cat, i) => (
               <FadeUp key={cat.href} delay={i * 80}>
-                <Link href={cat.href} className="relative aspect-[3/4] md:aspect-square overflow-hidden rounded-lg group block cursor-pointer">
-                  <Image src={cat.image} alt={cat.name} fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
-                    sizes="(max-width: 768px) 50vw, 25vw" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
-                  <div className="absolute inset-0 rounded-lg ring-0 ring-[var(--gold)] transition-all duration-300 group-hover:ring-1" />
-                  <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-                    <span className="text-white text-sm md:text-base font-medium tracking-wide group-hover:text-[var(--gold-light)] transition-colors duration-200">
+                <Link
+                  href={cat.href}
+                  className="relative overflow-hidden group block bg-[var(--pantone-fidela)]"
+                  style={{ aspectRatio: i === 0 ? '2/3' : '3/4' }}
+                >
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--negro-fidela)]/80 via-[var(--negro-fidela)]/15 to-transparent" />
+
+                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                    <p className="font-serif text-base md:text-lg font-light text-white leading-tight mb-1">
                       {cat.name}
-                    </span>
-                    <div className="flex items-center gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <span className="text-white/60 text-[10px] tracking-widest uppercase">Ver productos</span>
-                      <ArrowRight size={10} className="text-white/60" />
+                    </p>
+                    <div className="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+                      <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/60">
+                        Ver productos
+                      </span>
+                      <ArrowRight size={9} className="text-white/60" />
                     </div>
                   </div>
                 </Link>
@@ -207,15 +297,22 @@ export default async function HomePage() {
 
       {/* ── MÁS VENDIDOS ─────────────────────────────────────────────────────── */}
       {products.length > 0 && (
-        <section className="section-py">
+        <section className="section-py bg-white border-t border-[var(--pantone-fidela)]/40">
           <div className="container-site">
-            <FadeUp className="flex items-end justify-between mb-8">
+            <FadeUp className="flex items-end justify-between mb-10">
               <div>
-                <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--gold)] mb-1">Lo más elegido</p>
-                <h2 className="font-serif text-2xl md:text-3xl font-light">Más vendidos</h2>
+                <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-3">
+                  Lo más elegido
+                </p>
+                <h2 className="font-serif text-3xl md:text-4xl font-light text-[var(--negro-fidela)]">
+                  Más vendidos
+                </h2>
               </div>
-              <Link href="/productos" className="text-xs tracking-widest uppercase underline hover:text-[var(--gold)] transition-colors hidden md:block">
-                Ver todos
+              <Link
+                href="/productos"
+                className="hidden md:flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] uppercase text-[var(--negro-fidela)]/40 hover:text-[var(--negro-fidela)] transition-colors"
+              >
+                Ver todos <ArrowRight size={10} />
               </Link>
             </FadeUp>
             <FadeUp delay={100}>
@@ -231,174 +328,120 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ── NUESTROS AROMAS — dark section ───────────────────────────────────── */}
-      <section className="relative section-py overflow-hidden bg-[var(--black)]">
+      {/* ── CONCEPT STORE — foto-driven ──────────────────────────────────────── */}
+      <section className="bg-[var(--negro-fidela)] overflow-hidden">
 
-        <div className="relative container-site">
-          <FadeUp className="flex items-end justify-between mb-6">
-            <div>
-              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--gold)] mb-2">8 blends propios</p>
-              <h2 className="font-serif text-2xl md:text-3xl font-light text-white">Nuestros aromas</h2>
+        {/* Grid de fotos — full width */}
+        <div className="grid grid-cols-3 md:grid-cols-4 h-[60vw] md:h-[50vh] lg:h-[65vh]">
+          {[
+            { src: '/media/_MG_3383.jpg', span: 'col-span-2 md:col-span-2' },
+            { src: '/media/_MG_3413.jpg', span: 'col-span-1' },
+            { src: '/media/_MG_3442.jpg', span: 'col-span-1 hidden md:block' },
+          ].map((photo, i) => (
+            <div key={i} className={`relative overflow-hidden ${photo.span}`}>
+              <Image
+                src={photo.src}
+                alt="Fidela Concept Store"
+                fill
+                className="object-cover object-center hover:scale-[1.03] transition-transform duration-700"
+                sizes="(max-width: 768px) 66vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-[var(--negro-fidela)]/10" />
             </div>
-            <Link href="/nuestros-aromas" className="text-xs tracking-widest uppercase underline text-white/50 hover:text-[var(--gold)] transition-colors hidden md:block">
-              Ver todos
-            </Link>
-          </FadeUp>
-
-          {/* ── ISO intro strip ───────────────────────────────────────────── */}
-          <FadeUp delay={60}>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 mb-10 pb-8 border-b border-white/10">
-              <p className="text-xs text-white/50 leading-relaxed max-w-lg">
-                Cada blend nació de una historia: un viaje, una memoria, una sensación a preservar.
-                Elaborados con cera de soja 100% natural y fragancias certificadas libres de ftalatos.
-              </p>
-              {/* ISO badge */}
-              <div className="flex items-center gap-3 flex-shrink-0 border border-white/15 rounded-lg px-4 py-3">
-                <svg viewBox="0 0 60 36" width="44" height="28" className="flex-shrink-0">
-                  <rect width="60" height="36" rx="4" fill="#003087"/>
-                  <text x="30" y="24" textAnchor="middle" fill="white" fontSize="15" fontWeight="700" fontFamily="Arial, sans-serif">ISO</text>
-                </svg>
-                <div>
-                  <p className="text-[10px] font-semibold tracking-wide uppercase text-white">ISO 9001</p>
-                  <p className="text-[9px] text-white/40 mt-0.5 tracking-wide">Materias primas certificadas</p>
-                </div>
-              </div>
-            </div>
-          </FadeUp>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            {AROMAS_GRID.map((a, i) => (
-              <FadeUp key={a.slug} delay={i * 55}>
-                <Link
-                  href={`/aromas/${a.slug}`}
-                  className="group block rounded-lg overflow-hidden bg-white/5 border border-white/10 hover:border-[var(--gold)] hover:bg-white/10 transition-all duration-250 cursor-pointer"
-                >
-                  <div className="relative aspect-square overflow-hidden">
-                    <Image src={a.image} alt={a.name} fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
-                      sizes="(max-width: 768px) 50vw, 25vw" />
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
-                    <div className="absolute top-2.5 left-2.5 bg-black/60 text-white text-[9px] tracking-widest uppercase px-2 py-1 rounded backdrop-blur-sm">
-                      N°{a.number}
-                    </div>
-                    <div className="absolute top-2.5 right-2.5 text-white text-[9px] tracking-widest uppercase px-2 py-1 rounded"
-                      style={{ backgroundColor: a.color + 'CC' }}>
-                      {a.family}
-                    </div>
-                  </div>
-                  <div className="p-3.5">
-                    <p className="font-serif text-sm md:text-base font-light text-white group-hover:text-[var(--gold)] transition-colors duration-200 leading-tight">
-                      {a.name}
-                    </p>
-                  </div>
-                </Link>
-              </FadeUp>
-            ))}
-          </div>
-          <div className="text-center mt-8 md:hidden">
-            <Link href="/nuestros-aromas" className="text-xs tracking-widest uppercase underline text-white/50 hover:text-[var(--gold)] transition-colors">
-              Ver todos los aromas
-            </Link>
-          </div>
+          ))}
         </div>
-      </section>
 
-      {/* ── CONCEPT STORE ────────────────────────────────────────────────────── */}
-      <section className="section-py">
-        <div className="container-site">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+        {/* Info section */}
+        <div className="container-site py-16 md:py-20">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
 
-            {/* Image — collage de 2 fotos, sólo visible en desktop */}
-            <FadeUp className="relative order-2 md:order-1 hidden md:block">
-              <div className="grid grid-cols-2 gap-2 rounded-lg overflow-hidden">
-                {/* Foto principal */}
-                <div className="relative aspect-[3/4] col-span-1 overflow-hidden rounded-lg group">
-                  <Image
-                    src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/mg_8828-scaled-e1696446538937-1536x1536-b64c509761dbf2909f17219502779342-480-0.webp"
-                    alt="Concept Store FIDELA"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                </div>
-                {/* Columna derecha: 2 fotos apiladas */}
-                <div className="flex flex-col gap-2">
-                  <div className="relative aspect-square overflow-hidden rounded-lg group">
-                    <Image
-                      src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/lupe1-116177fdb85d6c531817662394131806-480-0.webp"
-                      alt="Vela FIDELA"
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                      sizes="(max-width: 768px) 25vw, 12vw"
-                    />
-                  </div>
-                  <div className="relative aspect-square overflow-hidden rounded-lg group">
-                    <Image
-                      src="https://acdn-us.mitiendanube.com/stores/004/938/265/products/flor-e1701974637186-699f7d0d30eb9c43e717206293620302-480-0.webp"
-                      alt="Jabón FIDELA"
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                      sizes="(max-width: 768px) 25vw, 12vw"
-                    />
-                  </div>
-                </div>
-              </div>
-              {/* Badge superpuesto */}
-              <div className="absolute bottom-4 left-4 bg-[var(--black)]/90 text-white px-4 py-2 rounded backdrop-blur-sm">
-                <p className="text-[9px] tracking-[0.3em] uppercase text-white/60 mb-0.5">Concept Store</p>
-                <p className="font-serif text-lg font-light">Colegiales, BA</p>
-              </div>
-            </FadeUp>
-
-            {/* Text */}
-            <FadeUp className="order-1 md:order-2" delay={150}>
-              <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gold)] mb-4">Visitanos</p>
-              <h2 className="font-serif text-2xl md:text-3xl lg:text-5xl font-light mb-5 leading-tight">
+            <FadeUp>
+              <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--pantone-fidela)] mb-5">
+                Visitanos
+              </p>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-[var(--blanco-fidela)] leading-[1.05] mb-8">
                 Nuestro<br />Concept Store
               </h2>
-              <p className="text-[var(--gray-600)] text-sm leading-relaxed mb-8">
-                En el corazón de Colegiales encontrás nuestra tienda con todos los aromas para vivir en persona.
-                También tenemos un espacio de café de especialidad para que la visita sea una experiencia completa.
+              <p className="text-sm text-white/45 leading-relaxed max-w-sm">
+                En el corazón de Colegiales encontrás nuestra tienda con todos
+                los aromas para vivir en persona. Un espacio de calma, café de
+                especialidad y rituales cotidianos.
               </p>
-              <ul className="flex flex-col gap-4 mb-10">
-                {[
-                  { icon: MapPin,        text: 'Teodoro García 2959, Colegiales, Buenos Aires' },
-                  { icon: Clock,         text: 'Lunes a sábados · 10:00 – 19:00' },
-                  { icon: MessageCircle, text: '+54 9 11 6336-9052', href: 'https://wa.me/5491163369052' },
-                ].map(({ icon: Icon, text, href }) => (
-                  <li key={text} className="flex items-start gap-3 text-sm text-[var(--gray-800)] group/item">
-                    <Icon size={15} className="text-[var(--gold)] mt-0.5 flex-shrink-0 transition-transform duration-200 group-hover/item:scale-110" />
-                    {href
-                      ? <a href={href} className="hover:text-[var(--gold)] transition-colors duration-200">{text}</a>
-                      : <span>{text}</span>
-                    }
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/tiendas"
-                className="inline-flex items-center gap-2 btn-outline px-8 py-3.5 text-xs tracking-[0.2em] uppercase rounded"
-              >
-                Ver cómo llegar <ArrowRight size={13} />
-              </Link>
+            </FadeUp>
+
+            <FadeUp delay={150} className="flex flex-col gap-6 md:pt-16">
+              {[
+                { icon: MapPin,        text: 'Teodoro García 2959, Colegiales, Buenos Aires' },
+                { icon: Clock,         text: 'Lunes a sábados · 10:00 – 19:00' },
+                { icon: MessageCircle, text: '+54 9 11 6336-9052', href: 'https://wa.me/5491163369052' },
+              ].map(({ icon: Icon, text, href }) => (
+                <div key={text} className="flex items-start gap-4 group/item">
+                  <Icon size={15} className="text-[var(--pantone-fidela)] mt-0.5 flex-shrink-0" />
+                  {href
+                    ? <a href={href} className="text-sm text-white/60 hover:text-white transition-colors duration-200 font-light">{text}</a>
+                    : <span className="text-sm text-white/60 font-light">{text}</span>
+                  }
+                </div>
+              ))}
+
+              <div className="pt-4">
+                <Link
+                  href="/tiendas"
+                  className="inline-flex items-center gap-2 border border-white/20 text-white/60 hover:border-white hover:text-white transition-all duration-200 px-8 py-3.5 font-mono text-[10px] tracking-[0.2em] uppercase"
+                >
+                  Ver cómo llegar <ArrowRight size={11} />
+                </Link>
+              </div>
             </FadeUp>
           </div>
+        </div>
+
+        {/* Segunda fila de fotos */}
+        <div className="grid grid-cols-4 h-[25vw] md:h-[22vh] border-t border-white/8">
+          {[
+            '/media/_MG_3447.jpg',
+            '/media/_MG_3456.jpg',
+            '/media/_MG_3463.jpg',
+            '/media/_MG_3472.jpg',
+          ].map((src, i) => (
+            <div key={i} className="relative overflow-hidden border-r border-white/8 last:border-r-0">
+              <Image
+                src={src}
+                alt=""
+                fill
+                className="object-cover object-center hover:scale-[1.05] transition-transform duration-700"
+                sizes="25vw"
+              />
+              <div className="absolute inset-0 bg-[var(--negro-fidela)]/20" />
+            </div>
+          ))}
         </div>
       </section>
 
       {/* ── INSTAGRAM ────────────────────────────────────────────────────────── */}
-      <section className="border-t border-[var(--gray-200)] py-12 bg-[var(--gray-100)]">
-        <div className="container-site text-center">
-          <FadeUp>
-            <p className="text-[10px] tracking-[0.4em] uppercase text-[var(--gray-400)] mb-3">Seguinos</p>
-            <a
-              href="https://instagram.com/fidela.aromas"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 font-serif text-2xl md:text-3xl font-light hover:text-[var(--gold)] transition-colors duration-200"
-            >
-              @fidela.aromas
-            </a>
+      <section className="py-14 bg-[var(--blanco-fidela)] border-t border-[var(--pantone-fidela)]/50">
+        <div className="container-site">
+          <FadeUp className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-3">
+                Seguinos
+              </p>
+              <a
+                href="https://instagram.com/fidela.aromas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-serif text-3xl md:text-4xl font-light text-[var(--negro-fidela)] hover:opacity-60 transition-opacity duration-200"
+              >
+                @fidela.aromas
+              </a>
+            </div>
+            <Image
+              src="/brand/logos/isologo-01.png"
+              alt="Fidela"
+              width={56}
+              height={56}
+              className="object-contain opacity-20"
+            />
           </FadeUp>
         </div>
       </section>

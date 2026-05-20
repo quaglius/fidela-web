@@ -47,7 +47,7 @@ html { scroll-behavior: smooth; }
 /* Técnico/misc: Chivo Mono vía .font-mono                                   */
 body {
   color: var(--black);
-  background: var(--white);
+  background: var(--blanco-fidela);
   font-family: var(--font-sans), sans-serif;
   font-weight: 400;
   font-size: 14px;
