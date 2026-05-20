@@ -41,7 +41,7 @@ export default function Navbar({ announcement }: { announcement?: string }) {
   return (
     <>
       {/* ── ANNOUNCEMENT BAR — video background ──────────────────────────── */}
-      <div className="relative overflow-hidden" style={{ height: '68px' }}>
+      <div className="relative overflow-hidden" style={{ height: '84px' }}>
         <video
           autoPlay
           muted
@@ -50,20 +50,29 @@ export default function Navbar({ announcement }: { announcement?: string }) {
           className="absolute inset-0 w-full h-full object-cover"
           src="/media/reel-conceptual-1.mp4"
         />
-        <div className="absolute inset-0 bg-[var(--negro-fidela)]/72" />
-        <div className="relative z-10 h-full flex items-center justify-center gap-3 md:gap-5 px-4">
-          <span className="bg-[#C22020] text-white font-mono text-[8px] md:text-[9px] font-bold tracking-[0.18em] uppercase px-2.5 py-1.5 flex-shrink-0">
-            HOT SALE
-          </span>
-          <span
-            className="text-white font-mono text-[11px] md:text-sm tracking-[0.18em] uppercase font-medium"
-            style={{ fontFamily: "var(--font-mono), 'ChivoMono', monospace" }}
+        {/* dark overlay — keep video atmospheric but readable */}
+        <div className="absolute inset-0" style={{ background: 'rgba(54,54,48,0.78)' }} />
+        <div className="relative z-10 h-full flex flex-col items-center justify-center gap-2 px-4">
+          <div className="flex items-center gap-3 md:gap-5">
+            <span
+              className="text-white font-bold tracking-[0.2em] uppercase px-3 py-1 text-[9px] md:text-[10px] flex-shrink-0"
+              style={{ background: '#C22020' }}
+            >
+              HOT SALE
+            </span>
+            <span
+              className="text-white tracking-[0.22em] uppercase font-medium text-sm md:text-base"
+              style={{ fontFamily: "var(--font-mono,'ChivoMono',monospace)" }}
+            >
+              {announcement ?? '30% OFF EN TODA LA TIENDA'}
+            </span>
+          </div>
+          <p
+            className="text-white/50 tracking-[0.18em] uppercase text-[9px] md:text-[10px]"
+            style={{ fontFamily: "var(--font-mono,'ChivoMono',monospace)" }}
           >
-            {announcement ?? '30% OFF en toda la tienda'}
-          </span>
-          <span className="text-white/45 font-mono text-[9px] tracking-widest uppercase hidden md:block">
-            · hasta agotar stock
-          </span>
+            Válido hasta agotar stock · Envío a todo el país
+          </p>
         </div>
       </div>
 

@@ -169,6 +169,13 @@ export default function TiendasPage() {
         />
         <div className="absolute inset-0 bg-[var(--negro-fidela)]/78" />
         <div className="relative container-site text-center text-white">
+          <Image
+            src="/brand/logos/isologo-03.png"
+            alt="Fidela"
+            width={64}
+            height={64}
+            className="object-contain opacity-50 mx-auto mb-8"
+          />
           <p className="font-serif text-2xl md:text-4xl lg:text-5xl font-light leading-snug max-w-2xl mx-auto">
             &ldquo;Un espacio donde cada aroma<br />invita a quedarse un poco más.&rdquo;
           </p>

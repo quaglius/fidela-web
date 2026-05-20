@@ -43,6 +43,13 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fidela.com.ar'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: { default: 'FIDELA — Aromas con Historia', template: '%s | FIDELA' },
+  icons: {
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    apple: '/apple-icon.png',
+    shortcut: '/icon.png',
+  },
   description:
     'Velas de soja, aromatizantes y jabones naturales artesanales. Concept Store en Colegiales, Buenos Aires.',
   keywords: ['velas de soja', 'aromas naturales', 'jabones artesanales', 'difusores', 'Colegiales', 'Buenos Aires'],

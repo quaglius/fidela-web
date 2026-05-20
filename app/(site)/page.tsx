@@ -123,12 +123,17 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          {/* Isologo pequeño al pie */}
-          <div className="mt-auto pt-16 flex items-center gap-3 opacity-30">
-            <Image src="/brand/logos/isologo-01.png" alt="Fidela" width={28} height={28} className="object-contain" />
-            <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-[var(--negro-fidela)]">
-              Hecho a mano · Buenos Aires
-            </span>
+          {/* Isologo al pie */}
+          <div className="mt-auto pt-16 flex items-center gap-4">
+            <Image src="/brand/logos/isologo-01.png" alt="Fidela" width={48} height={48} className="object-contain opacity-55" />
+            <div>
+              <p className="font-mono text-[8px] tracking-[0.3em] uppercase text-[var(--negro-fidela)]/40">
+                Hecho a mano
+              </p>
+              <p className="font-mono text-[8px] tracking-[0.3em] uppercase text-[var(--negro-fidela)]/40">
+                Buenos Aires
+              </p>
+            </div>
           </div>
         </div>
 
@@ -155,7 +160,11 @@ export default async function HomePage() {
       </section>
 
       {/* ── 4 FRAGANCIAS 2026 ────────────────────────────────────────────────── */}
-      <section className="bg-[var(--negro-fidela)] overflow-hidden">
+      <section className="bg-[var(--negro-fidela)] overflow-hidden relative">
+        {/* Isologo watermark — cream variant centrado en el fondo */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.04]">
+          <Image src="/brand/logos/isologo-03.png" alt="" width={600} height={600} className="object-contain" aria-hidden />
+        </div>
 
         <div className="container-site py-6 md:py-10 border-b border-white/8">
           <FadeUp className="flex items-center justify-between">
@@ -329,7 +338,7 @@ export default async function HomePage() {
       )}
 
       {/* ── CONCEPT STORE — foto-driven ──────────────────────────────────────── */}
-      <section className="bg-[var(--negro-fidela)] overflow-hidden">
+      <section className="bg-[var(--negro-fidela)] overflow-hidden relative">
 
         {/* Grid de fotos — full width */}
         <div className="grid grid-cols-3 md:grid-cols-4 h-[60vw] md:h-[50vh] lg:h-[65vh]">
@@ -356,9 +365,12 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
 
             <FadeUp>
-              <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--pantone-fidela)] mb-5">
-                Visitanos
-              </p>
+              <div className="flex items-center gap-4 mb-6">
+                <Image src="/brand/logos/isologo-03.png" alt="Fidela" width={44} height={44} className="object-contain opacity-50" />
+                <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--pantone-fidela)]">
+                  Visitanos
+                </p>
+              </div>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-[var(--blanco-fidela)] leading-[1.05] mb-8">
                 Nuestro<br />Concept Store
               </h2>
@@ -422,26 +434,37 @@ export default async function HomePage() {
       <section className="py-14 bg-[var(--blanco-fidela)] border-t border-[var(--pantone-fidela)]/50">
         <div className="container-site">
           <FadeUp className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-3">
-                Seguinos
-              </p>
-              <a
-                href="https://instagram.com/fidela.aromas"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-serif text-3xl md:text-4xl font-light text-[var(--negro-fidela)] hover:opacity-60 transition-opacity duration-200"
-              >
-                @fidela.aromas
-              </a>
+            <div className="flex items-center gap-6">
+              <Image
+                src="/brand/logos/isologo-01.png"
+                alt="Fidela"
+                width={72}
+                height={72}
+                className="object-contain opacity-70 flex-shrink-0"
+              />
+              <div>
+                <p className="font-mono text-[9px] tracking-[0.35em] uppercase text-[var(--negro-fidela)]/40 mb-2">
+                  Seguinos en Instagram
+                </p>
+                <a
+                  href="https://instagram.com/fidela.aromas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-serif text-3xl md:text-4xl font-light text-[var(--negro-fidela)] hover:opacity-60 transition-opacity duration-200"
+                >
+                  @fidela.aromas
+                </a>
+              </div>
             </div>
-            <Image
-              src="/brand/logos/isologo-01.png"
-              alt="Fidela"
-              width={56}
-              height={56}
-              className="object-contain opacity-20"
-            />
+            <a
+              href="https://instagram.com/fidela.aromas"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline inline-flex items-center gap-2 px-7 py-3.5 text-[10px] tracking-[0.2em] uppercase flex-shrink-0"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              Ver perfil
+            </a>
           </FadeUp>
         </div>
       </section>
